@@ -2,32 +2,35 @@
 title: SASSAFRAS
 ---
 
+![](Sassafras.jpeg)
 BADASS BABE is a constant-time block production protocol designed to ensure that exactly one block is produced at constant-time intervals, thereby avoiding multiple block production and empty slots. It builds upon BABE to address this limitation in the original protocol. While [Jeff's Write-up](https://github.com/w3f/research/tree/master/docs/papers/habe) explores the full design space of constant-time block production, the focus here is on a practical instantiation using zk-SNARKs to construct a ring-VRF.
 
 ## Layman overview
-The objective is twofold: to run a lottery that distributes the block production slots in an epoch, and to fix the order in which validators produce blocks at the start of that epoch. Each validator signs the same on-chain randomness (VRF input) and publishes the resulting signature (VRF output=[value, proof]). This value serves as their lottery ticket, which can be validated against their public key. 
+Simply put, the aim of the protocol is twofold: to run a lottery that distributes the block production slots in an epoch, and to fix the order in which validators produce blocks at the start of that epoch. Each validator signs the same on-chain randomness (VRF input) and publishes the resulting signature (VRF output=[value, proof]). This value serves as their lottery ticket, which can be validated against their public key. 
 
-This approach reveals the lottery winners in advance, making them potential targets for attacks. The goal is then to keep the block production order anonymous. While the assignment of the validators to slots should remain fixed throughout the epoch, no one other than the assigned validator should know which slot belongs to whom. 
+The approach reveals the lottery winners in advance, making them potential targets for attacks. The goal is then to keep the block production order anonymous. While the assignment of the validators to slots should remain fixed throughout the epoch, no one other than the assigned validator should know which slot is assigned to whom. 
 
 Validating tickets before the lottery using public keys can compromise anonymity. Instead, tickets can be validated after the lottery, when an honest validator claims their slot by producing a block.
 
-The main issue with this approach is that anyone can submit fake tickets. Although these entities wouldn't be able to produce blocks, slots could still be preassigned to them, resulting in empty slots, which undermines the goal of the protocol. What's needed is a privacy-preserving method for validating a tickets. Relying on such a method, an honest validator could submit their ticket along with a SNARK, validated before the lottery, proving the statement: "This my VRF output, generated using the given VRF input and my secret key. I won't reveal my keys, but my public key is among those of the nominated validators." 
+The main issue with this approach is that anyone can submit fake tickets. Although these entities wouldn't be able to produce blocks, slots could still be preassigned to them, resulting in empty slots, which undermines the goal of the protocol. What's needed then is a privacy-preserving method for validating tickets. 
+
+Relying on such a method, an honest validator could submit their ticket along with a SNARK, validated before the lottery, proving the statement: "This is my VRF output, generated using the given VRF input and my secret key. I won't reveal my keys, but my public key is among those of the nominated validators." 
 
 
 Once the ticket is made anonymous, the next step is to publish it to the chain without revealing its origin. While fully anonymous methods tend to be costly, a simple scheme suffices to achieve the core objectives: each validator can send their ticket to a randomly chosen peer, who then submits it on-chain as a transaction.
 
 ## Plan
-In an epoch $e_m$ we use the BABE randomness $r_m$ as the ring VRF input to generate a set of outputs, which are then published on-chain. Once finalized, these outputs are sorted, and their order determines the block production sequence for epoch $e_{m+2}$.
+In an epoch $e_m$, BABE randomness $r_m$ is used as the ring VRF input to generate a set of outputs, which are then published on-chain. Once finalized, these outputs are sorted, and their order determines the block production sequence for epoch $e_{m+2}$.
 
 ## Parameters
 * $V$: The set of nominated validators
 * $s$: Number of slots per epoch. For an hour-long epoch with 6-second slots, $s=600$
-* $x$: Redundancy factor. For an epoch with $s$ slots, we aim to have $xs$ tickets generated in expectation for block production. Here, we set $x=2$.
+* $x$: Redundancy factor. For an epoch with $s$ slots, the aim is to generate $xs$ tickets in expectation for block production. In this analysis, we set $x=2$.
 * $a$: Number of ticket-generation attempts per validator in an epoch
 * $L$: A bound on the number of tickets that can be gossiped, used for DoS resistance
 
 ## Keys
-In addition to their regular keys, each validator must posssess a keypair on a SNARK-friendly curve such as [Jubjub](https://z.cash/technology/jubjub/). It is essential that these keys are generated before the randomness used for the epoch is derived or finalized.
+In addition to their regular keys, each validator must posssess a keypair on a SNARK-friendly curve such as [Jubjub](https://z.cash/technology/jubjub/). It is essential to generate these keys before the randomness for the epoch is derived or finalized.
 
 Given a security parameter $\lambda$ and randomness $r$, generate a key pair using the RVRF key generation function 
 $$
@@ -62,7 +65,7 @@ $$
 The objective is to have at least $s$ VRF outputs (tickets) published on-chain. Although this cannot be strictly guaranteed, the expected value is $xS$.
 
 #### Randomness
-At the epoch $e_m$, we use the randomness $r_m$ as provided by [BABE](polkadot/protocols/block-production/Babe), defined as
+At the epoch $e_m$, [BABE](polkadot/protocols/block-production/Babe) provides randomness $r_m$, defined as follows:
 
 $$
 r_m=H(r_{m-1}, m, \rho)
@@ -89,7 +92,7 @@ $$
 out_{m,v,i}=\texttt{Compute}_{RVRF}(sk_v, in_{m, i})
 $$
 
-2. Selects "winning" outputs below the threshold $T$: $\texttt{bake}(out_{m,v,i}) < T$
+2. Selects "winning" outputs below the threshold $T$: $\texttt{bake}(out_{m,v,i}) < T$,
 where $\texttt{bake()}$ maps VRF outputs to the interval $[0,1]$. The indices correponding to winning outputs form the set $I_{win}$.
 
 3. Generates proofs using its copath $ask_v$ for each winning output $i \in I_{win}$,
@@ -105,7 +108,7 @@ The goal is to identify block producers for a large portion of slots unknown in 
 
 Concretely, validator $v$ selects another validator $v'$ based on the output $out_{m,v,i}$ for $i \in I_{win}$. The validator computes $k=out_{m,v,i} \textrm{mod} |V|$ and sends its winning ticket to the $k$th validator according to a fixed ordering. Then, validator $v$ signs the message: $(v, l, enc_v'(out_{m,v,i}, \pi_{m,v,i}))$ where $end_{v'}$ denotes encryption using the public key of $v'$. Winning outputs are indexed using $l$ ranging from $0$ to $L-1$, and are gossiped through the network. If there are more than $L$ outputs below the threshold $T$, only the lowest $L$ are disseminated. This limitation helps prevent validator from spamming the network.
 
-Once a validator receives a messages, it checks whether it has already received a message with the same $v$ and $l$; if so, it discards the new message. Otherwise, it decrypts the message to determine whether it is the intended proxy and forwards (gossips) the message. Validators further gossip messages addressed to themselves to mitigate traffic correlation risks.
+Once a validator receives a message, it checks whether it has already received a message with the same $v$ and $l$; if so, it discards the new message. Otherwise, it decrypts the message to determine whether it is the intended proxy and forwards (gossips) the message. Validators further gossip messages addressed to themselves to mitigate traffic correlation risks.
 
 When a validator decrypts a message using its private key, it verifies whether it was the correct proxy by checking out that $out_{m,v,i} \textrm{mod} |V|$ corresponds to its index. If confirmed, then at a designated block number, it broadcasts a transaction containing $(out_{m,v,i}, \pi_{m,v,i}))$ for inclusion on-chain. If the validator serves as a proxy for multiple tickets, it submits multiple transactions at the appointed block.
 
@@ -113,12 +116,10 @@ If validator $v$'s ticket is not included on-chain before a certain block number
 
 ### 4) Verification
 
-A transaction of this type is valid for block inlcusion if it can be verified as follows.
-
-To verify the published transactions $(out_{m, v,i}, \pi_{m,v,i})$, the corresponding SNARK proof must be checked. This verification requires:
+A transaction of this type is valid for block inclusion if it can be verified. To check published transactions $(out_{m, v,i}, \pi_{m,v,i})$, the corresponding SNARK proof must hold. This verification requires:
 - the input $in_{m,i}$, which can be computed from $i$ and $r_m$,
 - the published output $out_{m,v,i}$
-- the aggregate public key $apk$.
+- the aggregate public key, denoted as $apk$.
 
 These values constitute the public inputs to the SNARK verifier:
 $$
@@ -127,23 +128,23 @@ $$
 
 ### 5) Sorting
 Epoch $e_{m+2}$ contains the list $\{out_{m,k}\}_{k=1}^{K}$ of $K$ verified VRF outputs generated during the epoch $e_m$, which are finalized on-chain. Each output is combined with a source of randomness $r'$, where:
-- $r'=r_{m+1}$ if no VDF is use, or 
+- $r'=r_{m+1}$ if no VDF is used, or 
 - $r'=r_{m+2}$ if a VDF is used. 
 
 The resulting hash is computed as: $out'_{m,k}=H(out_{m,k} || r')$
 
-**Block production order determination** Each validator sorts the list of $out'_{m,k}$ values in ascending order and removes the largest $s-K$ values (if any). This results in the filtered subset
+**Block production order determination.** Each validator sorts the list of $out'_{m,k}$ values in ascending order and removes the largest $s-K$ values (if any). This results in the filtered subset
 
 $out'_{m,1},\ldots, out'_{m,l}$, where $l\leq s$ and $out'_{m,p}\leq out'_{m,q}$ for $1\leq p<q\leq l$.
 
-**Slot assignment via "Outside-in" sorting** Ticket values $out'_{m,k}$ are assigned to slots using an outside-in ordering: 
+**Slot assignment via "Outside-in" sorting.** Ticket values $out'_{m,k}$ are assigned to slots using an outside-in ordering: 
 
 - The lowest value $out'_{m,1}$ maps the last slot
 - The second lowest $out'_{m,2}$ maps the first slot
 - The third $out'_{m,3}$ maps the penultimate slot
 - The fourth $out'_{m,4}$ maps to the second slot, and so on. 
 
-Example of outside-in ordering: Input: (1,2,3,4,5) Result: (2,4,5,3,1)
+Example of outside-in ordering: Given the input (1,2,3,4,5), the resulting output is (2,4,5,3,1).
 
 In the unlikely event that $K < s$, some slots will remain unassigned in the middle of the epoch. These gaps are filled using the AuRa protocol.
 
@@ -160,12 +161,12 @@ $\texttt{Reveal}_{RVRF}: sk_v, out\mapsto \tau$
 $\texttt{Check}_{RVRF}: \tau, out\mapsto true/false$
 
 These are esssentially Schnorr-style proofs of knowledge of exponent (PoKE).
-When validating a block, nodes must verify these proofs. Additionally, the validator must include a previously unseen VRF output-referred to as the BABE VRF above. This can be generated using the existing (non-jubjub) key on the same input (r_m || i).
+When validating a block, nodes must verify these proofs. Additionally, the validator must include a previously unseen VRF output-referred to as the BABE VRF above, which can be generated using the existing (non-jubjub) key on the same input (r_m || i).
 
-## Probabilities and parameters.
+## Probabilities and parameters
 
 The first parameter under consideration is $x$. The goal is to ensure a very low probability of having fewer than $s$ winning tickets, even if up to $1/3$ of validators are offline. The probability that any given attempt yields a winning ticket is $T=xs/a|V|$.
-Let $n$ be the number of validators who actually participate such that $2|V|/3 \leq n \leq |V|$. These $n$ validators each make $a$ attempts; resulting in a total of $an$ attempts.
+Let $n$ be the number of validators who actually participate such that $2|V|/3 \leq n \leq |V|$. Each of the $n$ validators makes $a$ attempts, resulting in a total of $an$ attempts.
 Let $X$ be the number of winning tickets. Its expected value is
 
 $$

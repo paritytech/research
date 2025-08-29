@@ -8,7 +8,7 @@ A session public key should consist of three or four types of public keys:
  
    These are issued from the nominator keys acting as validator operators.  Using an implicit certificate either restricts the setup to a single validator operator or increases code complexity by requiring a designated primary operator.  Implicit certificates also make session key records impossible to authenticate without access to the nominator account, though this may be a desirable property.  
    
-   Signers can efficiently batch numerous VRF outputs into a single proof using these keys, similar to CloudFlare's Privacy Pass.  If these VRFs are employed for block production, signers could periodically publish a "sync digest" that consolidates thousands of past block production VRFs into a single verification, significantly improving syncing speed.  Additionally, there is a pathway to to batch-verify these VRFs across multiple signers, which would require enlarging the VRF output and proof size from 96 to 128 bytes.
+   Signers can efficiently batch numerous VRF outputs into a single proof using these keys, similar to CloudFlare's Privacy Pass.  If these VRFs are employed for block production, signers could periodically publish a "sync digest" to consolidate thousands of past block production VRFs into a single verification, significantly improving syncing speed.  Additionally, there is a pathway to batch-verify these VRFs across multiple signers, which would require enlarging the VRF output and proof size from 96 to 128 bytes.
 
  - Small curve of BLS12-381 (48-byte public keys, 96-byte signatures)
 
@@ -24,10 +24,10 @@ A session public key should consist of three or four types of public keys:
  
  - Authentication key for the transport layer.
  
-   Including node identity form libp2p is ideal, although secio handles authentication poorly ([see the secio discussion](https://forum.web3.foundation/t/transport-layer-authentication-libp2ps-secio/69)).
+   Including node identity from libp2p is ideal, although secio handles authentication poorly ([see the secio discussion](https://forum.web3.foundation/t/transport-layer-authentication-libp2ps-secio/69)).
 
-A session public key record begins with a prefix consisting of the three keys mentioned above, along with a certificate from the validator operator on the Ristretto Schnorr public key, and a recent block hash and height.  This prefix is followed by a first signature block containing two BLS signatures on the prefix, one from each BLS key. The record is finalized with a second signature block containing a Ristretto Schnorr signature over both the prefix and the first signature block. This structure allows the BLS12-381 keys to be rotated independently of the Ristretto Schnorr public key, possibly enhancing forward security.
+A session public key record begins with a prefix consisting of the three keys mentioned above, along with a certificate from the validator operator on the Ristretto Schnorr public key, and a recent block hash and height.  This prefix is followed by a first signature block containing two BLS signatures on the prefix, one from each BLS key. The record is finalized with a second signature block containing a Ristretto Schnorr signature over both, the prefix and the first signature block. This structure allows the BLS12-381 keys to be rotated independently of the Ristretto Schnorr public key, possibly enhancing forward security.
 
 The recent block hash is included in the certificate to prevent attacks from inserting rogue keys that could compromise session keys after a fork, assuming the chain is trusted for proofs-of-possession. It is generally advisable not to trust the chain for such proofs, as including a recent block hash only mitigates long-range attacks. 
 
-Currently, there is no aggregation strategy for block production VRFs, so Ristretto Schnorr VRFs may remain the default.  In this case, the longer-lived Ristretto Schnorr session key component can help reduce attacks on the random beacon. 
+Currently, there is no aggregation strategy for block production VRFs, so Ristretto Schnorr VRFs may remain the default.  In this case, the longer-lived Ristretto Schnorr session key component may help reduce attacks on the random beacon. 

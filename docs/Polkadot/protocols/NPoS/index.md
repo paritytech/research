@@ -4,7 +4,7 @@ title: Nominated Proof-of-Stake
 
 ![](Nominated-proof-of-stake.png)
 
-In recent years, many blockchain projects have replaced the highly inefficient Proof-of-Work (PoW) component of Nakamoto’s consensus protocol with Proof-of-Stake (PoS). In PoS systems, validators participate in block production at a frequency proportional to their token holdings, rather than their computational power. Although a pure PoS model allows any token holder to participate directly, most projects adopt some degree of centralization by limiting the number of validators with full participation rights. The rationale behind this limited validator set design includes the following considerations:
+In recent years, many blockchain projects have replaced the highly inefficient Proof-of-Work (PoW) component of Nakamoto’s consensus protocol with Proof-of-Stake (PoS). In PoS systems, validators participate in block production at a frequency proportional to their token holdings, rather than their computational power. Although a pure PoS model allows any token holder to participate directly, most projects adopt some degree of centralization by limiting the number of validators with full participation rights. The rationale for this limited validator set design is based on the following considerations:
 
 - As the number of validators increases, operational costs and communication complexity eventually outweigh the benefits of decentralization.
 - While many token holders may wish to contribute to system maintenance, the number of candidates with the necessary knowledge and equipment to ensure high-quality service remains limited.
@@ -16,7 +16,7 @@ Polkadot introduces a Nominated Proof-of-Stake (NPoS) system. Its design choices
 
 Validators and nominators lock their tokens as collateral and receive staking rewards on a pro-rata basis. They may be slashed and lose their collateral if a supported validator engages in negligent or adversarial behavior. Nominators participate indirectly in the consensus protocol and have an economic incentive to closely monitor the evolving candidate set, helping ensure that only the most capable and trustworthy validators are elected.
 
-Visit our [overview page](1.%20Overview.md) to learn about NPoS, and read our [research paper](2.%20Paper.md) for an in-depth analysis. For more details on staking rewards, check out the [token economics research section](Polkadot/overview/2-token-economics.md), and learn about slashing in [this section](Polkadot/security/slashing/amounts.md). For a broader understanding of the staking process, expolore [Wiki pages](https://wiki.polkadot.network/docs/en/learn-staking). 
+In the [overview page](1.%20Overview.md) you can learn about NPoS, and for an in-depth analysis you can read the [research paper](2.%20Paper.md). For more details on staking rewards, check out the [token economics research section](Polkadot/overview/2-token-economics.md), and learn about slashing in [this section](Polkadot/security/slashing/amounts.md). For a broader understanding of the staking process, explore [Wiki pages](https://wiki.polkadot.network/docs/en/learn-staking). 
 
 Unlike other projects, Polkadot maintains complete independence between validator selection and [governance](https://wiki.polkadot.network/docs/en/learn-governance). In particular, users' rights to participate in governance are never delegated.
 

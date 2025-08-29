@@ -5,7 +5,7 @@ title: Token Economics
 import DocCardList from '@theme/DocCardList';
 
 
-![](polkadottoken.png)
+![](polkadot-token.png)
 
 
 Polkadot is a proof-of-stake–based platform in which a set of validators, who have staked DOTs[^1], produce blocks and reach consensus. Polkadot validators are rewarded roughly in proportion to their staked amount, unless they deviate from the protocol, in which case a portion of their DOTs is slashed.
@@ -16,9 +16,9 @@ Being a nominator is a way to invest one's DOTs while contributing to the securi
 
 The aim, therefore, is for validators and nominators to stake a considerable percentage of the total DOT supply. Another significant portion of the DOT supply will be locked as deposits by commercial blockchains that secure parachain slots. 
 
-In these sections, we pay attention to three key topics. In **NPoS payment and inflation**, we outline how well-behaved validators and nominators are rewarded under Polkadot’s nominated proof-of-stake system. In **transaction fees**, we analyze optimal fee structures on the relay chain to cover operational costs, mitigate harmful behavior, and manage periods of high activity or delayed transaction inclusion. Finally, in the **treasury** section, we discuss how and when to raise DOTs to support ongoing network maintenance. The closing paragraph provides links to further resources related to the Polkadot protocol.
+The following sections focus on three key topics. **NPoS payment and inflation** explains how well-behaved validators and nominators are rewarded under Polkadot’s nominated proof-of-stake system. **Transaction fees** examines optimal fee structures on the relay chain to cover operational costs, mitigate harmful behavior, and manage periods of high activity or delayed transaction inclusion. Finally, **Treasury** discusses how and when may DOTs be raised to support ongoing network maintenance. The closing paragraph provides links to further resources related to the Polkadot protocol.
 
-[^1]: DOTs are Polkadot's native token and their main functions are: 1) Economics: Polkadot will mint or burn DOTs in order to reward the nodes that run the consensus protocol, to fund the treasury, to control the inflation rate, etc. 2) Slashing: DOTs also play a role in the slashing protocols designed to desincentivize attacks or adversarial behaviors. 3) Governance: DOTs are also used as voting power, to let DOT holders express their opinion in governance decisions via referenda. 4) Parachain allocation: Finally, DOTs are used to decide which projects are allocated a parachain slot, via auctions and deposits. In this section we have focused on the first use, while each of the other three uses is analyzed in a separate section.
+[^1]: DOTs are Polkadot's native token and their main functions are: 1) Economics: Polkadot mints or burns DOTs to reward the nodes that run the consensus protocol, fund the treasury, control the inflation rate, and support other economics mechanisms. 2) Slashing: DOTs also play a role in slashing protocols designed to desincentivize attacks or adversarial behaviors. 3) Governance: DOTs function as voting power, allowing DOT holders to express their opinion in governance decisions via referenda. 4) Parachain allocation: Finally, DOTs are used to decide which projects receive parachain slots, through auctions and deposits. This section focuses on the first function, while the remaining three are explored in subsequent sections.
 
 
 <DocCardList />

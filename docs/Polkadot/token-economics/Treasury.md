@@ -2,12 +2,13 @@
 title: Treasury
 ---
 
-The treasury refers to the system's continuous need to raise funds. These funds are used to compensate developers for delivering software updates, implementing changes approved through referenda, adjusting parameters, and maintaining overall system stability.
+![](Treasury.png)
 
-![](treasury-funds.png)
+Treasury refers to the system's continuous need to raise funds. These funds compensate developers for delivering software updates, implementing changes approved through referenda, adjusting parameters, and maintaining overall system stability.
+
 Treasury funds can be raised through two mechanisms:
 
-1. Minting new tokens, which contributes to inflation; and
+1. Minting new tokens, which contributes to inflation
 
 2. Redirecting tokens from transaction fees and slashings that would otherwise be burned.
 
