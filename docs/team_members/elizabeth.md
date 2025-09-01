@@ -4,9 +4,7 @@ title: Elizabeth Crites
 ---
 
 # Elizabeth C. Crites
-
-<img className="members" src="https://i.imgur.com/Z2bkSFp.jpg"/>
-
+![](Elizabeth.png)
 elizabeth@web3.foundation
 
 Elizabeth is a research scientist in cryptography at Web3 Foundation. She works on protocol design and provable security for core cryptographic primitives in Polkadot. Currently, her work focuses on verifiable random functions (VRFs) with advanced functionalities, which are implemented in leader election protocols and in the distributed generation of public randomness.
@@ -25,3 +23,4 @@ Elizabeth is a research scientist in cryptography at Web3 Foundation. She works 
 
 * **Better than Advertised Security for Non-Interactive Threshold Signatures**. Mihir Bellare, Elizabeth Crites, Chelsea Komlo, Mary Maller, Stefano Tessaro, and Chenzhi Zhu. CRYPTO 2022. *Security analysis for the FROST and BLS threshold signature schemes.* https://crypto.iacr.org/2022/papers/538806_1_En_18_Chapter_OnlinePDF.pdf
 
+<img className="members" src="https://i.imgur.com/Z2bkSFp.jpg"/>

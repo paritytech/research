@@ -1,7 +1,5 @@
 # Andrew Burger
-
-<img className="members" src="https://i.imgur.com/0OPEIfm.jpeg"/>
-
+![](Andrew.png)
 andrew@web3.foundation
 
 Andrew joined Web3 Foundation as a researcher in August 2023 and has since supported the implementation of schemes and protocols within the Polkadot-SDK Substrate framework. His current work focuses on the development and prototyping of the XCMP protocol, along with the latest threshold cryptography features in Polkadot. Andrew also lectures and serves as an educator at the Polkadot Blockchain Academy.
@@ -18,3 +16,5 @@ Andrew joined Web3 Foundation as a researcher in August 2023 and has since suppo
 * [Lecture UTXO vs Accounts UBA](https://www.youtube.com/watch?v=cI75Je1Nvk8)
 * [UTXO Tuxedo Framework](https://github.com/Off-Narrative-Labs/Tuxedo)
 * [PBA content](https://github.com/Polkadot-Blockchain-Academy/pba-content)
+
+<img className="members" src="https://i.imgur.com/0OPEIfm.jpeg"/>

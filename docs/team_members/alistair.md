@@ -1,9 +1,7 @@
 ---
 title: Alistair Stewart
 ---
-
-<img className="members" src="https://i.imgur.com/5wzFx7b.jpg"/>
-
+![](Alistair.png)
 alistair@web3.foundation
 
 Alistair is lead researcher at Web3 Foundation mainly working on protocol design. He is the architect behind GRANDPA, Polkadot’s novel finality gadget. Moreover, he has worked on the validator selection scheme NPoS and designed Polkadot’s availability and validity scheme.
@@ -23,3 +21,5 @@ Alistair is lead researcher at Web3 Foundation mainly working on protocol design
 * I. Diakonikolas, D. Kane, A. Stewart. "The Fourier Transform of Poisson Multinomial Distributions and its Algorithmic Applications", the 48th Annual ACM Symposium on Theory of Computing (STOC 2016).
 
 * K. Etessami, A. Stewart, M. Yannakakis. "Polynomial-time Algorithms for Multi-type Branching Processes and Stochastic Context-Free Grammars", ACM Symposium on Theory of Computing (STOC'12).
+
+<img className="members" src="https://i.imgur.com/5wzFx7b.jpg"/>

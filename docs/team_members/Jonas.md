@@ -1,7 +1,5 @@
 # Jonas Gehrlein
-
-<img className="members" src="https://i.imgur.com/jbZJR52.jpg"/>
-
+![](Jonas.png)
 jonas@web3.foundation
 
 PGP Fingerprint: 16C2 2CBD 92E4 E7A1 7D79 D0D0 1F79 CDDC 0A5F FC5B
@@ -34,3 +32,4 @@ Jonas joined the Web3 Foundation as a research scientist in July 2020. His work 
 
 * von Bieberstein, Frauke and Crede, Ann-Kathrin and Dietrich, Jan and Gehrlein, Jonas and Neumann, Oliver and Stürmer, Matthias, Otree: Implementing Websockets to Allow for Real-Time Interactions – a Continuous Double Auction Market as First Application (April 29, 2019). Available at SSRN: https://ssrn.com/abstract=3631680. (Working Paper)
 
+<img className="members" src="https://i.imgur.com/jbZJR52.jpg"/>

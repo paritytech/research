@@ -2,7 +2,7 @@
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-<img className="members" src={useBaseUrl('img/Bhargav.jpg')}/>
+![](Bhargav.png)
 
 bhargav@web3.foundation
 
@@ -25,3 +25,4 @@ Bhargav is a researcher at the Web3 Foundation specializing in security. He has 
 * [Automated repair of resource leaks in Android applications](https://www.sciencedirect.com/science/article/pii/S0164121222001273?via%3Dihub), Journal of Systems and Software, 2022.
 * [Almost event-rate independent monitoring](https://link.springer.com/article/10.1007/s10703-018-00328-3), Formal Methods and System Design, 2022.
 * [Formal Methods for Rust](https://polkadot-blockchain-academy.github.io/pba-content/berkeley-2023/syllabus/0-Miscellaneous/1-Formal-Methods/1-intro_formal_methods_slides.html#/), PBA 2023 Berkeley
+<img className="members" src={useBaseUrl('img/Bhargav.jpg')}/>
