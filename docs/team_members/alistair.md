@@ -1,7 +1,9 @@
 ---
 title: Alistair Stewart
 ---
-![](Alistair.png)
+
+![](Alistair.jpg)
+
 alistair@web3.foundation
 
 Alistair is lead researcher at Web3 Foundation mainly working on protocol design. He is the architect behind GRANDPA, Polkadot’s novel finality gadget. Moreover, he has worked on the validator selection scheme NPoS and designed Polkadot’s availability and validity scheme.

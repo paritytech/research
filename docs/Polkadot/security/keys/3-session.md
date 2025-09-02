@@ -1,7 +1,7 @@
 ---
 title: Session keys
 ---
-![](Session-keys.jpeg)
+![](Session-keys.png)
 A session public key should consist of three or four types of public keys: 
  
  - Ristretto Schnorr public key (32-byte public keys, 64-byte signatures, 96-byte VRFs)

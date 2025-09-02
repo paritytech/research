@@ -1,5 +1,7 @@
 # Chen-Da Liu-Zhang
 
+![](Chen-Da.png)
+
 chenda@web3.foundation
 
 Chen-Da joined the Web3 Foundation as a research scientist in July 2023. His areas of expertise span both cryptography and distributed systems, with a broad focus on theory and practice.

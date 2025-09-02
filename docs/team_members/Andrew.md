@@ -1,5 +1,7 @@
 # Andrew Burger
+
 ![](Andrew.png)
+
 andrew@web3.foundation
 
 Andrew joined Web3 Foundation as a researcher in August 2023 and has since supported the implementation of schemes and protocols within the Polkadot-SDK Substrate framework. His current work focuses on the development and prototyping of the XCMP protocol, along with the latest threshold cryptography features in Polkadot. Andrew also lectures and serves as an educator at the Polkadot Blockchain Academy.
