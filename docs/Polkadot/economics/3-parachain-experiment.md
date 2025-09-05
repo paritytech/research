@@ -13,11 +13,11 @@ Since the combinatorial candle auction has not yet been studied, either theoreti
 The design of the experimental investigation mirrors the core mechanism of the Polkadot parachain auction. The experiment takes place in a setting where bidders can freely communicate and share non-binding strategies before the auction. It is conducted off-chain and follows standard experimental economics procedures. Insights from the experiment can enhance understanding of bidding behavior and enable comparisons of efficiency across auction formats. 
 
 
-## Dynamic Combinatorial Auctions
+## Dynamic combinatorial auctions
 
 The first point of discussion is the current use of combinatorial auctions. Second, it is important to present the combinatorial candle auction as implemented on Polkadot, highlighting the appeal of this format, and discussing its expected performance relative to more conventional combinatorial auction models. 
 
-### Currently used Combinatorial Auctions
+### Currently used combinatorial auctions
 Combinatorial auctions have emerged as successors to multi-unit auctions, primarily due to their ability to solve the so-called exposure problem that arises in the presence of complementarities (Porter and Smith, 2006; Cramton, 2013). In multi-unit auctions, bidders compete for each unit individually. As a consequence, bidders seeking specific combinations of items may end up acquiring only a subset, which may hold significanlty less value than the complete bundle. Combinatorial auctions resolve this issue by allowing bids on item packages directly. In other words, a bidder either wins the entire package or nothing at all.
 
 Today, combinatorial auctions are applied in a wide range of contexts. Among the most well-known examples are radio spectrum auctions (Porter and Smith, 2006; Cramton, 2013). Additional applications include electricity markets (Meeus et al., 2009), bus routes allocations, and industrial procurement (cf. Cramton et al., 2006, for an overview). 
@@ -37,7 +37,7 @@ The activity rule also determines when the auction ends based on all previously 
 
 
 
-### The Combinatorial Candle Auction
+### The Combinatorial candle auction
 In the combinatorial candle auction employed in Polkadot, bidders can submit bids within a predefined time window. Bids must increase, without further restrictions imposed by an activitiy rule. After the window closes, the actual ending time is retroactively determined at random. 
 
 Originated in medieval Europe, the name "candle auctions" derive from the way they were conducted. The auctioneer would light a candle in view of all the bidders and accept bids until the flame extinguished. The highest bidder at the moment the candle went out was declared the winner (cf., e.g., Hobson, 1971). The earliest accounts of this kind of auction date back to 14th-century France, where they were used to sell chattels and leases. In England, furs were sold via candle auctions up to the 18th century (cf. Füllbrunn and Sadrieh, 2012, for more details and references). 
@@ -49,13 +49,13 @@ Front-running is a significant challenge in blockchain-based auction implementat
 
 As far as existing literature indicates, Füllbrunn and Sadrieh (2012) is the only experimental study to examine a candle auction format. Unlike the planned experiment, their study focuses on a single-unit auction with a second-price payment rule. In a second-price auction, bidding one's true value is a weakly dominant strategy whenever there is a positive probability that the current round will be the terminal round. The experimental evidence largely supports this prediction. In contrast to first-price auctions, where equilibrium bidding depends on termination probabilities, expected revenue in second-price auctions is independent of those probabilities.
 
-## Experimental Design
+## Experimental design
 
 The aim is to examine an ascending combinatorial auction with discrete rounds $t$, during which bids can be placed. Each auction involves three bidders. After every round, which lasts $6$ seconds, all newly submitted bids are revealed. 
 
 The set of items is $X = \{1,2\}$, resulting in three possible packages $\{\{1\},\{2\},\{1,2\}\}$. Bidders may submit bids, where a bid $b=(p,x)$ consists of a price $p$ and a package $x \subseteq X$. Prices must increase and lie on a finite (fine) grid. Winning bids are selected to maximize total payment. The payment rule is pay-as-bid; that is, winning bidders must pay the amount they bid. 
 
-### The Three Ending Formats
+### The three ending formats
 As mentioned in the introduction, one main objective is to compare three auction-ending formats: the candle format, the hard-closing rule, and the activity rule.
 
 |                | Communication |
@@ -65,7 +65,7 @@ As mentioned in the introduction, one main objective is to compare three auction
 | Activity Rule  | AR            |
 
 
-**Candle Format.** In a candle auction, bidders can freely submit increasing bids during the auction phase, and the auction terminates at a random time. In the considered specification, the ending time is determined retroactively: bids on packages are accepted for a predefined number of rounds, denoted by $\bar T$, after which the auctioneer announces the actual ending time $T \in \{1,...,\bar T\}$. The ending time $T$ is random, and the probability that the auction ends in round $t$ is publicly known and given by $q_t \in (0,1)$, where $\sum_{t=1}^{\bar T}q_t=1$.
+**Candle Format.** In a candle auction, bidders can freely submit increasing bids during the auction phase, and the auction terminates at a random time. In this specification, the ending time is determined retroactively: bids on packages are accepted for a predefined number of rounds, denoted by $\bar T$, after which the auctioneer announces the actual ending time $T \in \{1,...,\bar T\}$. The ending time $T$ is random, and the probability that the auction ends in round $t$ is publicly known and given by $q_t \in (0,1)$, where $\sum_{t=1}^{\bar T}q_t=1$.
 
 **Hard-Close Rule.** In a hard-close auction, bidders can freely submit increasing bids, yet the auction ends at a fixed time, denoted by $\bar T$. 
 
@@ -104,10 +104,10 @@ The random ending time generally encourages participants to submit serious bids 
 ### Procedure
 
 #### Stage 1: Instructions
-As the experiment begins, participants are randomly assigned to one of the three auction formats and receive information about the specific rules of the game. They must then answer a few comprehension questions to confirm their understanding of how they game unfolds.
+As the experiment begins, participants are randomly assigned to one of the three auction formats and receive information about the specific rules of the game. They must then answer a few comprehension questions to confirm their understanding of how the game unfolds.
 
 #### Stage 2: The Auctions
-Before each auction, all bidders learn their type and their private valuations for individual packages. Each market consists of one global bidder and two local bidders, with roles remaining fixed throughout the experiment. New valuations are drawn at the start of each auction. These random draws are held constant across treatments (i.e., by fixing the seed) to better compare the results. Every participat takes part in n=X auctions. Subjects are re-shuffled into new market groups between auctions to approximate a (near-) perfect stranger design. Following this, a communication phase begins during which all participants in a given auction openly discuss strategies via chat for 45 seconds. The auction then starts, and participants are free to submit bids. 
+Before each auction, all bidders learn their type and their private valuations for individual packages. Each market consists of one global bidder and two local bidders, with roles remaining fixed throughout the experiment. New valuations are drawn at the start of each auction. These random draws are held constant across treatments (i.e., by fixing the seed) to better compare the results. Every participant takes part in n=X auctions. Subjects are re-shuffled into new market groups between auctions to approximate a (near-) perfect stranger design. Following this, a communication phase begins during which all participants in a given auction openly discuss strategies via chat for 45 seconds. The auction then starts, and participants are free to submit bids. 
 
 The trading page features two tables:
 
@@ -118,7 +118,7 @@ The trading page features two tables:
 Table 2 is particularly useful for assessing this complex auction design. 
 
 #### Stage 3: Feedback and Payoff
-Once the auction concludes, timing depending on the treatment, participants receive feedback on the final winning bids and allocation of packages. In addition, subjects in the candle auction format are informed of the realization of $T$ and the corresponding snapshot of winning bids at that moment. Profits are then calculated and displayed to participants. If another  auction follows, new valuations are drawn for each subject before it begins.
+Once the auction concludes, timing depending on the treatment, participants receive feedback on the final winning bids and allocation of packages. In addition, participants in the candle auction format are informed of the realization of $T$ and the corresponding snapshot of winning bids at that moment. Profits are then calculated and displayed to participants. If another  auction follows, new valuations are drawn for each subject before it begins.
 
 
 ### Outcome variables

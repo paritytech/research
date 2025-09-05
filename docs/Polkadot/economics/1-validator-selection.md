@@ -8,19 +8,19 @@ Validator elections play a critical role in securing the network, placing nomina
 
 This entry outlines several potential steps to support nominators while preserving their freedom of choice. As a starting point, it is important to highlight why recommendations should consider individual user preferences rather than attempting to make them universal.
 
-**Problem.** Providing an exogenous recommendation for a set of validators is not advisable, as user preferences, particularly risk preferences, vary significantly. Comparing metrics accross different scales, such as self-stake in DOTs versus performance in percentage, is not feasible in an exogenous framework. Moreover, even when considering a single dimension, the shape of marginal utility functions remains unclear and is inherently tied to individual preferences. Determining the trade-offs involved in the selection process on behalf of nominators lies beyond the scope of this note. Yet, to illustrate this issue, consider the following simple example:
+**Problem.** Providing an exogenous recommendation for a set of validators is not advisable, as user preferences, particularly risk preferences, vary significantly. Comparing metrics accross different scales, such as self-stake in DOT versus performance in percentage, is not feasible in an exogenous framework. Moreover, even when considering a single dimension, the shape of marginal utility functions remains unclear and is inherently tied to individual preferences. Determining the trade-offs involved in the selection process on behalf of nominators lies beyond the scope of this note. Yet, to illustrate this issue, consider the following simple example:
 
 | | Commission | Self-Stake | Identity | Era-Points |
 | -------- | -------- | -------- | -------- | -------- |
-| Validator 1     | 4%     | 26 DOTs     | Yes | Average |
-| Validator 2 | 7% | 280 DOTs | No | Average - 1%|
+| Validator 1     | 4%     | 26 DOT     | Yes | Average |
+| Validator 2 | 7% | 280 DOT | No | Average - 1%|
 | Validator 3 | 1% | 1 DOT | No | Average + 5% |
 
 
-The table above presents validators with diverse profiles, none of which clearly dominate. Validator 3 may offer high potential profits but lacks significant self-stake (skin-in-the-game) and does not have a registered identity. Validator 1 charges a higher service fee, yet may benefit from a reputable identity. Validator 2 has the highest self-stake, but also demands substantial fees. Clearly, user preferences can vary, some may favor one validator over another depending on their priorities. While most users could reasonably make a choice from this small set, the complexity increases dramatically when faced with a selection of 200 to 1,000 validators.
+The table above presents validators with diverse profiles, none of which clearly dominate. Validator 3 may offer high potential profits but lacks significant self-stake (skin in the game) and does not have a registered identity. Validator 1 charges a higher service fee, yet may benefit from a reputable identity. Validator 2 has the highest self-stake, but also demands substantial fees. Clearly, user preferences can vary, some may favor one validator over another depending on their priorities. While most users could reasonably make a choice from this small set, the complexity increases when faced with a selection of 200 to 1,000 validators.
 
 
-**Code of conduct for recommendations.** As previously mentioned, the goal is not to provide exogenous recommendations to users, but rather to offer strategies that respect their insight and generate suggestions aligned with their stated preferences. While valuing individual preferences, recommendations may gently nudge decisions toward outcomes beneficial for the network, such as promoting decentralization. These recommendations should remain as objective as possible and must not discriminate against any specific validator.  
+**Code of conduct for recommendations.** As previously mentioned, the goal is not to provide exogenous recommendations to users, but rather to offer strategies that respect their insight and generate suggestions aligned with their stated preferences. While valuing individual preferences, recommendations may nudge decisions toward outcomes beneficial for the network, such as promoting decentralization. These recommendations should remain as objective as possible and must not discriminate against any specific validator.  
 
 **Organization.** This entry is divided into several sections. "Underlying data" presents potentially useful data and explains how to derive additional metrics. "Filtering phase" demonstrates how a simple concept from economics can significantly reduce the number of potentially interesting validators, providing users with a more manageable set of choices. The third section explores ideas to further curate the validator set in support of the network's goals. Lastly, the "UTAStar" section outlines a sophisticated approach for estimating each user's individual marginal preference functions, enabling more precise recommendations.
 
@@ -177,7 +177,7 @@ $$
 $$ 
 
 Here, $\delta$ is a small, positive, exogenous parameter representing the minimum acceptable discrepancy between the utilities of two consecutive options.
-Reinforcing monotonicity involces further transforming the utility differences between two consecutive interval endpoints:
+Reinforcing monotonicity involves further transforming the utility differences between two consecutive interval endpoints:
 
 $$
 w_{ij} = u_i(g_i^{j+1}) - u_i(g_i^j) \geq 0 \forall i=1,...n \; and \; j = 1,... \alpha_i -1

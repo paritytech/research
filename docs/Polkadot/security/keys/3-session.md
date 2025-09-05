@@ -2,6 +2,7 @@
 title: Session keys
 ---
 ![](Session-keys.png)
+
 A session public key should consist of three or four types of public keys: 
  
  - Ristretto Schnorr public key (32-byte public keys, 64-byte signatures, 96-byte VRFs)
@@ -18,9 +19,9 @@ A session public key should consist of three or four types of public keys:
 
  - Big curve of BLS12-381 (96-byte public keys, 48-byte signatures) (optional)
  
-   Aggregated signatures, where many messages are verified by the same signer, can be verified considerably faster with this key type. This makes them a potential fit for block production VRFs, as aggregation over the same signer could aid syncing.  Initially, aggregation may be useful for certain VRF non-winner proof designs, but the updated design largerly avoids that dependency. At present, the Ristretto Schnorr VRF appears to be a stronger candidate for block production, offering faster individual verification and highly efficient batching for repeated signers.
+    This key type can verify aggregated signatures, where the same signer authorizes many messages, considerably faster. This makes them a potential fit for block production VRFs, as aggregation over the same signer could aid syncing.  Initially, aggregation may be useful for certain VRF non-winner proof designs, but the updated design largerly avoids that dependency. At present, the Ristretto Schnorr VRF appears to be a stronger candidate for block production, offering faster individual verification and highly efficient batching for repeated signers.
 
-   Faster aggregate verification is expected when signer sets are frequently reused, so this scheme may be suitable in contexts where small-curve keys initially seem optimal.  Signature aggregation is expected to be "wild" in GRANDPA, making the small-curve key a better fit in that setting.
+   Faster aggregate verification is expected when signer sets are frequently reused, making this scheme suitable for contexts where small-curve keys might initially seem optimal.  Signature aggregation is expected to be "wild" in GRANDPA, making the small-curve key a better fit in that setting.
  
  - Authentication key for the transport layer.
  
@@ -31,3 +32,6 @@ A session public key record begins with a prefix consisting of the three keys me
 The recent block hash is included in the certificate to prevent attacks from inserting rogue keys that could compromise session keys after a fork, assuming the chain is trusted for proofs-of-possession. It is generally advisable not to trust the chain for such proofs, as including a recent block hash only mitigates long-range attacks. 
 
 Currently, there is no aggregation strategy for block production VRFs, so Ristretto Schnorr VRFs may remain the default.  In this case, the longer-lived Ristretto Schnorr session key component may help reduce attacks on the random beacon. 
+
+
+**For further inquieries or questions please contact**: [Jeff Burdges](/team_members/jeff.md)

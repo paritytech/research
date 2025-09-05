@@ -3,7 +3,7 @@ title: Sassafras
 ---
 
 ![](Sassafras.png)
-BADASS BABE is a constant-time block production protocol designed to ensure that exactly one block is produced at constant-time intervals, thereby avoiding multiple block production and empty slots. It builds upon BABE to address this limitation in the original protocol. While [Jeff's Write-up](https://github.com/w3f/research/tree/master/docs/papers/habe) explores the full design space of constant-time block production, the focus here is on a practical instantiation using zk-SNARKs to construct a ring-VRF.
+BADASS BABE is a constant-time block production protocol designed to ensure that exactly one block is produced at constant-time intervals, thereby avoiding multiple block production and empty slots. It builds upon BABE to address this limitation in the original protocol. While [Jeff's write-up](https://github.com/w3f/research/tree/master/docs/papers/habe) explores the full design space of constant-time block production, the focus here is on a practical instantiation using zk-SNARKs to construct a ring-VRF.
 
 ## Layman overview
 Simply put, the aim of the protocol is twofold: to run a lottery that distributes the block production slots in an epoch, and to fix the order in which validators produce blocks at the start of that epoch. Each validator signs the same on-chain randomness (VRF input) and publishes the resulting signature (VRF output=[value, proof]). This value serves as their lottery ticket, which can be validated against their public key. 
@@ -37,7 +37,7 @@ $$
 \texttt{KeyGen}_{RVRF}:\lambda,r\mapsto sk, pk
 $$
 
-To optimize the process, an aggregate public key $apk$, referred to as a commitment in Jeff's writeup, is introduced for the full set of validators. This key is essentially a Merkle root derived from the list of individual public keys. 
+To optimize the process, an aggregate public key $apk$, referred to as a commitment in Jeff's write-up, is introduced for the full set of validators. This key is essentially a Merkle root derived from the list of individual public keys. 
 
 $$
 \texttt{Aggregate}_{RVRF}: v, \{pk_v\}_{v\in V}\mapsto apk, ask_v
@@ -60,7 +60,7 @@ apk, spk_v = \texttt{Aggregate}_{RVRF}(v, \{pk_v\}_{v\in V})
 $$
 3. Obtains the SNARK CRS and verifies whether the subversion status has changed or if $v$ has not previously performed this step.
 
-### 2) VRF generation Phase
+### 2) VRF generation phase
 
 The objective is to have at least $s$ VRF outputs (tickets) published on-chain. Although this cannot be strictly guaranteed, the expected value is $xS$.
 
@@ -103,14 +103,14 @@ where $\texttt{Prove}_{RVRF}(sk_v, spk_v, in_{m,j} )$ includes the SNARK and ass
 
 Once this phase concludes, each validator holds zero or more winning tickets and corresponding validity proofs $(j, out_{m, v,j}, \pi_{m,v,j})$. These must later be published on-chain.
 
-### 3) Publishing Phase
+### 3) Publishing phase
 The goal is to identify block producers for a large portion of slots unknown in advance. Well-behaved validators should keep their tickets private. To achieve this, validators do not publish their winning VRF outputs immediately; instead, they relay them to another randomly selected validator (a proxy), who is responsible for publishing them on-chain.
 
 Concretely, validator $v$ selects another validator $v'$ based on the output $out_{m,v,i}$ for $i \in I_{win}$. The validator computes $k=out_{m,v,i} \textrm{mod} |V|$ and sends its winning ticket to the $k$th validator according to a fixed ordering. Then, validator $v$ signs the message: $(v, l, enc_v'(out_{m,v,i}, \pi_{m,v,i}))$ where $end_{v'}$ denotes encryption using the public key of $v'$. Winning outputs are indexed using $l$ ranging from $0$ to $L-1$, and are gossiped through the network. If there are more than $L$ outputs below the threshold $T$, only the lowest $L$ are disseminated. This limitation helps prevent validator from spamming the network.
 
 Once a validator receives a message, it checks whether it has already received a message with the same $v$ and $l$; if so, it discards the new message. Otherwise, it decrypts the message to determine whether it is the intended proxy and forwards (gossips) the message. Validators further gossip messages addressed to themselves to mitigate traffic correlation risks.
 
-When a validator decrypts a message using its private key, it verifies whether it was the correct proxy by checking out that $out_{m,v,i} \textrm{mod} |V|$ corresponds to its index. If confirmed, then at a designated block number, it broadcasts a transaction containing $(out_{m,v,i}, \pi_{m,v,i}))$ for inclusion on-chain. If the validator serves as a proxy for multiple tickets, it submits multiple transactions at the appointed block.
+When a validator decrypts a message using its private key, it verifies whether it was the correct proxy by checking out that $out_{m,v,i} \textrm{mod} |V|$ corresponds to its index. If confirmed, it then broadcasts a transaction at a designated block number, containing $(out_{m,v,i}, \pi_{m,v,i}))$ for inclusion on-chain. If the validator serves as a proxy for multiple tickets, it submits multiple transactions at the appointed block.
 
 If validator $v$'s ticket is not included on-chain before a certain block number, either due to proxy misbehavior or because it did not forward the ticket to any proxy, then $v$ submits the transaction $(out_{m,v,i}, \pi_{m,v,i})$ independently. A validator might refrain from selecting a proxy when it holds more than $L$ winning tickets.
 

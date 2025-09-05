@@ -1,5 +1,7 @@
 # Syed Hosseini
 
+![](Syed.png)
+
 syed@web3.foundation
 
 Seyed is a researcher at the Web3 Foundation, where he works on the specification of the Polkadot Runtime Environment (PRE). 

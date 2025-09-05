@@ -18,8 +18,8 @@ While raising funds solely by minting new tokens is possible, it is more sensibl
 
 - By redirecting tokens in this manner, the amount of actual stake burning is reduced, resulting in better control over the inflation rate. It is worth noting that stake burning leads to deflation, and the events that trigger it are unpredictable.
 
-- Following an event that results in significant stake slashing, governance may opt to partially reimburse the affected stake. In the event of a code bug or other extenuating circumstances, having DOTs readily available in the treasury is advantageous, as it eliminates the need to burn and later mint new tokens.
+- Following an event that results in significant stake slashing, governance may opt to partially reimburse the affected stake. In the event of a code bug or other extenuating circumstances, having DOT readily available in the treasury is advantageous, as it eliminates the need to burn and later mint new tokens.
 
-- Periods marked by unusually high levels of stake burning—whether caused by misconduct or excessive transaction fees—indicate systemic issues that require resolution. To cover the development costs associated with fixing such problems, additional treasury funds are needed during these times.
+- Periods marked by unusually high levels of stake burning, whether caused by misconduct or excessive transaction fees, indicate systemic issues that require resolution. To cover the development costs associated with fixing such problems, additional treasury funds are needed during these times.
 
 **For any inquiries or questions, please contact** [Jonas Gehrlein](/team_members/Jonas.md)

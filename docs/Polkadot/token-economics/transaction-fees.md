@@ -56,13 +56,13 @@ $$
 fee(tx) = base\_fee + type(tx) \cdot length(tx) + c_{traffic} \cdot weight(tx)
 $$
 
-Here, $c_{traffic}$ is a transcation-independent parameter that evolves over time according to network traffic. You can find an explanation of this parameter in the following subsection. The parameter $type(tx)$ depends solely on the transaction type; currently, $type(tx)$ is set to zero for operational transactions.
+Here, $c_{traffic}$ is a transaction-independent parameter that evolves over time according to network traffic. You can find an explanation of this parameter in the following subsection. The parameter $type(tx)$ depends solely on the transaction type; currently, $type(tx)$ is set to zero for operational transactions.
 
 The term $weight(tx)$ represents the processing cost incurred by the block producer, while the term $type(tx) \cdot length(tx)$ captures the opportunity cost of including one transaction over another within a block.
 
 ### Adjustment of fees over time
 
-Transaction demand on blockchains is typically irregular. There may be short-term spikes in activity—ranging from hours within a day to days within a month—as well as longer-term trends. To account for these fluctuations, a mechanism is needed to automatically adjust transaction fees over time. According to the law of supply and demand, increasing fees should reduce demand, while decreasing fees should encourage it.
+Transaction demand on blockchains is typically irregular. There may be short-term spikes in activity, ranging from hours within a day to days within a month, as well as longer-term trends. To account for these fluctuations, a mechanism automatically adjusts transaction fees over time. According to the law of supply and demand, increasing fees should reduce demand, while decreasing fees should encourage it.
 
 To manage activity peaks, a trade-off must be made between rapidly raising transaction fees and risking long transaction inclusion times. Two mechanisms help mitigate these effects. The first adjusts fees dynamically in response to short-term fluctuations. The second mechanism adjusts gradually, in line with long-term trends, and incorporates tipping to give users control over waiting times during peak hours. While the slower, tip-enabled approach appears to offer a more balanced solution, both mechanisms warrant close consideration.
 
@@ -96,7 +96,7 @@ $$
 \frac{c_{traffic}^{new} - c_{traffic}^{old}}{c_{traffic}^{old}}\approx v(s-s^*)
 $$
 
-* If $k$ blocks are produced during a given time period and the average saturation level is $s_{average}$, then the relative change in $c_{traffic}$ over that period becomes proportional to $k$ times the difference $(s_{average} - s^*)$, i.e.
+* If $k$ blocks are produced during a given time period and the average saturation level is $s_{average}$, then the relative change in $c_{traffic}$ over that period becomes proportional to $k$ times the difference $(s_{average} - s^*)$, i.e.,
 
 $$
 \frac{c_{traffic}^{final} - c_{traffic}^{initial}}{c_{traffic}^{initial}}\approx vk(s_{average}-s^*)

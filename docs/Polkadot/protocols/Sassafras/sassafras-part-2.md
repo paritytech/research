@@ -1,7 +1,5 @@
 # Sassafras Part 2: Deep Dive
 
-Authors: Elizabeth Crites and Fatemeh Shirazi
-
 This is the second in a series of three blog posts that describe the new consensus protocol Sassafras, which is planned to be integrated into Polkadot, replacing the current [BABE](https://wiki.polkadot.network/docs/learn-consensus#block-production-babe)+[Aura](https://openethereum.github.io/Aura.html) consensus mechanism. 
 
 Here is an overview of the three blog posts:
@@ -114,6 +112,8 @@ which makes the tickets sent to different receivers indistinguishable,
 2) tickets sent by all leaders are of the same size, and 3) the repeaters send out all of the winning tickets they received at the same time, eliminating the possibility of correlation via timing signatures.
 
 We now move to [Part 3](Sassafras-part-3), which gives a detailed efficiency analysis and comparison with other approaches to leader election.
+
+**For inquieries and questions, please contact:** [Elizabeth Crites](/team_members/elizabeth.md)
 
 [^1]: We show how to chose the parameter $n_t$ in [the paper](https://eprint.iacr.org/2023/002). For example, $n_t$ should be at least 6 for $2^{13}$ elections, under the assumption that the fraction $\alpha$ of corrupt parties is less than $\approx 0.3$ with $2^{14} = 16384$ total parties. (This is the number of validators running the leader election protocol proposed for Ethereum; see [Part 3](Sassafras-part-3).)
 

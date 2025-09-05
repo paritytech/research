@@ -19,5 +19,3 @@ Validators and nominators lock their tokens as collateral and receive staking re
 In the [overview page](1.%20Overview.md) you can learn about NPoS, and for an in-depth analysis you can read the [research paper](2.%20Paper.md). For more details on staking rewards, check out the [token economics research section](Polkadot/overview/2-token-economics.md), and learn about slashing in [this section](Polkadot/security/slashing/amounts.md). For a broader understanding of the staking process, explore [Wiki pages](https://wiki.polkadot.network/docs/en/learn-staking). 
 
 Unlike other projects, Polkadot maintains complete independence between validator selection and [governance](https://wiki.polkadot.network/docs/en/learn-governance). In particular, users' rights to participate in governance are never delegated.
-
-**For any inquiries or questions, please contact**

@@ -1,6 +1,5 @@
 # Sassafras Part 1: A Novel Single Secret Leader Election Protocol 
 
-Authors: Armando Caracheo, Elizabeth Crites, and Fatemeh Shirazi
 
 Polkadot is set to replace the [BABE](https://wiki.polkadot.network/docs/learn-consensus#block-production-babe)+[Aura](https://openethereum.github.io/Aura.html) consensus protocol with a new one: *Sassafras*. While Sassafras will be used to generate blocks on Polkadot's relay chain, it is also suitable for use in other proof-of-stake (PoS) blockchains. So, what key advantages does this new protocol bring to the blockchain ecosystem?
 
@@ -67,5 +66,6 @@ Our next blog post [Sassafras Part 2 - Deep Dive](sassafras-part-2), will explai
 
 So stay tuned, brave reader. There's much more to discover in our upcoming Sassafras series, which is packed with valuable insights!
 
+**For inquieries or questions, please contact:** [Elizabeth Crites](/team_members/elizabeth.md)
 
 [def]: Sassafras-diagram.png

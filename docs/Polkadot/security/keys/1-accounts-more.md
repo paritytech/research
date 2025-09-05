@@ -8,7 +8,7 @@ Polkadot accounts should primarily use Schnorr signatures, with both the public 
 
 ## Schnorr signatures 
 
-Despite Schnorr signatures satisfying the [Bitcoin Schnorr wishlist](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki) and performing well on highly secure curves such as Ed25519 and secp256k1, this wishlist arguably overstates the capabilities of Schnorr-based multi-signatures. In practice, these schemes typically require three round trips, which, while suitable for industrial applications, introduces additional complexity and latency. 
+Despite Schnorr signatures satisfying the [Bitcoin Schnorr wishlist](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki) and performing well on highly secure curves such as Ed25519 and secp256k1, this wishlist arguably overstates the capabilities of Schnorr-based multi-signatures. In practice, these schemes typically require three round trips, which, while suitable for industrial applications, introduce additional complexity and latency. 
 
 An alternative scheme, call mBCJ, described on pages 21-22 of this [paper](https://eprint.iacr.org/2018/417.pdf), offers a two-round multi-signature protocol. That said, a delinearized variant of mBCJ is required for account-based systems, as discussed in this [GitHub issue](https://github.com/w3f/schnorrkel/issues/15). It is also important to note that mBCJ is not a true Schnorr signature scheme, as it uses a different verification model and structural assumptions. 
 
@@ -23,7 +23,7 @@ Most importantly, by combining the derandomization techniques of ECDSA with a se
 
 ## Curves
 
-There exist two commonly used elliptic curves for account keys in blockchain systems: secp256k1 and Ed25519. For slightly more speed, FourQ is a viable alternative, though it may be excessive for blockchain use, as implementations are rare and it appears to be covered by older, though not fully expired, patents.  Additionally, for fast signature verification in zkSNARKs a relevant choice is Zcash's JubJub. However, JubJub is not part of Polkadot's roadmap and also lacks widespread implementation support.
+secp256k1 and Ed25519 are two elliptic curves commonly used for account keys in blockchain systems. For slightly more speed, FourQ is a viable alternative, though it may be excessive for blockchain use, as implementations are rare and it appears to be covered by older, though not fully expired, patents.  Additionally, for fast signature verification in zkSNARKs a relevant choice is Zcash's JubJub. However, JubJub is not part of Polkadot's roadmap and also lacks widespread implementation support.
 
 ### How much secp256k1 support?
 
@@ -33,13 +33,13 @@ That said, there are valid reasons to consider broader support for secp256k1. Fo
 
 ### Is secp256k1 risky?
 
-Two theoretical arguments support the preference for a twisted Edwards curve over secp256k1:  First, secp256k1 has a [small CM field discriminant](https://safecurves.cr.yp.to/disc.html), which could potentially enable more effective attacks in the distant future.  Second, secp256k1 uses fairly rigid paramater choices that are [not considered optimal](https://safecurves.cr.yp.to/rigid.html). Neither of these concerns is currently regarded as critical. 
+Two theoretical arguments support the preference for a twisted Edwards curve over secp256k1:  First, secp256k1 has a [small CM field discriminant](https://safecurves.cr.yp.to/disc.html), which could potentially enable more effective attacks in the distant future.  Second, secp256k1 uses fairly rigid paramater choices that are [not optimal](https://safecurves.cr.yp.to/rigid.html). Neither of these concerns is currently regarded as critical. 
 
 From a more practical standpoint, secp256k1 does offer [twist security](https://safecurves.cr.yp.to/twist.html), which helps eliminate several classes of attacks and strengthens its overall resilience.  
 
 The most substantial reason to avoid secp256k1 is that all short Weierstrass curves, including secp256k1, have [incomplete addition formulas](https://safecurves.cr.yp.to/complete.html). This means certain curve points cannot be added to others without special handling. As a result, the addition code must include checks for failures, which complicates writing constant-time implementations. 
 
-Reviewing any secp256k1 library used in Polkadot is essential to ensure it performs these checks and maintains constant-time execution. Still, it is not possible to ensure that all third-party wallet software does the same.
+Reviewing any secp256k1 library used in Polkadot is essential to ensure it performs these checks and maintains constant-time execution. Still, it is not possible to ensure that every third-party wallet software does the same.
 
 Incomplete addition formulas are relatively harmless when used for basic Schnorr signatures, though forgery attacks may sill be possible. A greater concern arises when secp256k1 is used in less well-explored protocols, such as multi-signatures and key derivation. Awareness of such use cases exists, especially those outlined in the [Bitcoin Schnorr wishlist](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki).  
 
@@ -47,7 +47,7 @@ Incomplete addition formulas are relatively harmless when used for basic Schnorr
 
 Any elliptic curve used in cryptography has an order of h*l, where h is a small number known as the cofactor, and l is a large prime, typically close to a power of two.  Cofactors complicate almost all protocol implementations, which is why implementing complex protocols is generally safer on curves with a cofactor of h=1, such as secp256k1.  
 
-The cofactor of the Ed25519 curve is 8, but a simple convention known as "clamping" helps secure two particularly common protocols. For more complex protocols, such as multi-signaturtes, key derivation, or other advanced constructions listed in the [Bitcoin Schnorr wishlist](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki), "clamping" must be restricted or avoided altogether.  
+The cofactor of the Ed25519 curve is 8, but a simple convention known as "clamping" helps secure two particularly common protocols. For more complex protocols, such as multi-signatures, key derivation, or other advanced constructions listed in the [Bitcoin Schnorr wishlist](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki), "clamping" must be restricted or avoided altogether.  
 
 Simply dropping "clamping" makes protocol implemention more difficult. Fortunately, the [Ristretto](https://ristretto.group) encoding for the Ed25519 curve ensures that no curve points with 2-torsion are used, effectively eliminating cofactor-related issues. Reecommendations are as follows:
  - The secret key remains an Ed25519 "expanded" secret key.
@@ -55,7 +55,7 @@ Simply dropping "clamping" makes protocol implemention more difficult. Fortunate
 
 In principle, simple use cases can rely on standard Ed25519 "mini" secret keys, except when requiring key derivation. Ristretto-encoded public keys can still verify standard Ed25519 signatures with ease. Ideally, Ristretto should be used throughout in place of the standard Ed25519 point compression, as it eliminates cofactor-related issues and enables safer protocol design.  
 
-It is indeed possible to import standard Ed25519 compressed points, as the [example](https://github.com/w3f/schnorr-dalek/blob/master/src/ristretto.rs#L877) shows. This requires scalar exponentiation via the [`is_torsion_free` method](https://doc.dalek.rs/curve25519_dalek/edwards/struct.EdwardsPoint.html#method.is_torsion_free), which is significantly slower than standard signature verification. Ideally, this process should be reserved for key migration between PoCs implementations.
+It is indeed possible to import standard Ed25519 compressed points, as this [example](https://github.com/w3f/schnorr-dalek/blob/master/src/ristretto.rs#L877) shows. This requires scalar exponentiation via the [`is_torsion_free` method](https://doc.dalek.rs/curve25519_dalek/edwards/struct.EdwardsPoint.html#method.is_torsion_free), which is significantly slower than standard signature verification. Ideally, this process should be reserved for key migration between PoCs implementations.
 
 Ristretto is conceptually simpler than the Ed25519 curve itself, making it easy to integrate into existing Ed25519 implementations. The [curve25519-dalek](https://github.com/dalek-cryptography/curve25519-dalek) crate already offers a highly optimized pure-rust implementation of both Ristretto and Curve25519 group operations.
 
@@ -64,7 +64,7 @@ Ristretto is conceptually simpler than the Ed25519 curve itself, making it easy 
 The [dalek ecosystem](https://github.com/dalek-cryptography) offers a remarkably well-designed infrastructure for zero-knowledge proofs without relying on pairings. For deeper insights, see these two foundational articles on bulletproofs and programmable constraint systems:
  [Bulletproofs Pre-release](https://medium.com/interstellar/bulletproofs-pre-release-fcb1feb36d4b) and [Programmable Constrait Systems for Bulletproofs](https://medium.com/interstellar/programmable-constraint-systems-for-bulletproofs-365b9feb92f7)
 
-All these crates use Ristretto points, so adopting Ristretto for account public keys provides access to advanced tools for building protocols that do not rely on pairings, tools that operate directly on account keys. In principle, these tools could be abstracted to support other twisted Edwards curves, such as FourQ and Zcash's Jubjub. Abstracting them for short Weierstrass curves like secp256k1 may lead to the loss of certain batching optimizations. 
+All these crates use Ristretto points, so adopting Ristretto for account public keys provides access to advanced tools for building protocols that avoid pairings and operate directly on account keys. In principle, these tools could be abstracted to support other twisted Edwards curves, such as FourQ and Zcash's Jubjub. Abstracting them for short Weierstrass curves, like secp256k1, may result in the loss of certain batching optimizations, though. 
 
-
+**For further inquieries or questions please contact**: [Jeff Burdges](/team_members/jeff.md)
 

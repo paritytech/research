@@ -9,20 +9,20 @@ This perspective can be applied to consensus algorithms in proof-of-stake blockc
 
 ## Stash account keys
 
-In Polkadot, these staked or bonded account keys are referred to a "stash account keys" to distinguish them from other key roles discussed below.  The transactions `unbond`, `withdraw_unbonded`, and `bond_extra` are examples described in this [GitHub entry](https://github.com/paritytech/substrate/blob/1a2ec9eec1fe9b3cc2677bac629fd7e9b0f6cf8e/srml/staking/Staking.md).[^2]  There are several ways to implement these or related operations, but if account size is not overly constrained, a highly flexible approach can be considered.
+In Polkadot, these staked or bonded account keys are referred to as "stash account keys" to distinguish them from other key roles discussed below.  The transactions `unbond`, `withdraw_unbonded`, and `bond_extra` are examples described in this [GitHub entry](https://github.com/paritytech/substrate/blob/1a2ec9eec1fe9b3cc2677bac629fd7e9b0f6cf8e/srml/staking/Staking.md).[^2]  There are several ways to implement these or related operations, but if account size is not overly constrained, a highly flexible approach can be considered.
 
 Each stash account maintains an unstaked balance $u \ge 0$ and a list of pending unstaking dates and balances $T = { (t,v) }$ with $v>0$, where one entry lacks a specific unstaking date, i.e., $t = \infty$.  An unstaking operation splits $(\infty,v) \in T$ into $(\infty,v - v')$ and $(t,v')$.  Any payment from a staked account completes pending unstaking operations by transferring their value into the unstaked balance $u$.  In other words, at block height $h$, a payment of value $v'$ with fees $f$ from a stash account is valid if:
 
  - $T_1 = \{ (t,v) \in T_0 : t > h \}$,
  - $u_1 := u_0 + \sum \{ (t,v) \in T_0 : t \le h \} - h - f$ remains positive.
 
-Additional metadata in $T$ may be required to ensure that delayed slashing does not affect more recently added stake, although this concern closely resembles the discussion above.  
+Additional metadata in $T$ may be required to ensure that delayed slashing does not affect more recently added stake. This concern closely resembles the discussion above.  
 
 ## Stake controller account keys
 
 Session keys and TLS keys must rotate periodically.  At the same time, stash account keys should remain air-gapped, preventing them from being used for regular signing.  In consequence, an additional layer, called "stake controller account keys", is required. These keys act as intermediaries, managing the nomination or delegation from stash account keys to session keys. 
 
-Because staking involves small, frequent transactions, "stake controller account keys" are actual account keys with their own separate balances, typically much smaller than the "stash account key" they represent. 
+Since staking involves small, frequent transactions, "stake controller account keys" are actual account keys with their own separate balances, typically much smaller than the "stash account key" they represent. 
 
 In the future, it may be possible to allow certificates issued by stash account keys to restrict the actions of controller keys. This would enhance staker security, especially when certain functions involve reduced slashing risk.  For example, enabling modes for fishermen or block producers could explicitly prohibit nominating or running a validator.  
 
@@ -46,5 +46,5 @@ In essence, an account's nominator key could be defined by appending an addition
 
 [^2] aka https://github.com/paritytech/substrate/commit/1a2ec9eec1fe9b3cc2677bac629fd7e9b0f6cf8e
 
-
+**For further inquieries or questions please contact**: [Jeff Burdges](/team_members/jeff.md)
 

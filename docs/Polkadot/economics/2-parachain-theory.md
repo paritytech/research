@@ -15,4 +15,4 @@ An alternative to encrypted bidding is the use of a dynamic, single-unit first-p
 Reference:
 Samuel Häfner and Alistair Stewart (2021): Blockchains, Front-Running, and Candle Auctions. Working Paper. [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3846363)
 
-**For inquiries or questions please contact** [Alistair Stewart](team_members/alistair.md)
+**For inquiries or questions please contact:** [Alistair Stewart](team_members/alistair.md)

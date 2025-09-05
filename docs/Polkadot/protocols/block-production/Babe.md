@@ -3,6 +3,7 @@ title: BABE
 ---
 
 ![](BABE.png)
+
 Polkadot produces relay chain blocks using the **B**lind **A**ssignment for **B**lockchain **E**xtension protocol (BABE), which assigns block production slots based on a randomness cycle similar to that used in Ouroboros Praos.[^2] The process unfolds as follows: All block producers possess a verifiable random function (VRF) key, which is registered alongside their locked stake. These VRFs generate secret randomness, determining when each producer is eligible to create a block. The process carries an inherent risk that producers may attempt to manipulate the outcome by grinding through multiple VRF keys. To mitigate this, the VRF inputs must incorporate public randomness created only after the VRF key is established. 
 
 As a result, the system operates in epochs, during which fresh public on-chain randomness is created by hashing together all the VRF outputs revealed through block production within that epoch This establishes a cycle that alternates between private, verifiable randomness and collaborative public randomness.
@@ -11,7 +12,7 @@ BABE differs from Ouroboros Praos [^2] in two main aspects: 1) its best chain se
 
 ---
  
-## 1. Epochs, Slots, and Keys 
+## 1. Epochs, slots, and keys 
 
 BABE consists of sequential, non-overlapping epochs $(e_1, e_2,\ldots)$, each with a set of consecutive block production slots ($e_i = \{sl^i_{1}, sl^i_{2},\ldots,sl^i_{t}\}$) up to a bound $t$.  At the start of each epoch, block production slots are randomly assigned to "slot leaders," sometimes to one party, no party, or multiple parties. The assignments are initially private, known only to the designated slot leader. This changes once they publicly claim their slots by producing a new block. 
 
@@ -47,12 +48,12 @@ where $\ell_{vrf}$ is the length of the VRF's first output (randomness value).
 
 BABE consists of three phases:
 
-#### 1st: Genesis Phase
+#### 1st: Genesis phase
 
-The unique genesis block, manually produced in this phase, contains a random number $r_1$ that is used during the first two epochs for slot leader assignments. Session public keys of initial validators are ($\pkvrf_{1}, \pkvrf_{2},..., \pkvrf_{n}$), $(\pksgn_{1}, \pksgn_{2},..., \pksgn_{n}$).
+The unique genesis block, manually produced in this phase, contains a random number $r_1$ used during the first two epochs for slot leader assignments. Session public keys of initial validators are ($\pkvrf_{1}, \pkvrf_{2},..., \pkvrf_{n}$), $(\pksgn_{1}, \pksgn_{2},..., \pksgn_{n}$).
 
 
-#### 2nd: Normal Phase
+#### 2nd: Normal phase
 
 By the time the second phase begins, each validator must have divided their timeline into slots after receiving the genesis block. Validators determine the current slot number according to their local timeline, as explained in [Section 4](./Babe.md#-4.-clock-adjustment--relative-time-algorithm-). If validators join BABE after the genesis block, they should also divide their timelines into slots.
 
@@ -81,7 +82,7 @@ Regardless of whether $V_j$ is a slot leader, upon receiving a block $B = (sl, H
 If all checks pass, $V_j$ adds $B$ to $C'$; otherwise, it discards the block. At the end of the slot, $P_j$ selects the best chain according to the chain selection rule outlined in Section 3.
 
 
-#### 3rd: Epoch Update
+#### 3rd: Epoch update
 
 Before starting a new epoch $e_m$, validators must obtain the new epoch randomness and the updated active validator set. A new epoch begins every $R$ slots, starting from the first slot. 
 
@@ -97,7 +98,7 @@ Including a validator two epochs later ensures that the VRF keys of newly added 
 
 ---
 
-## 3. Best Chain Selection
+## 3. Best chain selection
 
 Given a chain set $\mathbb{C}_j$, and the party's current local chain $C_{loc}$, the best chain selection algorithm eliminates all chains that do not contain the finalized block $B$ determined by GRANDPA. The remaining chains form a subset denoted by $\mathbb{C}'_j$. If GRANDPA finalty is not required for a block, the algorithm resorts to probabilistic finality. In this case, the probabillistically finalized block is defined as the block that is $k$ blocks prior to the latest block in $C_{loc}$.
 
@@ -106,11 +107,11 @@ In this case, the chain selection rule does not follow Ouroboros Genesis [^3], a
 
 ---
 
-## 4. Clock Adjustment (Relative Time Algorithm)
+## 4. Clock adjustment (Relative Time Algorithm)
 
  For the security and completeness of BABE, parties must be aware of the current slot. Typically, validators rely on system clocks sinchronized via by the Network Time Protocol (NTP). This introduces a trust assumption, and if an NTP server is compromised, BABE's security can no longer be upheld. To mitigate such a risk, validators can determine slot timing without relying on NTP. 
  
- Let's assume a partially synchronous network scenario, where any message sent by a validator is delivered within at most $\D$-slots, an unknown parameter. Since each party relies on a local clock not sinchronized by any external source such as NTP or GPS, a validator should store the arrival time of the genesis block as $t_0$, which serves as a reference point marking the start of the first slot. This starting point varies accross validators. Assuming the maximum deviation in the first slot start time between validators is at most $\delta$, each party should divide its timeline into slots and periodically update its local clock according to the following algorithm.
+ Let's assume a partially synchronous network scenario, where any message sent by a validator is delivered within at most $\D$-slots, an unknown parameter. Since each party relies on a local clock not sinchronized by any external source such as NTP or GPS, a validator should store the arrival time of the genesis block as $t_0$, which serves as a reference point marking the start of the first slot. This starting point varies accross validators. Assuming the maximum deviation in the first slot's start time between validators is at most $\delta$, each party should divide its timeline into slots and periodically synchronize its local clock using the following algorithm.
 
 
 
@@ -148,29 +149,29 @@ The image below illustrates the algorithm using a chain-based example in the fir
 
 **Lemma 2** or Adjustment Value. Assuming the maximum total drift between sync-epochs is at most $\Sigma$ and that $2\delta\_max + |\Sigma| \leq \theta$, the maximum difference between the new start time of a slot $sl$ and the old start time of $sl$ is at most $\theta$.
 
-In simple terms, this lemma states that the block production may be delayed by at most $\theta$ at the beginning of the new synch-epoch.
+In simple terms, this lemma states that the block production may be delayed by at most $\theta$ at the beginning of the new sync epoch.
 
 **Proof Sketch.** The chain quality property ensures that more than half of arrival times for blocks used in the median algorithm are timely. As a result, the output of each validator's median algorithm corresponds to a block delivered on time. A formal proof is provided in Theorem 1 of our paper [Consensus on Clocks](https://eprint.iacr.org/2019/1348).
 
 Keeping $\theta$ small is crucial to prevent delays in block production after a sync-epoch. For example (albeit an extreme one), it is not desirable that a validator's adjusted clock indicates the year 2001 when it's actually 2019. In such a case, honest validators might have to wait 18 years before executing an action that was originally scheduled for 2019.
 
-### Temporarily Clock Adjustment
+### Temporarily clock adjustment
 
-The following algorithm permits validators who were offline during part of a synch-epoch to temporarily adjust their local clocks, valid until the next synch-epoch.
+The following algorithm permits validators who were offline during part of a sync epoch to temporarily adjust their local clocks, valid until the next synch-epoch.
 
-**Case 1:** If validator $V$ was offline at any point of a synch-epoch, and upon returning online its clock is functioning correclty, it should resume collecting the arrival times of valid blocks and produce blocks according to its local clock as usual. A block is considered valid in this case if it is not equivocated, is sent by the right validator, and its slot number falls within the current synch epoch. 
+**Case 1:** If validator $V$ was offline at any point of a synch-epoch, and upon returning online its clock is functioning correclty, it should resume collecting the arrival times of valid blocks and produce blocks according to its local clock as usual. A block is considered valid in this case if it is not equivocated, is sent by the right validator, and its slot number falls within the current sync epoch. 
 
-At the end of the synch-epoch, if $V$ has collected $n$ valid block arrival times, it should run the median algorithm using these blocks. In case it has fewer than $n$ blocks, it must wait until the required $n$ arrival times have been gathered. The validator does not run the median algorithm solely with the arrival times of finalized blocks.
+At the end of the sync epoch, if $V$ has collected $n$ valid block arrival times, it should run the median algorithm using these blocks. In case it has fewer than $n$ blocks, it must wait until the required $n$ arrival times have been gathered. The validator does not run the median algorithm solely with the arrival times of finalized blocks.
 
-**Case 2:** If $V$ was offline at any point during a synch-epoch and, upon reconnecting, its clock is no longer functioning properly, it should continue collecting the arrival times of valid blocks. The validator may temporarily adjust its clock using, for example, the arrival time of the last finalized block in GRANDPA, and resume block production accordingly. This temporary clock can be used until $n$ valid blocks have been collected. Once this condition is met, the validator should re-adjust its clock based on the output of the median algorithm applied to these blocks.
+**Case 2:** If $V$ was offline at any point during a sync epoch and, upon reconnecting, its clock is no longer functioning properly, it should continue collecting the arrival times of valid blocks. The validator may temporarily adjust its clock using, for example, the arrival time of the last finalized block in GRANDPA, and resume block production accordingly. This temporary clock can be used until $n$ valid blocks have been collected. Once this condition is met, the validator should re-adjust its clock based on the output of the median algorithm applied to these blocks.
 
 With the temporary clock adjustment, it is possible to ensure that the difference between the time recorded by the adjusted clock and that of an honest party's clock is bounded by at most $2\delta_{max} + |\Sigma|$.
 
-**Note: During one sync-epoch the ratio of such offline validators should not be more than 0.05, otherwise it can affect the security of the relative time algorithm.**
+**Note: During one sync epoch the ratio of such offline validators should not be more than 0.05, otherwise it can affect the security of the relative time algorithm.**
 
 ---
 
-## 5. Security Analysis
+## 5. Security analysis
 
 BABE functions similarly to Ouroboros Praos, with the exception of the chain selection rule and clock synchronization mechanism. From a security analysis perspective, BABE closely resembles Ouroboros Praos, albeit with a few notable differences. If you are more interested in parameter selection and practical outcomes resulting from the security analysis, feel free to skip this section and proceed directly to the next.
 
@@ -192,7 +193,7 @@ The honest chain growth (HCG) property is a relaxed version of the Chain Growth 
 
 The use of these properties demonstrates BABE's persistence and liveness properties. **Persistence** ensures that if a transaction appears in a block sufficiently deep in the chain, it will remain there permanently. **Liveness** guaranteess that if a transaction is provided as input to all honest parties, it will eventually be included in a block, deep enough in the chain, by an honest party.
 
-### Security Proof of BABE
+### Security proof of BABE
 The next step is to analyze BABE with the NTP protocol and with the Median algorithm.
 
 First, prove that both versions of BABE satisfy the chain growth, existential chain quality, and common prefix properties within a single epoch, as well as to establish the chain density property specifically for BABE with median. Then, demonstrate BABE's overall security by showing that it satisfies persistence and liveness across multiple epochs.
@@ -261,7 +262,7 @@ BABE with median algorithm satisfies the HCG property with parameters $\tau_{hcg
 
 **Theorem 2 or Chain Density.**  The Chain Density (CD) property is satisfied over $s_{cd}$ slots in BABE with probability $1 - \exp(-\frac{p_H\_\mathsf{timely}p_\bot^{\D_m} s_{cd} \omega_H^2}{2}) - \exp(-\frac{\gamma^2s_{cd}p_m\_\mathsf{timely}}{2+\gamma}) - \exp(-\ell)$, where $\omega_H \in (0,1)$ and $\gamma > 0$.
 
-**Proof.** Determine the minimum difference between the number of honest slots and the number of malicious slots within $s_{cd}$ slots of a single synch-epoch. To achieve this, identify the minimum number of honest slots, denoted by $H$, and the maximum number of malicious slots, denoted by $m$.
+**Proof.** Determine the minimum difference between the number of honest slots and the number of malicious slots within $s_{cd}$ slots of a single sync epoch. To achieve this, identify the minimum number of honest slots, denoted by $H$, and the maximum number of malicious slots, denoted by $m$.
 
 Using the Chernoff bound, the probability of deviation can be bounded for all $\omega \in (0,1)$:
 
@@ -277,11 +278,11 @@ $$
 
 So, $dif = h-m \geq s_{cd}((1-\omega)p_H\_\mathsf{timely}p_\bot^{\D_m} - (1+\gamma) p_m\_\mathsf{timely})$. Let's denote $dif = m + \ell$ where $\ell \geq dif - (1+\gamma) p_m\_\mathsf{timely} s_{cd}$
 
-Assuming the last block of the previous sync-epoch is denoted by $B$, the chains under consideration are those constructed on top of $B$. Let $C$ be a chain with finalized blocks spanning subslots $sl_u$ to $sl_v$, where  $sl_v = sl_u + s_{cd}$. The longest subchain produced between $sl_u$ and $sl_v$ satisfies $h \geq 2m + \ell$, due to the honest chain growth among chains built on top of $B$. 
+Assuming the last block of the previous sync epoch is denoted by $B$, the chains under consideration are those constructed on top of $B$. Let $C$ be a chain with finalized blocks spanning subslots $sl_u$ to $sl_v$, where  $sl_v = sl_u + s_{cd}$. The longest subchain produced between $sl_u$ and $sl_v$ satisfies $h \geq 2m + \ell$, due to the honest chain growth among chains built on top of $B$. 
 
 A subchain containing more malicious blocks than honest blocks is achievable with $m$ malicious and $m$ honest blocks. However, such a chain cannot surpass the longest honest subchain, except with probability at most $\frac{1}{2^\ell}$. In other words, a subchain dominated by malicious blocks that can be finalized is possible only with negligible probability. 
 
-Therefore, all finalized chains within a synch epoch contain a majority of honest slots.
+Therefore, all finalized chains within a sync epoch contain a majority of honest slots.
 
 $$
 \tag{$\blacksquare$}
@@ -349,11 +350,11 @@ $$
 
 ---
 
-## 6. Practical Results
+## 6. Practical results
 
 This section specifies the parameters necessary to achieve security in both variants of the BABE protocol.
 
-The protocol lifetime is fixed as $\mathcal{L}=3 \text{ years}  = 94670777$ seconds. Let $T$ denote the slot durationi (e.g., $T = 6$ seconds). The total number of slots over the lifetime is $L = \frac{\mathcal{L}}{T}$. Finally, the maximum network delay is $\D$.
+The protocol lifetime is fixed as $\mathcal{L}=3 \text{ years}  = 94670777$ seconds. Let $T$ denote the slot duration (e.g., $T = 6$ seconds). The total number of slots over the lifetime is $L = \frac{\mathcal{L}}{T}$. Finally, the maximum network delay is $\D$.
 
 ### BABE with the NTP
 
@@ -433,7 +434,7 @@ Epoch length should be at least 4480 slots (approximately 7.46666666667 hours)
 
 
 
-### BABE with the Median Algorithm
+### BABE with the median algorithm
 
 * Define the following parameters for Theorem 2: $\alpha_{timely} = 0.85$, $\ell = 20$, $\omega_H = 0.3$ and $\gamma = 0.5$.
 
@@ -443,7 +444,7 @@ Epoch length should be at least 4480 slots (approximately 7.46666666667 hours)
 
 * Proceed with the remaining steps as in BABE with NTP.
 
-Next, determine the synch-epoch length and set $s_{cd}$ according to Theorem 2.
+Next, determine the sync-epoch length and set $s_{cd}$ according to Theorem 2.
 
 The parameters below are computed using the script available at this [GitHub entry](https://github.com/w3f/research/blob/master/experiments/parameters/babe_median.py)
 
@@ -453,7 +454,7 @@ c = 0.38, slot time T = 6 seconds
 
 Security over 3 years with probability 0.99656794973
 
-Resistant to network delay of 2.79659722222 seconds and clock drift of 0.198402777778 seconds per sync-epoch
+Resistant to network delay of 2.79659722222 seconds and clock drift of 0.198402777778 seconds per sync epoch
 
 -~~~~~~~~~~~~~~ Common Prefix Property ~~~~~~~~~~~~~~
 
@@ -463,7 +464,7 @@ This means that the last 140 blocks of the best chain are pruned, while all rema
 
 -~~~~~~~~~~~~~~ Epoch Length ~~~~~~~~~~~~~~
 
-Sync-Epoch length: at least 2857 slots (~4.7617 hours)
+Sync-epoch length: at least 2857 slots (~4.7617 hours)
 
 Epoch length: at least 2000 slots (~3.3333 hours)
 
@@ -479,7 +480,7 @@ Computer clocks are inherently imprecise because the frequency that drives time 
 
 Clock drift occurs because the oscillation frequency varies over time, primarily due to environmental factors such as temperature, air pressure, and magnetic fields. Experiments conducted on Linux systems in non-air conditioned environments show that a drift of 12 PPM (parts per million) corresponds to roughly one second per day. 
 
-Observation suggets that over every 10,000 seconds, the clock frequency changes by 1 PPM, resulting in a drift of approximately 0.08 seconds every three hours. Thus, a rough estimate of one second of drift per day is reasonable. If the sync-epoch spans 12 hours, this implies a clock drift of approximately 0.5 seconds over that period. For further details, refer to the [NTP Clock Quality FAQ](http://www.ntp.org/ntpfaq/NTP-s-sw-clocks-quality.htm#AEN1220)
+Observation suggets that over every 10,000 seconds, the clock frequency changes by 1 PPM, resulting in a drift of approximately 0.08 seconds every three hours. Thus, a rough estimate of one second of drift per day is reasonable. If the sync epoch spans 12 hours, this implies a clock drift of approximately 0.5 seconds over that period. For further details, refer to the [NTP Clock Quality FAQ](http://www.ntp.org/ntpfaq/NTP-s-sw-clocks-quality.htm#AEN1220)
 
 [![](https://i.imgur.com/Slspcg6.png)](http://www.ntp.org/ntpfaq/NTP-s-sw-clocks-quality.htm#AEN1220)
 
