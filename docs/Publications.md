@@ -5,6 +5,7 @@ Note: Top-tier conferences and journals for their respective fields are indicate
 
 **Peer reviewed papers:**
 
+- Bhargav Nagaraja Bhatt, Fateme Shirazi, Alistair Stewart, [Trustless Bridges via Random Sampling Light Clients](https://eprint.iacr.org/2025/057), **AFT 2025**
 - Elizabeth Crites, Alistair Stewart, [A Plausible Attack on the Adaptive Security
 of Threshold Schnorr Signatures](https://eprint.iacr.org/2025/1001.pdf), **CRYPTO 2025**. 
 - Jeff Burdges, Elizabeth Crites, Handan Kılınç Alper, Alistair Stewart, Sergey Vasilyev, [Sassafras and Semi-Anonymous Single Leader Election](https://eprint.iacr.org/2023/031.pdf), ACNS 2025.
@@ -21,7 +22,6 @@ of Threshold Schnorr Signatures](https://eprint.iacr.org/2025/1001.pdf), **CRYPT
 
 **Working papers:**
 - Gehrlein, Jonas and Häfner, Samuel and Oechssler, Jörg, The Candle Auction in the Field and the Lab, preprint available at [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5109856)), January 23, 2025.
-- Bhargav Nagaraja Bhatt, Fatemeh Shirazi, Ailstair Stewart, [Trustless Bridges via Random Sampling Light Clients](https://eprint.iacr.org/2025/057), in submission.
 - Jeff Burdges, Alfonso Cevallos, Handan Kılınç Alper, Chen-Da Liu-Zhang, Fatemeh Shirazi, Alistair Stewart, Rob Habermeier, Robert Klotzner, Andronik Ordian,[Efficient Execution Auditing for Blockchains under Byzantine Assumptions](https://eprint.iacr.org/2024/961), preprint.
   - Paper was presented at [SBC 2024](https://www.sbc-conference.com/2024/), [video](https://www.youtube.com/watch?v=C1teIFTSphE).
 - Jeff Burdges, Elizabeth Crites, Oana Ciobotaru, Handan Kılınç Alper, Alistair Stewart, Sergey Vasilyev, [Ring Verifiable Random Functions and Zero-Knowledge Continuations](https://eprint.iacr.org/2023/2), working paper.
