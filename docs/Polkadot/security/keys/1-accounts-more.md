@@ -2,7 +2,7 @@
 title: Account signatures and keys in Polkadot
 ---
 
-![](account-signatures-and-keys.png)
+<!--![](account-signatures-and-keys.png)-->
 
 Polkadot accounts should primarily use Schnorr signatures, with both the public key and the `R` point in the signature encoded using the [Ristretto](https://ristretto.group) point compression for the Ed25519 curve. It is recommended to collaborate with the [dalek ecosystem](https://github.com/dalek-cryptography), for which Ristretto was developed, while providing a simpler signature crate. The [Schnorr-dalek](https://github.com/w3f/schnorr-dalek) library offers a first step in that direction.
 

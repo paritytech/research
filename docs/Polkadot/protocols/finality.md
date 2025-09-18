@@ -4,6 +4,7 @@ title: Finality
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
+![](Grandpa.png)
 
 GRANDPA is the finality (consensus) algorithm used in Polkadot. To get started, you can read our "extended abstract," which provides a high-level overview. If you're eager to dive deeper into the technical details, feel free to skip ahead to the full paper just below. And as a bonus, there is a more polished and slightly shorter version of the full paper available on [arxiv](https://arxiv.org/abs/2007.01560). 
 

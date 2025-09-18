@@ -3,13 +3,14 @@
 
 This is the third in a series of three blog posts that describe the new consensus protocol Sassafras, which is planned to be integrated into Polkadot, replacing the current [BABE](https://wiki.polkadot.network/docs/learn-consensus#block-production-babe)+[Aura](https://openethereum.github.io/Aura.html) consensus mechanism. 
 
-Here is an overview of the three blog posts:
+:::note Overview of the three blog posts:
 
 **[Part 1 - A Novel Single Secret Leader Election Protocol](sassafras-part-1):** The aim of this blog post is to give an introduction that is understandable to any reader with a slight knowledge of blockchains. It explains why Sassafras is useful and gives a high-level overview of how it works.
 
 **[Part 2 - Deep Dive](sassafras-part-2):** The aim of this blog post is to dive into the details of the Sassafras protocol, focusing on technical aspects and security.
 
 **Part 3 - Compare and Convince:** The aim of this blog post is to offer a comparison to similar protocols and convince the reader of Sassafras's value.
+:::
 
 ## If you have not read Part 1 and Part 2
 Here is a a summary: 
@@ -92,7 +93,6 @@ In particular, we conducted a comprehensive comparison of various protocols base
 
 While the setup phase is expected to be rare in PoS blockchain protocols, shuffle-based solutions (with the exception of WHISK) impose impractical levels of message overhead. For election messages on the blockchain, Shuffle-2 and Shuffle-3 are highly inefficient. In stark contrast, Sassafras introduces a mere 7.64 MB overhead on the blockchain. 
 
-    
 | Protocol || Setup | Election |
 | -------- |--------| -------- | -------- |
 |Shuffle-1|<div class="subcolumn">Off-Chain</div><div>On-Chain</div>|<div class="subcolumn">-</div>$8790.15$ MB<div></div>|<div class="subcolumn">-</div>$123.7$ MB<div></div>|
@@ -121,7 +121,6 @@ In terms of both communication and computational overhead, Sassafras outperforms
 |**Sassafras**|$O(1)$|$7.81$ ms &#x2713;|
 
 Table 3: Computational overhead of SSLE protocols on a blockchain.  $N$ is the total number of participants.
-
 
 ## Key Takeaways
 

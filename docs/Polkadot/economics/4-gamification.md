@@ -2,7 +2,7 @@
 title: Non-monetary incentives for collective members
 ---
 
-![](collective-members.png)
+<!--![](collective-members.png)-->
 
 Behavioral economics has demonstrated that non-monetary incentives can be powerful motivators, offering a viable alternative to financial rewards (see, e.g., [Frey & Gallus, 2015](https://www.bsfrey.ch/articles/C_600_2016.pdf)). This is especially true in environments where intrinsic motivation drives behavior. In such contexts, monetary incentives may even crowd out intrinsic motivation, ultimately reducing engagement ([Gneezy & Rustichini, 2000](https://academic.oup.com/qje/article-abstract/115/3/791/1828156)). 
 
@@ -17,7 +17,7 @@ This entry explores non-monetary incentives as a means to encourage more active 
 
 ### Goals
 
-The goals is to design a mechanism that automatically applies selected gamification tools such as badges, achievements, and levels to collective members in order to:
+The goal is to design a mechanism that automatically applies selected gamification tools such as badges, achievements, and levels to collective members in order to:
 
 * Promote the engagement and liveness of members.
 * Leverage established techniques from the literature to improve the overall governance process. 

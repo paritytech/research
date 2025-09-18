@@ -2,7 +2,7 @@
 title: Slashing mechanisms
 ---
 
-![](Slashing-mechanisms.jpeg)
+<!--![](Slashing-mechanisms.jpeg)-->
 
 ## General principles
 
@@ -20,7 +20,9 @@ To define appropriate slashing amounts, it is important to understand the annual
 
 **Details on slashing validators and nominators.** When a validator is found guilty of misconduct, the corresponding validator slot (which includes the validator and their nominators) is slashed by a fixed percentage of their stake, not a fixed amount of DOT. This means that validator slots with larger stakes will incur greater losses in DOT. The goal is to incentivize nominators to gradually shift their support to less popular validators.
 
-* Note: *Should the validator be slashed more heavily than their nominators? If so, by how much? Care must be taken to avoid bankrupting validators for Level 1 and Level 2 misconducts.*
+:::note Question
+Should the validator be slashed more heavily than their nominators? If so, by how much? Care must be taken to avoid bankrupting validators for Level 1 and Level 2 misconducts.*
+:::
 
 **Kicking out.** *Context: At the beginning of each era, an NPoS election is held to select validator candidates. Under normal circumstances, current validators are automatically considered candidates for the next election (unless they opt out), and nominators' lists of trusted candidates remain unchanged unless explicitly modified. In contrast, unelected candidates must reconfirm their candidacy in each era to ensure they are online and active.*
 
@@ -58,7 +60,9 @@ If a large number of validators are kicked out, or become unresponsive, the era 
 
 Finally, the database should support an auxiliary protocol: if a validator accumulates more than 1% slashing, regardless of the reason, they should be removed from all the nominators' lists. For example, a validator who is unresponsive in a single era may not be removed, but repeated unresponsiveness over several eras should trigger removals as a safeguard for nominators.
 
-*(Question: How can such a database be efficiently maintained while keeping memory usage low?)*
+:::note Question
+How can such a database be efficiently maintained while keeping memory usage low?
+:::
 
 **Detection mechanisms.** To slash a validator, an objective on-chain "attestation of misconduct" is required. This must be short, *valid on all forks*, and remain valid even in the event of a *chain reversion*. Two attestations for the same misconduct cannot be valid simultaneously, preventing double punishment for a single offense. The previously mentioned database plays a key role in supporting this logic.
 
@@ -99,9 +103,11 @@ where the maximum is taken over all validators in the same era.
 
 **Lemma.** *No validator will be wrongfully considered unresponsive in a billion years.*
 
-*Proof.* (Assume validators are shuffled among parachains frequently enough that, in every era, any two validators have the opportunity to validate a similar number of parachain blocks, even if some parachains produce blocks at a higher rate than others. If this assumption does not hold, the threshold of $1/4$ can be lowered, and the analysis adjusted accordingly.)
+:::note Assumption
+Validators are shuffled among parachains frequently enough that, in every era, any two validators have the opportunity to validate a similar number of parachain blocks, even if some parachains produce blocks at a higher rate than others. If this assumption does not hold, the threshold of $1/4$ can be lowered, and the analysis adjusted accordingly.
+:::
 
-Fix an era, and let $n$ be the total number of parachain blocks that a validator can *potentially* validate. Conservatively, take $n\geq 1000$, based on 3 blocks per minute, 60 minutes per hour, and 6 hours per era. Consider a responsive validator $v$, and let $p$ be the probability that $v$ successfully issues a validity statement for any given block. Although $p$ depends on many factors, assume $p\geq 1/2$ for a responsive validator. Then the number $c_v$ of validity statements produced by $v$ follows a binomial distribution with expected value $p\cdot n \geq 500$.
+**Proof.** Fix an era, and let $n$ be the total number of parachain blocks that a validator can *potentially* validate. Conservatively, take $n\geq 1000$, based on 3 blocks per minute, 60 minutes per hour, and 6 hours per era. Consider a responsive validator $v$, and let $p$ be the probability that $v$ successfully issues a validity statement for any given block. Although $p$ depends on many factors, assume $p\geq 1/2$ for a responsive validator. Then the number $c_v$ of validity statements produced by $v$ follows a binomial distribution with expected value $p\cdot n \geq 500$.
 
 This distribution is tightly concentrated around its expectation. The maximum number of validity statements across all validators in the era is at most $n$. Hence, validator $v$ would be wrongfully considered unresponsive only if it produces fewer than $c_v < n/4\leq p\cdot n/2$ validity statements. Applying Chernoff's inequality to bound the tail of the binomial distribution yields:
 
@@ -140,9 +146,11 @@ As previously mentioned, a 10% slash is applied if a single validator is found g
 
 ### Rejecting a set of votes
 
-*Context: According to the Grandpa paper, a set $S$ of votes has supermajority for a block $B$ if more than $2/3$ of validators in $S$ vote for chains that contain $B$. Similarly, it is impossible for set $S$ to have supermajority for $B$ if more than $2/3$ of validators vote for chains that don't contain $B$. Therefore, a set $S$ can exhibit both properties simultaneously only if more than $1/3$ of validators equivocate within $S$.* 
-
-*If block $B$ is finalized in a round $r_B$, and assuming honest behavior, there must exist a set $V_B$ of prevotes and a set $C_B$ of precommits in that round, both forming a supermajority for $B$. A validator $v$ considers block $B$ finalized if it can observe such a set $C_B$ of precommits, even if it has not yet seen a sufficient number of prevotes.*
+:::note Context 
+According to the Grandpa paper, a set $S$ of votes has supermajority for a block $B$ if more than $2/3$ of validators in $S$ vote for chains that contain $B$. Similarly, it is impossible for set $S$ to have supermajority for $B$ if more than $2/3$ of validators vote for chains that don't contain $B$. Therefore, a set $S$ can exhibit both properties simultaneously only if more than $1/3$ of validators equivocate within $S$.
+ 
+If block $B$ is finalized in a round $r_B$, and assuming honest behavior, there must exist a set $V_B$ of prevotes and a set $C_B$ of precommits in that round, both forming a supermajority for $B$. A validator $v$ considers block $B$ finalized if it can observe such a set $C_B$ of precommits, even if it has not yet seen a sufficient number of prevotes.
+:::
 
 Relative to a block $B$ finalized in round $r_B$, a rejecting set of votes is defined as a set $S$ of votes of the same type (either prevotes or precommits), cast in the same round $r_S\geq r_B$, for which it is impossible to achieve a supermajority for $B$.
 
@@ -160,7 +168,9 @@ If $r_s>r_B$, transaction $T$ raises a time-bound challenge that any validator m
 
 Throughout the iterations, it is sufficient to track the current challenge and maintain the list of validators who have raised or answered previous challenges, as they will be rewarded at the end of the process.
 
-*(Q. What should be done if such a chain of challenges eventually targets a group of validators from a previous era who are no longer active (i.e., not currently validators or online)?)*
+:::note Question
+What should be done if such a chain of challenges eventually targets a group of validators from a previous era who are no longer active (i.e., not currently validators or online)?
+:::
 
 ### Equivocation / concurrent cases of unjustified vote
 
@@ -182,7 +192,9 @@ Reporter rewards do not scale with $k$. Specifically, reporters receive 10% of w
 
 ### Invalid vote
 
-*Context: in the current protocol for validating parachain blobs, there is a distinction between **minimally validated** blobs (having, for example, one or two validity statements) and **fully validated** blobs (having a certain minimum number of votes, say five, which increases if there are fishermen reports concerning that blob). BABE block producers may include references to minimimally validated blobs, but Grandpa voters can only vote for relay chain blocks that contain exclusively fully validated blobs (referred to as validated blocks).*
+:::note Context
+In the current protocol for validating parachain blobs, there is a distinction between **minimally validated** blobs (having, for example, one or two validity statements) and **fully validated** blobs (having a certain minimum number of votes, say five, which increases if there are fishermen reports concerning that blob). BABE block producers may include references to minimimally validated blobs, but Grandpa voters can only vote for relay chain blocks that contain exclusively fully validated blobs (referred to as validated blocks).
+:::
 
 An **invalid vote** is defined as a vote, either prevote or precommit, for a chain that includes a non-validated block, i.e., a block referencing a parachain blob that has not been fully validated. At present, this form of misconduct is not subject to slashing, as it does not pose a serious threat (assuming an honest majority among Grandpa voters) and due to the lack of an efficient detection mechanism.
 

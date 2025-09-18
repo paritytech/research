@@ -2,7 +2,7 @@
 title: Experimental Investigation of Parachain Auctions
 ---
 
-![](Combinatorial-candle-auction.png)
+<!--![](Combinatorial-candle-auction.png)-->
 
 This entry focuses on experimentally examining the combinatorial candle auction as implemented in the Polkadot and Kusama protocol. Specifically, it compares its outcome with those of more traditional dynamic combinatorial auction formats currently in use. 
 
@@ -56,13 +56,14 @@ The aim is to examine an ascending combinatorial auction with discrete rounds $t
 The set of items is $X = \{1,2\}$, resulting in three possible packages $\{\{1\},\{2\},\{1,2\}\}$. Bidders may submit bids, where a bid $b=(p,x)$ consists of a price $p$ and a package $x \subseteq X$. Prices must increase and lie on a finite (fine) grid. Winning bids are selected to maximize total payment. The payment rule is pay-as-bid; that is, winning bidders must pay the amount they bid. 
 
 ### The three ending formats
+
 As mentioned in the introduction, one main objective is to compare three auction-ending formats: the candle format, the hard-closing rule, and the activity rule.
 
-|                | Communication |
-|----------------|------------------|
-| Candle Auction | CA            |
-| Hard-Close     | HC            |
-| Activity Rule  | AR            |
+| Auction Format   | Abbreviation |
+|------------------|--------------|
+| Candle Auction   | CA           |
+| Hard-Close       | HC           |
+| Activity Rule    | AR           |
 
 
 **Candle Format.** In a candle auction, bidders can freely submit increasing bids during the auction phase, and the auction terminates at a random time. In this specification, the ending time is determined retroactively: bids on packages are accepted for a predefined number of rounds, denoted by $\bar T$, after which the auctioneer announces the actual ending time $T \in \{1,...,\bar T\}$. The ending time $T$ is random, and the probability that the auction ends in round $t$ is publicly known and given by $q_t \in (0,1)$, where $\sum_{t=1}^{\bar T}q_t=1$.
@@ -81,7 +82,11 @@ In each auction, three bidders participate. Bidders are assigned one of two role
 
 The global bidder has a positive valuation only for the grand package, denoted as $\{1,2\}$. Local bidders, on the other hand, hold valuations for individual packages, which are added up if they win the grand package. Specifically, it is assumed that
 
+<div align="center">
+
 ![](https://i.imgur.com/feIk9Hu.png)
+
+</div>
 
 This means that the global bidder draws a valuation $v$ for the package $\{1,2\}$, while always holding a zero valuation for the individual packages $\{1\}$ and $\{2\}$. In contrast, each local bidder $i = 1,2$ draws a valuation $v_i$ for item $\{1\}$, which implies a valuation of $80-v_i$ for item $\{2\}$, and a total valuation of $80$ for the combined package $\{1,2\}$.
 

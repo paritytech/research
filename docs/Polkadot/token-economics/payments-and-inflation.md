@@ -1,7 +1,7 @@
 ---
 title: NPoS payments and inflation
 ---
-![](Payments-and-inflation.png)
+<!--![](Payments-and-inflation.png)-->
 
 Payments to validators and nominators for their participation in block production (BABE) and finality (GRANDPA), as well as on payments arising from routine token minting, are among the core pillars of the Polkadot NPoS system. While other forms of compensation, including slashing penalties, rewards to misconduct reporters and fishermen, or distributions from transaction fees, are also of main relevance, they are discussed in separate sections.
 
@@ -86,10 +86,13 @@ $$
 ### Example: Inflation model
 Assuming the number of active parachains leads to $\chi_{ideal}=0.5$, this implies $i_{ideal}=0.2$. Additionaly, $I_{0}$ is set to 0.025 and $d$ to 0.05. Under this configuration, the resulting plots show $i(x)$ in green and $I_{NPoS}(x)$ in blue.
 
+<div align="center">
+
 <img src="https://i.imgur.com/Kk1MLJH.png" class="token-eco-chart"/>
 
 Note that the curves shift depending on the value of $\chi_{ideal}$. Alternative parameter configurations are available [here](https://www.desmos.com/calculator/2om7wkewhr).
 
+</div>
 
 ### Payment details
 
@@ -141,15 +144,14 @@ Within a validator slot, payments are handled as follows: First, validator $v$ r
 
 Under this scheme, the market regulates itself. A validator candidate who sets a high commission fee risks failling to attract sufficient votes for election, while validators with strong reputations for reliability and performance may justify charging higher fees, an outcome that is considered fair. For nominators, backing less popular or riskier validators may result in higher relative rewards, which aligns with expected risk-reward dynamics.
 
---
-Additional notes
-
+:::note Additional notes
 
 Finality gadget [GRANDPA](https://github.com/w3f/consensus/blob/master/pdf/grandpa.pdf)
 
 Block production protocol [BABE](Polkadot/protocols/block-production/Babe.md)
 
 The [NPoS scheme](Polkadot/protocols/NPoS/index.md) for selecting validators
+:::
 
 **For any inquiries or questions, please contact** [Jonas Gehrlein](/team_members/Jonas.md)
 

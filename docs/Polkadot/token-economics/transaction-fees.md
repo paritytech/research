@@ -6,7 +6,7 @@ title: Transaction Fees
 
 With a clearer understanding of how payments and inflation occur, the next step is to discuss the desired properties of relay-chain transactions.
 
-![](Transaction-fees.png)
+<!--![](Transaction-fees.png)-->
 
 1. Each relay-chain block should be processed efficiently, even on less powerful nodes, to prevent delays in block production.
 2. The growth rate of the relay-chain state is bounded. 2′. Ideally, the absolute size of the relay-chain state is also bounded.

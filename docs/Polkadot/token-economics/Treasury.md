@@ -2,7 +2,7 @@
 title: Treasury
 ---
 
-![](Treasury.png)
+<!--![](Treasury.png)-->
 
 Treasury refers to the system's continuous need to raise funds. These funds compensate developers for delivering software updates, implementing changes approved through referenda, adjusting parameters, and maintaining overall system stability.
 

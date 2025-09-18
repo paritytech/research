@@ -2,7 +2,7 @@
 title: Account key creation ideas for Polkadot
 ---
 
-![](ideas-for-account-key-creation.png)
+<!--![](ideas-for-account-key-creation.png)-->
 
 There's a trick for using Ed25519 "mini" private keys in [Schnorr-Dalek](https://github.com/w3f/schnorr-dalek/blob/master/src/keys.rs), where a user's "mini" private key consists of 32 bytes of unstructured entropy.  
 

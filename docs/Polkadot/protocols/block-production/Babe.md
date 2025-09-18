@@ -2,7 +2,7 @@
 title: BABE
 ---
 
-![](BABE.png)
+<!--![](BABE.png)-->
 
 Polkadot produces relay chain blocks using the **B**lind **A**ssignment for **B**lockchain **E**xtension protocol (BABE), which assigns block production slots based on a randomness cycle similar to that used in Ouroboros Praos.[^2] The process unfolds as follows: All block producers possess a verifiable random function (VRF) key, which is registered alongside their locked stake. These VRFs generate secret randomness, determining when each producer is eligible to create a block. The process carries an inherent risk that producers may attempt to manipulate the outcome by grinding through multiple VRF keys. To mitigate this, the VRF inputs must incorporate public randomness created only after the VRF key is established. 
 
@@ -392,6 +392,7 @@ Iterate over $k_{cp}$ to find values for $s_{hcg}, s_{ecq}, \tau$ that satisfy t
 
 Once a value for $k_{cq}$ such that $p \leq p_{attack}$ is found, set the epoch length $R = 2s_{ecq}+s_{hcg}$.
 
+:::note Parameters
 The parameters below are computed using the code available at the [GitHub entry](https://github.com/w3f/research/blob/master/experiments/parameters/babe_NTP.py). The parameter $c$ is chosen not only to satisfy security conditions, but also to ensure that, in expectation, the number of single-leader slots is at least twice the number of multi-leader slots. 
 
 -################### PARAMETERS OF BABE WITH NTP $\D = 0$ ###################
@@ -431,7 +432,7 @@ This means that the last 172 blocks of the best chain are pruned. All preceding 
 -~~~~~~~~~~~~~~ Epoch Length ~~~~~~~~~~~~~~
 
 Epoch length should be at least 4480 slots (approximately 7.46666666667 hours)
-
+:::
 
 
 ### BABE with the median algorithm
@@ -446,6 +447,7 @@ Epoch length should be at least 4480 slots (approximately 7.46666666667 hours)
 
 Next, determine the sync-epoch length and set $s_{cd}$ according to Theorem 2.
 
+:::note Parameters
 The parameters below are computed using the script available at this [GitHub entry](https://github.com/w3f/research/blob/master/experiments/parameters/babe_median.py)
 
 -############## PARAMETERS OF BABE WITH THE MEDIAN ALGORITHM ##############
@@ -473,6 +475,7 @@ Epoch length: at least 2000 slots (~3.3333 hours)
 $n = 200$ for temporary clock adjustment.
 
 Offline validators should collect.
+:::
 
 **Some Notes on clock drifts:**
 
@@ -482,9 +485,12 @@ Clock drift occurs because the oscillation frequency varies over time, primarily
 
 Observation suggets that over every 10,000 seconds, the clock frequency changes by 1 PPM, resulting in a drift of approximately 0.08 seconds every three hours. Thus, a rough estimate of one second of drift per day is reasonable. If the sync epoch spans 12 hours, this implies a clock drift of approximately 0.5 seconds over that period. For further details, refer to the [NTP Clock Quality FAQ](http://www.ntp.org/ntpfaq/NTP-s-sw-clocks-quality.htm#AEN1220)
 
+<div align="center">
+
 [![](https://i.imgur.com/Slspcg6.png)](http://www.ntp.org/ntpfaq/NTP-s-sw-clocks-quality.htm#AEN1220)
 
-**Figure. Frequency Correction within a Week**
+Frequency Correction within a Week
+</div>
 
 **For inquieries or questions, please contact** [Bhargav Nagajara Bhatt](/team_members/JBhargav.md)
 

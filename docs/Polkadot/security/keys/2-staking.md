@@ -1,7 +1,7 @@
 ---
 title: Nomination
 ---
-![](Nomination.png)
+<!--![](Nomination.png)-->
 
 In a sense, all public keys derive their authority from some combination of ceremonies and certificates, with certificate root keys relying entirely on ceremonies for their authority. For example, trust-on-first-use schemes can be viewed as a pair of ceremonies: first, the key is associated with an identity, and second, its fingerprint is compared against others to detect potential threats.
 

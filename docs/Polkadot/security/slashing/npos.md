@@ -1,7 +1,7 @@
 ---
 title: Slashing across eras with NPoS
 ---
-![](Slashing-with-NPoS.png)
+<!--![](Slashing-with-NPoS.png)-->
 
 The slashing algorithm must be both fair and effective. To achieve this, slashing should respect nominators' exposure, be resistant to Sybil attacks, and maintain monotonicity.
 

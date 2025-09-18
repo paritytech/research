@@ -2,7 +2,8 @@
 title: Sassafras
 ---
 
-![](Sassafras.png)
+<!--![](Sassafras.png)-->
+
 BADASS BABE is a constant-time block production protocol designed to ensure that exactly one block is produced at constant-time intervals, thereby avoiding multiple block production and empty slots. It builds upon BABE to address this limitation in the original protocol. While [Jeff's write-up](https://github.com/w3f/research/tree/master/docs/papers/habe) explores the full design space of constant-time block production, the focus here is on a practical instantiation using zk-SNARKs to construct a ring-VRF.
 
 ## Layman overview

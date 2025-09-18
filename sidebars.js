@@ -28,16 +28,6 @@ const sidebars = {
       link: {type:'doc', id:'Polkadot/index'},
       collapsed: false,
       items: [
-         {
-          type: 'category',
-          label: 'Token Economics',
-          link: {type:'doc', id:'Polkadot/token-economics/index'},
-          items: [
-            'Polkadot/token-economics/payments-and-inflation',
-            'Polkadot/token-economics/transaction-fees',
-            'Polkadot/token-economics/Treasury',
-          ],
-        },
         {
           type: 'category',
           label: 'Protocols',
@@ -83,11 +73,21 @@ const sidebars = {
           label: 'Economics',
           link: {type:'doc', id:'Polkadot/economics/index'},
           items: [
+            {
+          type: 'category',
+          label: 'Token Economics',
+          link: {type:'doc', id:'Polkadot/token-economics/index'},
+          items: [
+            'Polkadot/token-economics/payments-and-inflation',
+            'Polkadot/token-economics/transaction-fees',
+            'Polkadot/token-economics/Treasury',
+            'Polkadot/economics/utilitytokendesign',
+          ],
+        },
             'Polkadot/economics/validator-selection',
             'Polkadot/economics/parachain-theory',
             'Polkadot/economics/parachain-experiment',
             'Polkadot/economics/gamification',
-            'Polkadot/economics/utilitytokendesign',
           ],
         },
         {

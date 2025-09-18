@@ -2,13 +2,14 @@
 title: Validator selection
 ---
 
-![](validator-selection.jpeg)
+<!--![](validator-selection.jpeg)-->
 
 Validator elections play a critical role in securing the network, placing nominators in charge of selecting the most trustworthy and competent validators. This responsibility is both complex and demanding. The vast amount of validator data, constantly growing, requires significant technical expertise and sustained engagement. As a result, the process can become overly cumbersome, leading many nominators to either avoid staking altogether or refrain from investing the time needed to evaluate the data thoroughly. In this context, effective tools are essential, not only to support nominators in making informed selections, but also to help ensure the network's long-term health and resilience. 
 
 This entry outlines several potential steps to support nominators while preserving their freedom of choice. As a starting point, it is important to highlight why recommendations should consider individual user preferences rather than attempting to make them universal.
 
 **Problem.** Providing an exogenous recommendation for a set of validators is not advisable, as user preferences, particularly risk preferences, vary significantly. Comparing metrics accross different scales, such as self-stake in DOT versus performance in percentage, is not feasible in an exogenous framework. Moreover, even when considering a single dimension, the shape of marginal utility functions remains unclear and is inherently tied to individual preferences. Determining the trade-offs involved in the selection process on behalf of nominators lies beyond the scope of this note. Yet, to illustrate this issue, consider the following simple example:
+
 
 | | Commission | Self-Stake | Identity | Era-Points |
 | -------- | -------- | -------- | -------- | -------- |
@@ -41,7 +42,6 @@ Collectible data from Polkadot and Kusama validators is extremely relevant to th
 | Number of nominators* 	| No 	| Yes 	| The number of nominators assigned to a validator. 	|
 
 **Era Points** are awarded to validators for performing beneficial actions that support the network, primarily driven by block production. Over time, these points should be uniformly distributed, although distribution may vary if validators operate on superior setups, like more powerful hardware or more reliable internet connections. In addition, randomness may introduce significant statistical noise in the short term, leading to deviations from a uniform distribution.
-
 
 
 ## Generated metrics
@@ -109,7 +109,6 @@ Additional cleanup can still be performed on the remaining set. As stated in the
 
 # 3. Manual selection
 After reducing the set by removing dominated validators and applying some filtering options, the user can easily select preferred validators manually. In this step, the selection is purely based on personal preferences. For example, a nominator might order the validators by their relative performance, and select those who also meet certain minimum self-stake requirements.
-
 
 # 4. UTAStar
 As input, this method uses the filtered table from Section LINK and can be considered a natural extension of the previous method.

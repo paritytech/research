@@ -2,7 +2,7 @@
 title: Account signatures and keys
 ---
 
-![](account-signatures.png)
+<!--![](account-signatures.png)-->
 
 ## Ristretto
 

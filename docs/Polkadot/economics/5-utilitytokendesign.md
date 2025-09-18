@@ -2,7 +2,7 @@
 title: Utility Token Design
 ---
 
-![](utility-token.png)
+<!--![](utility-token.png)-->
 
 
 Utility tokens are cryptographic tokens primarily used to access and consume services offered by the token issuer. One of the objectives of this [project](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3954773) was to analyze general design principles of utility tokens native to proof-of-stake blockchains.  

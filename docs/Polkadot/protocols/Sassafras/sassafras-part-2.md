@@ -2,16 +2,16 @@
 
 This is the second in a series of three blog posts that describe the new consensus protocol Sassafras, which is planned to be integrated into Polkadot, replacing the current [BABE](https://wiki.polkadot.network/docs/learn-consensus#block-production-babe)+[Aura](https://openethereum.github.io/Aura.html) consensus mechanism. 
 
-Here is an overview of the three blog posts:
 
+
+:::note Overview of the three blog posts:
 **[Part 1 - A Novel Single Secret Leader Election Protocol](sassafras-part-1):** The aim of this blog post is to give an introduction that is understandable to any reader with a slight knowledge of blockchains. It explains why Sassafras is useful and gives a high-level overview of how it works.
 
 **Part 2 - Deep Dive:** The aim of this blog post is to dive into the details of the Sassafras protocol, focusing on technical aspects and security.
 
 **[Part 3 - Compare and Convince](Sassafras-part-3):**
-The aim of this blog post is to offer a comparison to similar protocols and convince the reader of Sassafras's value.
-
-Let's now take a deep dive into the Sassafras protocol, starting with some background on leader election protocols.
+:::
+The aim of this blog post is to offer a comparison to similar protocols and convince the reader of Sassafras's value. Let's now take a deep dive into the Sassafras protocol, starting with some background on leader election protocols.
 
 ## Sassafras: Efficient Batch Single Leader Election
 
