@@ -30,6 +30,28 @@ const sidebars = {
       items: [
         {
           type: 'category',
+          label: 'Economics',
+          link: {type:'doc', id:'Polkadot/economics/index'},
+          items: [
+            {
+          type: 'category',
+          label: 'Token Economics',
+          link: {type:'doc', id:'Polkadot/token-economics/index'},
+          items: [
+            'Polkadot/token-economics/payments-and-inflation',
+            'Polkadot/token-economics/transaction-fees',
+            'Polkadot/token-economics/Treasury',
+            'Polkadot/economics/utilitytokendesign',
+          ],
+        },
+            'Polkadot/economics/validator-selection',
+            'Polkadot/economics/parachain-theory',
+            'Polkadot/economics/parachain-experiment',
+            'Polkadot/economics/gamification',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Protocols',
           link: {type:'doc', id:'Polkadot/protocols/index'},
           items: [
@@ -66,28 +88,6 @@ const sidebars = {
             
             'Polkadot/protocols/finality',
             'Polkadot/protocols/LightClientsBridges',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Economics',
-          link: {type:'doc', id:'Polkadot/economics/index'},
-          items: [
-            {
-          type: 'category',
-          label: 'Token Economics',
-          link: {type:'doc', id:'Polkadot/token-economics/index'},
-          items: [
-            'Polkadot/token-economics/payments-and-inflation',
-            'Polkadot/token-economics/transaction-fees',
-            'Polkadot/token-economics/Treasury',
-            'Polkadot/economics/utilitytokendesign',
-          ],
-        },
-            'Polkadot/economics/validator-selection',
-            'Polkadot/economics/parachain-theory',
-            'Polkadot/economics/parachain-experiment',
-            'Polkadot/economics/gamification',
           ],
         },
         {

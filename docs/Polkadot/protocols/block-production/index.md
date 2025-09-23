@@ -4,9 +4,10 @@ title: Block production
 
 import DocCardList from '@theme/DocCardList';
 
-![](Block-production2.png)
 
 The Polkadot relay chain, built by validators through a Proof-of-Stake (PoS) block production mechanism, operates with a hybrid system that combines BABE and Aura. The plan is to eventually replace this with Sassafras.
+
+![](Block-production2.png)
 
 **BABE:** A Proof-of-Stake (PoS) protocol provides a mechanism for electing validators to produce blocks in designated time slots. BABE's election is based on a verifiable random function (VRF), originally introduced by David et al. in [Ouroboros Praos](https://eprint.iacr.org/2017/573.pdf). Specifically, a validator is elligible to produce a block if its VRF output falls below a pre-defined threshold. As a result, a round may yield one, multiple, or no elected validators. This election mechanism is completely private. Until an elected validator publishes a block, no one can know who was selected. Such privacy property is crucial for blockchain security, as it provides resilience against adaptive adversaries capable of corrupting validators at any time. 
 
