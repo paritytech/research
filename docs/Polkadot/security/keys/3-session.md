@@ -34,4 +34,4 @@ The recent block hash is included in the certificate to prevent attacks from ins
 Currently, there is no aggregation strategy for block production VRFs, so Ristretto Schnorr VRFs may remain the default.  In this case, the longer-lived Ristretto Schnorr session key component may help reduce attacks on the random beacon. 
 
 
-**For further inquieries or questions please contact**: [Jeff Burdges](/team_members/jeff.md)
+**For further inquieries or questions please contact**: [Jeffrey Burdges](/team_members/jeff.md)

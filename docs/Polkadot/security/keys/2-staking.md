@@ -46,5 +46,5 @@ In essence, an account's nominator key could be defined by appending an addition
 
 [^2] aka https://github.com/paritytech/substrate/commit/1a2ec9eec1fe9b3cc2677bac629fd7e9b0f6cf8e
 
-**For further inquieries or questions please contact**: [Jeff Burdges](/team_members/jeff.md)
+**For further inquieries or questions please contact**: [Jeffrey Burdges](/team_members/jeff.md)
 

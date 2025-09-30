@@ -240,4 +240,5 @@ When a validator sees both a statement of validity and a statement of invalidity
 
 If both the number of validity statements and the number of invalidity statements exceed $n/3$, there is unfortunately no way to determine who the culprits are. In such a case, which by the way should never occur,  no one is slashed, any prior slashing is reimbursed, and the blob is considered invalid to err on the side of caution.
 
-**For further questions and inquiries please contact**: 
+**For further questions and inquiries please contact**: [Jeffrey Burdges](/team_members/jeff.md)
+
