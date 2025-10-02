@@ -14,4 +14,4 @@ Jeff occasionally discovers vulnerabilities, most recently in the BIP32-Ed25519 
 
 **Short Bio.**  Jeff previously worked on [Taler](https://taler.net/en/) and [GNUNet](https://gnunet.org/en/) as a postdoctoral researcher under Christian Grothoff at Inria in Rennes, France. His contributions focused on anonymity protocols, including mix networks, blind signatures, security proofs, distributed authentication, forward-secure ratchets, and pairing-based protocols. Jeff holds a Ph.D. in Mathematics from Rutgers University in New Jersey.
 
-<img className="members" src={useBaseUrl('img/Jeff.jpg')}/>
+<!-- <img className="members" src={useBaseUrl('img/Jeff.jpg')}/> -->

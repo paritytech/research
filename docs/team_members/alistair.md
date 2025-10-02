@@ -24,4 +24,4 @@ Alistair is lead researcher at Web3 Foundation mainly working on protocol design
 
 * K. Etessami, A. Stewart, M. Yannakakis. "Polynomial-time Algorithms for Multi-type Branching Processes and Stochastic Context-Free Grammars", ACM Symposium on Theory of Computing (STOC'12).
 
-<img className="members" src="https://i.imgur.com/5wzFx7b.jpg"/>
+<!-- <img className="members" src="https://i.imgur.com/5wzFx7b.jpg"/> -->

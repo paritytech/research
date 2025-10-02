@@ -25,4 +25,4 @@ Elizabeth is a research scientist in cryptography at Web3 Foundation. She works 
 
 * **Better than Advertised Security for Non-Interactive Threshold Signatures**. Mihir Bellare, Elizabeth Crites, Chelsea Komlo, Mary Maller, Stefano Tessaro, and Chenzhi Zhu. CRYPTO 2022. *Security analysis for the FROST and BLS threshold signature schemes.* https://crypto.iacr.org/2022/papers/538806_1_En_18_Chapter_OnlinePDF.pdf
 
-<img className="members" src="https://i.imgur.com/Z2bkSFp.jpg"/>
+<!-- <img className="members" src="https://i.imgur.com/Z2bkSFp.jpg"/> -->

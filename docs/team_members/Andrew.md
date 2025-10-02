@@ -19,4 +19,4 @@ Andrew joined Web3 Foundation as a researcher in August 2023 and has since suppo
 * [UTXO Tuxedo Framework](https://github.com/Off-Narrative-Labs/Tuxedo)
 * [PBA content](https://github.com/Polkadot-Blockchain-Academy/pba-content)
 
-<img className="members" src="https://i.imgur.com/0OPEIfm.jpeg"/>
+<!-- <img className="members" src="https://i.imgur.com/0OPEIfm.jpeg"/> -->

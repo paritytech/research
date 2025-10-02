@@ -1,4 +1,4 @@
-# Syed Hosseini
+# Seyed Hosseini
 
 ![](Syed.png)
 

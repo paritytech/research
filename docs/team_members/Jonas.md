@@ -1,5 +1,6 @@
 # Jonas Gehrlein
 
+
 ![](Jonas.png)
 
 jonas@web3.foundation
@@ -34,4 +35,4 @@ Jonas joined the Web3 Foundation as a research scientist in July 2020. His work 
 
 * von Bieberstein, Frauke and Crede, Ann-Kathrin and Dietrich, Jan and Gehrlein, Jonas and Neumann, Oliver and Stürmer, Matthias, Otree: Implementing Websockets to Allow for Real-Time Interactions – a Continuous Double Auction Market as First Application (April 29, 2019). Available at SSRN: https://ssrn.com/abstract=3631680. (Working Paper)
 
-<img className="members" src="https://i.imgur.com/jbZJR52.jpg"/>
+<!-- <img className="members" src="https://i.imgur.com/jbZJR52.jpg"/> -->
