@@ -124,17 +124,7 @@ const sidebars = {
       type: 'category',
       label: 'Team Members',
       link: {type:'doc', id:'team_members/index'},
-      items: [
-        'team_members/alistair',
-        'team_members/Andrew',
-        'team_members/elizabeth',
-        'team_members/jeff',
-        'team_members/Jonas',
-        'team_members/Sergey',
-        'team_members/syed',
-        'team_members/chenda',
-        'team_members/Bhargav'
-      ],
+      items: [],
     },
     {
       type: 'doc',
