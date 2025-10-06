@@ -2,6 +2,10 @@
 title: Theoretical Analysis of Parachain Auctions
 ---
 
+| Status        | Date       | Link                                                                 |
+|----------------|------------|----------------------------------------------------------------------|
+| Under Review   | 06.10.2025 | [SSRN Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3846363) |
+
 <!--![](parachain-auctions.png)-->
 
 Polkadot uses a [candle auction format](https://wiki.polkadot.network/docs/en/learn-auction) to allocate parachain slots. A candle auction is a dynamic auction mechanism characterized by a randomly ending time. Such a random-closing rule affects equilibrium behavior, particularly in scenarios where bidders have front-running opportunities.

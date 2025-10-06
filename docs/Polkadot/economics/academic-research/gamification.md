@@ -2,6 +2,10 @@
 title: Non-monetary incentives for collective members
 ---
 
+| Status        | Date       | Link                                                                 |
+|----------------|------------|----------------------------------------------------------------------|
+| Stale   | 06.10.2025 | -- |
+
 <!--![](collective-members.png)-->
 
 Behavioral economics has demonstrated that non-monetary incentives can be powerful motivators, offering a viable alternative to financial rewards (see, e.g., [Frey & Gallus, 2015](https://www.bsfrey.ch/articles/C_600_2016.pdf)). This is especially true in environments where intrinsic motivation drives behavior. In such contexts, monetary incentives may even crowd out intrinsic motivation, ultimately reducing engagement ([Gneezy & Rustichini, 2000](https://academic.oup.com/qje/article-abstract/115/3/791/1828156)). 

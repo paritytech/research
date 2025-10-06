@@ -4,7 +4,7 @@ title: Economics
 
 import DocCardList from '@theme/DocCardList';
 
-The first section, Token Economics, introduces Polkadot's high-level design and architecture, including parachain functionality and interoperability with external blockchains. The following sections showcase the economic research conducted by the Web3 Foundation. Applying tools from microeconomics, behavioral economics, and game theory, the research team analyzes different aspects of the core Polkadot protocol. Other sections included here pertain to token economics and parachain allocation.
+The economic research efforts are divided into two main directions. The first focuses on **academic research**, which aims to advance scientific understanding and contribute to peer-reviewed journals and conferences. The second focuses on **applied research**, where insights are directly used to address real-world challenges of the Polkadot protocol—often culminating in RFCs that drive protocol improvements.
 
 ![](Economics.png)
 

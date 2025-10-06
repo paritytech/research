@@ -2,6 +2,10 @@
 title: Utility Token Design
 ---
 
+| Status        | Date       | Link                                                                 |
+|----------------|------------|----------------------------------------------------------------------|
+| Under Review   | 06.10.2025 | [SSRN Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3954773) |
+
 <!--![](utility-token.png)-->
 
 
