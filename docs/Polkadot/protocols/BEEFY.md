@@ -11,7 +11,7 @@ The blockchain landscape is a collection of decentralised networks, each operati
 
 Interoperability refers precisely to the ability of blockchains to communicate and interact with one another. Hitherto, there has been a lack of secure and efficient solutions that enable interoperability. As a result, centralised bridges introducing trusted intermediaries have emerged, forcing users to rely on their services. 
 
-The core issue with these intermediaries is that their very existence contradicts two fundamental pillars on which blockchain technology is grounded: decentralisation and trust minimisation. Intermediaries, such as multisig relayers, currently facilitate interoperability between blockchain networks by validating information exchanged across chains. Yet this process inherently centralises information. It also introduces additional trust assumptions, requiring users to believe that these centralised entities will handle their data ethically and refrain from using it for other purposes. 
+The core issue with these intermediaries is that their very existence contradicts two fundamental pillars on which blockchain technology is grounded: decentralisation and trust minimisation. Intermediaries, such as multisignature relayers, currently facilitate interoperability between blockchain networks by validating information exchanged across chains. Yet this process inherently centralises information. It also introduces additional trust assumptions, requiring users to believe that these centralised entities will handle their data ethically and refrain from using it for other purposes. 
 
 Another drawback to consider is security, as this setup creates a single point of failure, making the system vulnerable to various attack vectors. One such vector is censorship, which is easy to implement, difficult to detect, and likely to compromise overall security. 
 
@@ -53,11 +53,11 @@ Beyond these integrations, Snowbridge unlocks new possibilities for DeFi, gaming
 
 ## Key takeaways
 
-Decentralised Bridges enable a wide range of applications, including asset swaps and chain migrations. As such, their security is essential to guarantee service growth. By adopting Random Sampling BEEFY, cross-chain communication becomes more secure and efficient than ever. At the same time, it pushes the boundaries of what’s possible with trustless bridges. 
+Decentralised bridges enable a wide range of applications, including asset swaps and chain migrations. As such, their security is essential to ensure sustainable growth. By adopting Random Sampling BEEFY, cross-chain communication becomes more secure and efficient than ever. At the same time, it pushes the boundaries of what’s possible with trustless bridges. 
 
 
-One key advantage of Random sampling BEEFY is its ability to reduce operational costs without compromising bridge security. This is a technology that reflects the Web3 Foundation’s strong commitment to secure, decentralised systems, perfectly aligning with our motto: **“Less Trust, More Truth”**. 
+One key advantage of Random Sampling BEEFY is its ability to reduce operational costs without compromising bridge security. This is a technology that reflects the Web3 Foundation’s strong commitment to secure, decentralised systems, perfectly aligning with our motto: **“Less Trust, More Truth”**. 
 
-Random sampling BEEFY fuels Snowbridge, which will become a cornerstone of Web3 infrastructure. Its trustless architecture ensures secure and decentralised asset transfers, reducing reliance on centralised bridges and enhancing the resilience of the multi-chain landscape. With growing interest in interoperable DeFi, NFTs, and AI-powered applications, Polkadot is ready to support the next wave of innovation across the ecosystem. 
+Random Sampling BEEFY fuels Snowbridge, which will become a cornerstone of Web3 infrastructure. Its trustless architecture ensures secure and decentralised asset transfers, reducing reliance on centralised bridges and enhancing the resilience of the multi-chain landscape. With growing interest in interoperable DeFi, NFTs, and AI-powered applications, Polkadot is ready to support the next wave of innovation across the ecosystem. 
 
 **For more information or if you have any questions, please contact** [Bhargav Nagaraja Bhatt](/team_members/Bhargav.md)
