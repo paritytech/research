@@ -2,6 +2,10 @@
 title: Experimental Investigation of Parachain Auctions
 ---
 
+| Status        | Date       | Link                                                                 |
+|----------------|------------|----------------------------------------------------------------------|
+| Under Review   | 06.10.2025 | [SSRN Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5109856) |
+
 <!--![](Combinatorial-candle-auction.png)-->
 
 This entry focuses on experimentally examining the combinatorial candle auction as implemented in the Polkadot and Kusama protocol. Specifically, it compares its outcome with those of more traditional dynamic combinatorial auction formats currently in use. 

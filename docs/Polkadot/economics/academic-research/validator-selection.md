@@ -1,6 +1,10 @@
 ---
-title: Validator selection
+title: Validator Selection
 ---
+
+| Status        | Date       | Link                                                                 |
+|----------------|------------|----------------------------------------------------------------------|
+| Published in Peer-Reviewed Journal   | 06.10.2025 | [Omega](https://www.sciencedirect.com/science/article/abs/pii/S0305048323000336) / [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4253515) |
 
 <!--![](validator-selection.jpeg)-->
 
