@@ -1,34 +1,35 @@
-# RFC-0097: Unbonding Queue (accepted)
+# Unbonding Queue (accepted): RFC-0097
 
 |                 |                                                                                             |
 | --------------- | ------------------------------------------------------------------------------------------- |
 | **Date**  | 19.06.2024                                                                                  |
-| **Description** | This RFC proposes a safe mechanism to scale the unbonding time from staking on the Relay Chain proportionally to the overall unbonding stake. This approach significantly reduces the expected duration for unbonding, while ensuring that a substantial portion of the stake is always available to slash of validators behaving maliciously within a 28-day window.                                                                                                            |
-| **Authors**     |    Jonas Gehrlein & Alistair Stewart                                                                                                         |
+| **Description** | This RFC proposes a safe mechanism to adjust the unbonding time for staking on the Relay Chain, making it proportional to the overall unbonding stake. This approach significantly reduces the expected duration of unbonding and ensures that a substantial portion of the stake remains available to slash validators who behave maliciously, within a 28-day window.                                                                                                           |
 
 ## Summary
 
-This RFC proposes a flexible unbonding mechanism for tokens that are locked from [staking](https://wiki.polkadot.network/docs/learn-staking) on the Relay Chain (DOT/KSM), aiming to enhance user convenience without compromising system security. 
+This RFC proposes a flexible unbonding mechanism for tokens that are locked for [staking](https://wiki.polkadot.network/docs/learn-staking) on the Relay Chain (DOT/KSM). Its main aim is to enhance user convenience without compromising system security. 
 
-Locking tokens for staking ensures that Polkadot is able to slash tokens backing misbehaving validators. With changing the locking period, we still need to make sure that Polkadot can slash enough tokens to deter misbehaviour. This means that not all tokens can be unbonded immediately, however we can still allow some tokens to be unbonded quickly.
+Locking tokens for staking ensures Polkadot capacity to slash tokens backing misbehaving validators. Changing the locking period requires ensuring that Polkadot can still slash enough tokens to deter misbehaviour. In this context, not all tokens can be unbonded immediately, yet it is possible to allow some tokens to be unbonded quickly.
 
-The new mechanism leads to a signficantly reduced unbonding time on average, by queuing up new unbonding requests and scaling their unbonding duration relative to the size of the queue. New requests are executed with a minimum of 2 days, when the queue is comparatively empty, to the conventional 28 days, if the sum of requests (in terms of stake) exceed some threshold. In scenarios between these two bounds, the unbonding duration scales proportionately. The new mechanism will never be worse than the current fixed 28 days.  
+By queuing new unbonding requests and scaling their unbonding duration relative to the queue size, the new mechanism reduces the average unbonding time. When the queue is comparatively empty, new requests can be executed with a minimum of 2 days (instead of the conventional 28 days) if the sum of stake requests exceeds a threshold. In scenarios between these two bounds, the unbonding duration scales proportionately. The new mechanism will never perform worse than the current fixed 28-day period.  
 
-In this document we also present an empirical analysis by retrospectively fitting the proposed mechanism to the historic unbonding timeline and show that the average unbonding duration would drastically reduce, while still being sensitive to large unbonding events. Additionally, we discuss implications for UI, UX, and conviction voting.
+This entry also presents an empirical analysis that retrospectively fits the proposed mechanism to the historic unbonding timeline, showing that the average unbonding duration decreases significantly while remaning sensitive to large unbonding events. The entry also touches upon implications for UI, UX, and conviction voting.
 
-Note: Our proposition solely focuses on the locks imposed from staking. Other locks, such as governance, remain unchanged. Also, this mechanism should not be confused with the already existing feature of [FastUnstake](https://wiki.polkadot.network/docs/learn-staking#fast-unstake), which lets users unstake tokens immediately that have not received rewards for 28 days or longer.
+:::note
+This proposition focuses on the locks imposed from staking. Other locks, such as governance, remain unchanged. This mechanism should not be confused with the existing [FastUnstake](https://wiki.polkadot.network/docs/learn-staking#fast-unstake) feature, which lets users unstake tokens that have not received rewards for 28 days or longer.
+:::
 
-As an initial step to gauge its effectiveness and stability, it is recommended to implement and test this model on Kusama before considering its integration into Polkadot, with appropriate adjustments to the parameters. In the following, however, we limit our discussion to Polkadot.
+Before considering the model's integration into Polkadot, one may first implement and test it on Kusama. With appropriate adjustments to the parameters, one can gauge its effectiveness and stability. In this entry, however, the discussion is limited to Polkadot. 
 
 ## Motivation
 
-Polkadot has one of the longest unbonding periods among all Proof-of-Stake protocols, because security is the most important goal. Staking on Polkadot is still attractive compared to other protocols because of its above-average staking APY. However the long unbonding period harms usability and deters potential participants that want to contribute to the security of the network. 
+Since security is an important goal, Polkadot has one of the longest unbonding periods among all Proof-of-Stake protocols. Staking on Polkadot remains attractive compared to other protocols due to its above-average staking APY. The long unbonding period, however, harms usability and deters potential participants who want to contribute to the netwrok's security. 
 
-The current length of the unbonding period imposes significant costs for any entity that even wants to perform basic tasks such as a reorganization / consolidation of their stashes, or updating their private key infrastructure. It also limits participation of users that have a large preference for liquidity.
+The current length of the unbonding period imposes significant costs on entities that want to perform basic tasks such as the reorganization or consolidation of their stashes, or the updating of private key infrastructure. The long period also limits the participation of users who prefer liquidity.
 
-The combination of long unbonding periods and high returns has lead to the proliferation of [liquid staking](https://www.bitcoinsuisse.com/learn/what-is-liquid-staking), where parachains or centralised exchanges offer users their staked tokens before the 28 days unbonding period is over either in original DOT/KSM form or derivative tokens. Liquid staking is harmless if few tokens are involved but it could result in many validators being selected by a few entities if a large fraction of DOTs were involved. This may lead to centralization (see [here](https://dexola.medium.com/is-ethereum-about-to-get-crushed-by-liquid-staking-30652df9ec46) for more discussion on threats of liquid staking) and an opportunity for attacks.  
+The combination of long unbonding periods and high returns has led to the proliferation of [liquid staking](https://www.bitcoinsuisse.com/learn/what-is-liquid-staking). Here, parachains or centralised exchanges offer users their staked tokens either in the original DOT/KSM form or as derivative tokens before the 28 days unbonding period is over. If few tokens are involved, liquid staking is harmless. But if a large fraction of DOT is involved, it could result in a few entities selecting many validators, which may lead to centralisation and create opportunities for attacks (see [here](https://dexola.medium.com/is-ethereum-about-to-get-crushed-by-liquid-staking-30652df9ec46) for more discussion on threats of liquid staking).   
 
-The new mechanism greatly increases the competitiveness of Polkadot, while maintaining sufficient security.
+The new mechanism greatly increases Polkadot's competitiveness, without interferring with its security.
 
 
 ## Stakeholders
@@ -37,7 +38,9 @@ The new mechanism greatly increases the competitiveness of Polkadot, while maint
 
 ## Explanation
 
-Before diving into the details of how to implement the unbonding queue, we give readers context about why Polkadot has a 28-day unbonding period in the first place. The reason for it is to prevent long-range attacks (LRA) that becomes theoretically possible if more than 1/3 of validators collude. In essence, a LRA describes the inability of users, who disconnect from the consensus at time t0 and reconnects later, to realize that validators which were legitimate at a certain time, say t0 but dropped out in the meantime, are not to be trusted anymore. That means, for example, a user syncing the state could be fooled by trusting validators that fell outside the active set of validators after t0, and are building a competitive and malicious chain (fork). 
+Before explaining how to implement the unbonding queue, it is useful to explain why Polkadot has a 28-day unbonding period. The main reason is to prevent long-range attacks (LRA), which can occur if more than one-third of validators collude. 
+
+In essence, a LRA describes the innability of users who disconnect from the consensus at time t0, and reconnect later to realize that legitimate validators at that earlier time, but who have dropped out, can no longer be trusted. This means that a user syncing the state could be fooled into trusting validators who have fallen out of the active set since t0 and are building a competing malicious chain (fork).
 
 LRAs of longer than 28 days are mitigated by the use of trusted checkpoints, which are assumed to be no more than 28 days old. A new node that syncs Polkadot will start at the checkpoint and look for proofs of finality of later blocks, signed by 2/3 of the validators. In an LRA fork, some of the validator sets may be different but only if 2/3 of some validator set in the last 28 days signed something incorrect. 
 
@@ -166,3 +169,5 @@ The authors cannot see any potential impact on compatibility. This should be ass
 - Ethereum proposed a [similar solution](https://blog.stake.fish/ethereum-staking-all-you-need-to-know-about-the-validator-queue/)
 - Alistair did some initial [write-up](https://hackmd.io/SpzFSNeXQM6YScW1iODC_A)
 - There are [other solutions](https://arxiv.org/pdf/2208.05408.pdf) that further mitigate the risk of LRAs.
+
+**For more information or inquieries, please contact** [Jonas Gehrlein](/team_members/Jonas.md) or [Alistair Stewart](/team_members/alistair.md)

@@ -1,18 +1,16 @@
-# RFC-0010: Burn Coretime Revenue (accepted)
+# Burn Coretime Revenue (accepted): RFC-0010
+
 
 |                 |                                                                                             |
 | --------------- | ------------------------------------------------------------------------------------------- |
 | **Start Date**  | 19.07.2023                                                                   |
-| **Description** | Revenue from Coretime sales should be burned                                                                   |
-| **Authors**     |                   Jonas Gehrlein                                                                          |
+| **Description** | Revenue from Coretime sales should be burned                                                                                           |
 
-## Summary
-
-The Polkadot UC will generate revenue from the sale of available Coretime. The question then arises: how should we handle these revenues? Broadly, there are two reasonable paths – burning the revenue and thereby removing it from total issuance or divert it to the Treasury. This Request for Comment (RFC) presents arguments favoring burning as the preferred mechanism for handling revenues from Coretime sales.
+Considering that the Polkadot UC will generate revenue from the sale of available Coretime, the question to ask is: How to handle this revenue? Two reasonable paths come to mind: burning the revenue and thereby removing it from total issuance, or diverting it to the Treasury. This RFC introduces arguments favoring the former as the preferred mechanism to handle revenue from Coretime sales.
 
 ## Motivation
 
-How to handle the revenue accrued from Coretime sales is an important economic question that influences the value of DOT and should be properly discussed before deciding for either of the options. Now is the best time to start this discussion.
+Handling the revenue from Coretime sales is important as it influences the value of DOT, and should be properly discussed before choosing one of the options. It is now the time to start this discussion.
 
 ## Stakeholders
 
@@ -20,14 +18,16 @@ Polkadot DOT token holders.
 
 ## Explanation
 
-This RFC discusses potential benefits of burning the revenue accrued from Coretime sales instead of diverting them to Treasury. Here are the following arguments for it.
+The following arguments highlight some potential benefits of burning the reveneu from Coretime sales. 
 
-It's in the interest of the Polkadot community to have a consistent and predictable Treasury income, because volatility in the inflow can be damaging, especially in situations when it is insufficient. As such, this RFC operates under the presumption of a steady and sustainable Treasury income flow, which is crucial for the Polkadot community's stability. The assurance of a predictable Treasury income, as outlined in a prior discussion [here](https://forum.polkadot.network/t/adjusting-the-current-inflation-model-to-sustain-treasury-inflow/3301), or through other equally effective measures, serves as a baseline assumption for this argument. 
+For the stability of Polkadot's community, a consistent and predictable Treasury income is necessary, as volatility can be damaging, especially when this income is insufficient. Such predictability, which can be achieved as outlined in this [discussion](https://forum.polkadot.network/t/adjusting-the-current-inflation-model-to-sustain-treasury-inflow/3301), or through other effective measures, serves as a baseline assumption for this RFC.
 
-Consequently, we need not concern ourselves with this particular issue here. This naturally begs the question - why should we introduce additional volatility to the Treasury by aligning it with the variable Coretime sales? It's worth noting that Coretime revenues often exhibit an inverse relationship with periods when Treasury spending should ideally be ramped up. During periods of low Coretime utilization (indicated by lower revenue), Treasury should spend more on projects and endeavours to increase the demand for Coretime. This pattern underscores that Coretime sales, by their very nature, are an inconsistent and unpredictable source of funding for the Treasury. Given the importance of maintaining a steady and predictable inflow, it's unnecessary to rely on another volatile mechanism. Some might argue that we could have both: a steady inflow (from inflation) and some added bonus from Coretime sales, but burning the revenue would offer further benefits as described below.
+Hence, this particular issue is not the main concern of this entry. Yet, it opens the door to asking what the goal is in introducing additional volatility to the Treasury by aligning it with variable Coretime sales? At times, Coretime revenues exhibit an inverse relationship with periods when Treasury spending should ideally be ramped up. During low-Coretime-utilisation periods (indicated by lower revenue), the Treasury should spend more on projects and endeavours, with the aim of increasing demand for Coretime. This pattern shows that Coretime sales are a source of inconsistent and unpredictable Treasury funding. Since a steady and predictable inflow is important, relying on another volatile mechanism is unnecessary. Some might argue that a steady inflow (from inflation) and an added bonus from Coretime sales is achievable. Yet, as pointed out below, burning the revenue offers further benefits.
 
-- **Balancing Inflation:** While DOT as a utility token inherently profits from a (reasonable) net inflation, it also benefits from a deflationary force that functions as a counterbalance to the overall inflation. Right now, the only mechanism on Polkadot that burns fees is the one for underutilized DOT in the Treasury. Finding other, more direct target for burns makes sense and the Coretime market is a good option.
+- **Balancing Inflation:** As a utility token, DOT inherently profits from a reasonable net inflation and benefits from a deflationary force, which counterbalances the overall inflation. The only fee-burning mechanism on Polkadot currently targets underutilised DOT in the Treasury, so it makes sense to find a more direct target for burns. The Coretime market seems to be a good option.
 
-- **Clear incentives:** By burning the revenue accrued on Coretime sales, prices paid by buyers are clearly costs. This removes distortion from the market that might arise when the paid tokens occur on some other places within the network. In that case, some actors might have secondary motives of influencing the price of Coretime sales, because they benefit down the line. For example, actors that actively participate in the Coretime sales are likely to also benefit from a higher Treasury balance, because they might frequently request funds for their projects. While those effects might appear far-fetched, they could accumulate. Burning the revenues makes sure that the prices paid are clearly costs to the actors themselves.
+- **Clear incentives:** By burning the revenue from Coretime sales, the prices that buyers pay are clearly costs. This removes market distortion that may arise when someone pays tokens elsewhere in the network. In that case, some actors may have secondary motives to influence Coretime prices and benefit later. For example, actors who actively participate in Coretime sales may also benefit from a higher Treasury balance; they could frequently request funds for their projects. While those effects might appear far-fetched, they may accumulate. By burning revenues, paid prices become actual costs to the actors themselves.
 
-- **Collective Value Accrual:** Following the previous argument, burning the revenue also generates some externality, because it reduces the overall issuance of DOT and thereby increases the value of each remaining token. In contrast to the aforementioned argument, this benefits all token holders collectively and equally. Therefore, I'd consider this as the preferrable option, because burns lets all token holders participate at Polkadot's success as Coretime usage increases.
+- **Collective Value Accrual:** Considering the previous argument, burning the revenue also generates an externality; it reduces the overall issuance of DOT, increasing the value of each remaining token. This benefits token holders collectively and equally, unlike the aforementioned argument. Clearly, this is the preferable option; burns allow all token holders to participate in Polkadot's success as Coretime usage increases.
+
+**For more information or inquieries, please contact** [Jonas Gehrlein](/team_members/Jonas.md)
