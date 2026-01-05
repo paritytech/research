@@ -2,7 +2,7 @@
 title: Nominated Proof-of-Stake
 ---
 
-![](Nominated-proof-of-stake.png)
+<!--![](Nominated-proof-of-stake.png)-->
 
 In recent years, many blockchain projects have replaced the highly inefficient Proof-of-Work (PoW) component of Nakamoto’s consensus protocol with Proof-of-Stake (PoS). In PoS systems, validators participate in block production at a frequency proportional to their token holdings, rather than their computational power. Although a pure PoS model allows any token holder to participate directly, most projects adopt some degree of centralization by limiting the number of validators with full participation rights. The rationale for this limited validator set design is based on the following considerations:
 

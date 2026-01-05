@@ -38,6 +38,11 @@ of Threshold Schnorr Signatures](https://eprint.iacr.org/2025/1001.pdf), **CRYPT
 
 **Blog Posts:**
 
+- Chen-Da Liu-Zhang, [ELVES](https://medium.com/web3foundation/elves-the-fairy-dust-that-makes-polkadot-scalable-2acff1a22280), Medium, December 2025.
+- Bhargav Nagajara Batt, [BEEFY](https://research.web3.foundation/Polkadot/protocols/BEEFY), Research website, October 2025.
+- Elizabeth C. Crites, [Sassafras Part 3](https://research.web3.foundation/Polkadot/protocols/Sassafras/Sassafras-part-3), Research website, July 2025.
+- Elizabeth C. Crites, [Sassafras Part 2](https://research.web3.foundation/Polkadot/protocols/Sassafras/sassafras-part-2), Research website, July 2025.
+- Armando Caracheo, [Sassafras Part 1](https://research.web3.foundation/Polkadot/protocols/Sassafras/sassafras-part-1), Research website, July 2025.
 - Jonas Gehrlein, [Research Digest: A Recap on Candle Auctions](https://forum.polkadot.network/t/research-digest-a-recap-on-candle-auctions/11813), Polkadot Forum, February 2025.
 - Jonas Gehrlein, [Proposal for Adjusting Polkadot’s Inflation System: Reducing Issuance and Complexity](https://forum.polkadot.network/t/proposal-for-adjusting-polkadots-inflation-system-reducing-issuance-and-complexity/9157), Polkadot Forum, July 2024.
 - Jonas Gehrlein, [Polkadot’s Economics: Tools to Shape the Forseeable Future](https://forum.polkadot.network/t/polkadots-economics-tools-to-shape-the-forseeable-future/8708), Polkadot Forum, June 2024. 
@@ -45,7 +50,7 @@ of Threshold Schnorr Signatures](https://eprint.iacr.org/2025/1001.pdf), **CRYPT
 - Andrew Burger, [XCMP(Cross-Chain Message Passing) Design Discussion](https://forum.polkadot.network/t/xcmp-design-discussion/7328), Polkadot Forum, April 2024.
 - Jonas Gehrlein, [Adjusting the current inflation model to sustain Treasury inflow](https://forum.polkadot.network/t/adjusting-the-current-inflation-model-to-sustain-treasury-inflow/3301), Polkadot Forum, July 2023.
 - Jeff Burdges, [Post Quantum Signatures](https://forum.polkadot.network/t/post-quantum-signatures/3456), Polkadot Forum, July 2023.
-- Syed Hosseini, [APK Proofs By Hand and Sage](https://medium.com/web3foundation/apk-proofs-by-hand-and-sage-3f5feb3fcca4), Medium May 2023
+- Syed Hosseini, [APK Proofs By Hand and Sage](https://medium.com/web3foundation/apk-proofs-by-hand-and-sage-3f5feb3fcca4), Medium, May 2023
 - Fatemeh Shirazi, Logan Saether, Alistair Stewart, Rob Habermeier, Gavin Wood, [Polkadot’s Messaging Scheme](https://medium.com/web3foundation/polkadots-messaging-scheme-b1ec560908b7), Medium, January 2020.
 - Alfonso Cevallos, [How Nominated Proof-of-Stake will work in Polkadot](https://medium.com/web3foundation/how-nominated-proof-of-stake-will-work-in-polkadot-377d70c6bd43), Medium, April 2019.
 - Fatemeh Shirazi, Jeffrey Burdges, Edward Thomson, and Ignasi Albero, [Messaging Protocol Workshop Outcomes](https://medium.com/web3foundation/messaging-protocol-workshop-outcomes-7a827d02a81a), Medium, February 2019.

@@ -2,7 +2,7 @@
 title: Polkadot's keys
 ---
 
-![](polkadot-keys.png)
+<!--![](polkadot-keys.png)-->
 
 In Polkadot, different keys and key types grant access to essential permissions and functionalities.  Roughly, categories are: account keys, which users interact with directly, and session keys, which nodes manage without operator intervention beyond the certification process.
 

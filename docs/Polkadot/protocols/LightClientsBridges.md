@@ -1,6 +1,6 @@
 # Accountable Light Client Systems for Secure and Efficient Bridges
 
-![](secure-and-efficient-bridges.png)
+<!--![](secure-and-efficient-bridges.png)-->
 
 One of the key challenges in blockchain interoperability is establishing an efficient and secure on-chain light client protocol. To address this, researchers at the Web3 Foundation have developed a [protocol](https://eprint.iacr.org/2022/1205) that generates short proofs of the state of a decentralized consensus, while also enabling detection of misbehaving parties. 
 
