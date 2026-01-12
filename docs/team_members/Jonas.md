@@ -11,7 +11,7 @@ Jonas joined the Web3 Foundation as a research scientist in July 2020. His work 
 
 **Research Areas.** In particular, Jonas analyzes and optimizes the interplay between human behavior and protocol dynamics, applying insights from psychology and behavioral economics. His research incorporate both empirical and experimental data.
 
-**Short Bio.**  Before joining W3F, Jonas earned a Ph.D. in Behavioral and Experimental Economics from the University of Bern, where he investigated human behavior in markets and organizations. He also holds an MSc in Quantitative Economics from the University of Konstanz.
+**Short Bio.**  Before joining W3F, Jonas earned a Ph.D. in Behavioral and Experimental Economics from the University of Bern, where he investigated human behavior in markets and organizations. He also holds a Master of Science (MSc) in Quantitative Economics from the University of Konstanz.
 
 **Polkadot-related Publications**
 
