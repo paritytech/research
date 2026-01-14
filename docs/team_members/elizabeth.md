@@ -11,7 +11,7 @@ elizabeth@web3.foundation
 
 I am a Research Scientist in Cryptography at Web3 Foundation. Currently, my main area of research is threshold cryptography. My contributions in this area include the development and provable security of novel multi-signature and threshold signature schemes, such as Sparkle (CRYPTO’23, Best Early Career Paper Award), FROST (CRYPTO’22,'25), FROST2 (CRYPTO’22), Snowblind (CRYPTO’23), TSPS (ASIACRYPT'23), and SpeedyMuSig (an optimized version of MuSig2), as well as potential attacks on such schemes (CRYPTO'25). In addition to their use in cryptocurrencies, multi-party signatures are also the subject of an upcoming call from the U.S. National Institute of Standards and Technology (NIST). I am a team member submitting FROST. 
 
-I work on protocol design and provable security for core cryptographic primitives in Polkadot. Currently, my work focuses on threshold verifiable random functions (VRFs) for distributed generation of good public randomness as well as ring verifiable random functions (VRFs), which underpin the new consensus protocol Sassafras and proof of personhood applications on Polkadot.
+I work on protocol design and provable security for core cryptographic primitives in Polkadot. Currently, my work focuses on threshold verifiable random functions (VRFs) for distributed generation of public randomness as well as ring VRFs, which underpin the new consensus protocol Sassafras and proof of personhood applications on Polkadot.
 
 **Short Bio.** I hold a PhD in Mathematics from Brown University, a master's degree in Applied Mathematics from Columbia University and a bachelor's degree in Honours Mathematics from The University of Western Ontario.
 
