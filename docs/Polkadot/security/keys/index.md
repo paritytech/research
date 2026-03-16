@@ -1,5 +1,5 @@
 ---
-title: Polkadot's keys
+title: Polkadot's Keys
 ---
 
 <!--![](polkadot-keys.png)-->
@@ -51,7 +51,7 @@ Libp2p transport keys are treated similarly to session keys, but they also encom
 
 
 
-## old
+## Old
 
 First, a high-level view of the signing keys planned for use in Polkadot would be helpful. The discussion can then shift toward the certificate chain that links staked account keys to the session keys used for the proof-of-stake design.  In other words, the goal is to lay out the key questions surrounding the "glue" between keys roles, but this first requires introducing the full spectrum of those roles.
 

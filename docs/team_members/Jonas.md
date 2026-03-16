@@ -1,17 +1,20 @@
 # Jonas Gehrlein
 
+<center>
 
 ![](Jonas.png)
 
-jonas@web3.foundation
+jonas@parity.io
+
+</center>
 
 PGP Fingerprint: 16C2 2CBD 92E4 E7A1 7D79 D0D0 1F79 CDDC 0A5F FC5B
 
-Jonas joined the Web3 Foundation as a research scientist in July 2020. His work focuses on economic questions related to the Polkadot and Kusama ecosystem. 
+Jonas joined Parity as a research scientist in July 2020. His work focuses on economic questions related to the Polkadot and Kusama ecosystem. 
 
 **Research Areas.** In particular, Jonas analyzes and optimizes the interplay between human behavior and protocol dynamics, applying insights from psychology and behavioral economics. His research incorporate both empirical and experimental data.
 
-**Short Bio.**  Before joining W3F, Jonas earned a Ph.D. in Behavioral and Experimental Economics from the University of Bern, where he investigated human behavior in markets and organizations. He also holds a Master of Science (MSc) in Quantitative Economics from the University of Konstanz.
+**Short Bio.**  Before joining Parity, Jonas earned a Ph.D. in Behavioral and Experimental Economics from the University of Bern, where he investigated human behavior in markets and organizations. He also holds a Master of Science (MSc) in Quantitative Economics from the University of Konstanz.
 
 **Polkadot-related Publications**
 

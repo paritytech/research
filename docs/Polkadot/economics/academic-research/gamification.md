@@ -1,5 +1,5 @@
 ---
-title: Non-monetary incentives for collective members
+title: Non-monetary Incentives for Collective Members
 ---
 
 | Status        | Date       | Link                                                                 |
@@ -10,11 +10,11 @@ title: Non-monetary incentives for collective members
 
 Behavioral economics has demonstrated that non-monetary incentives can be powerful motivators, offering a viable alternative to financial rewards (see, e.g., [Frey & Gallus, 2015](https://www.bsfrey.ch/articles/C_600_2016.pdf)). This is especially true in environments where intrinsic motivation drives behavior. In such contexts, monetary incentives may even crowd out intrinsic motivation, ultimately reducing engagement ([Gneezy & Rustichini, 2000](https://academic.oup.com/qje/article-abstract/115/3/791/1828156)). 
 
-Recent advances in technologies surrounding Non-fungible Tokens (NFTs) present a promising new layer of incentives for governance participation and collective engagement. NFTs, as a tool, can be effectively combined with insights from academic literature on gamification to encourage participation and reward good behavior. This can help address several inherent challenges in governance, particularly low participation.
+Recent advances in technologies surrounding Non-fungible Tokens (NFTs) present a promising new layer of incentives for governance participation and collective engagement. NFTs can be effectively combined with insights from academic literature on gamification to encourage participation and reward good behavior. This can help address several inherent challenges in governance, particularly low participation.
 
 ### Problem statement
 
-Governance is one of the most critical aspects for the future of decentralized systems, such as DAOs and other collectives. These systems rely on active paritcipation from token holders to enable efficient decision-making. However, turnout rates tend to be quite low, which creates the risk of governance exploits by a highly motivated minority. Several factors can help mitigate the risk, for example enhancing usability and user experience within the governance process. 
+Governance is one of the most critical aspects for the future of decentralized systems, such as DAOs and other collectives. These systems rely on active paritcipation from token holders to enable efficient decision-making. Turnout rates, however, tend to be quite low. This creates the risk of governance exploits by a highly motivated minority. Several factors can help mitigate the risk, for example enhancing usability and user experience within the governance process. 
 
 This entry explores non-monetary incentives as a means to encourage more active engagement within a collective. The approach can be applied to layer0 governance as well as smaller collectives, such as DAOs.
 
@@ -67,7 +67,7 @@ As [Hamari, Koivisto & Sarsa, 2014](https://ieeexplore.ieee.org/abstract/documen
 
 Designing an automatic mechanism to award members NFTs based on their on-chain (and potentially off-chain) behavior is highly complex. On one hand, focusing solely on easily measurable outcomes, such as voting speed or the sheer number of propositions, can backfire and is prone to abuse. Moreover, assessing the quality of a vote through quantitative metrics alone is challenging. To address this, it is essential to observe the entire process and the eventual outcome of the election. 
 
-On the other hand, incentivizing only positive election outcomes could lead members to become overly conservative, proposing only safe, likely-to-win ideas while neglecting provocative but potentially beneficial proposals. The best strategy, therefore, is to design a mix of different NFTs, where the positive weighting of each individual NFTs is less pronounced, allowing room for a broader range of behaviors. 
+On the other hand, incentivizing only positive election outcomes may lead members to become overly conservative, proposing only safe, likely-to-win ideas while neglecting provocative but potentially beneficial proposals. The best strategy, therefore, is to design a mix of different NFTs, where the positive weighting of each individual NFTs is less pronounced, allowing room for a broader range of behaviors. 
 
 In addition, the proposed NFTs should incorporate important key insights from social science research, as mentioned above. For example, some NFTs could include preventive measures against *groupthink*, while others could be designed to leverage *loss aversion*.
 
@@ -79,7 +79,7 @@ Achievements are absolute milestones that, once reached, cannot be lost. Potenti
 
 
 ### Badges (perishable)
-Badges are generally perishable and resemble an achievement relative to a specific status or condition. In other words, once the relative status is lost, the badge is forfeited. This dynamic introduces an intriguing motivational factor known as the *endowment effect*. 
+Badges are generally perishable and resemble an achievement relative to a specific status or condition. In other words, once the relative status is lost, the badge is forfeited. This dynamic introduces the *endowment effect* as an intriguing motivational factor.   
 
 Badges are well-suited to reflect situational states such as:
 

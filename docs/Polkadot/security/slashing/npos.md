@@ -1,5 +1,5 @@
 ---
-title: Slashing across eras with NPoS
+title: Slashing Across Eras with NPoS
 ---
 <!--![](Slashing-with-NPoS.png)-->
 

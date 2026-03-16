@@ -5,11 +5,15 @@ title: Elizabeth Crites
 
 # Elizabeth C. Crites
 
-![](Elizabeth.png)
+<center>
 
-elizabeth@web3.foundation
+<iframe width="560" height="315" src="https://www.youtube.com/embed/H5YZAr-F7dU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-Elizabeth is a research scientist in cryptography at Web3 Foundation. She works on protocol design and provable security for core cryptographic primitives in Polkadot. Currently, her work focuses on verifiable random functions (VRFs) with advanced functionalities, which are implemented in leader election protocols and in the distributed generation of public randomness.
+elizabeth@parity.io
+
+</center>
+
+Elizabeth is a research scientist in cryptography at Parity. She works on protocol design and provable security for core cryptographic primitives in Polkadot. Her current work focuses on verifiable random functions (VRFs) with advanced functionalities, which are implemented in leader election protocols and in the distributed generation of public randomness.
 
 **Research Areas.** Currently, her main area of research is threshold cryptography. Her contributions in this area include the development of novel multi-signature and threshold signature schemes, such as Sparkle (CRYPTO’23, Best Early Career Paper Award), Snowblind (CRYPTO’23), FROST2 (CRYPTO’22), TSPS (ASIACRYPT'23), and SpeedyMuSig (an optimized version of MuSig2). Multi-party signatures are used in blockchains in myriad ways.  They are also the subject of an upcoming call from the U.S. National Institute of Standards and Technology (NIST). I am a team member submitting FROST.
 

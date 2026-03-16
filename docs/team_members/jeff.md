@@ -2,11 +2,15 @@
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
+<center>
+
 ![](Jeffrey.png)
 
-jeff@web3.foundation
+jeffrey@parity.io
 
-Jeff Burdges is an applied cryptography researcher at the Web3 Foundation, where he focuses on cryptographic solutions for decentralized and privacy-preserving protocols. 
+</center>
+
+Jeff Burdges is an applied cryptography researcher at Parity, where he focuses on cryptographic solutions for decentralized and privacy-preserving protocols. 
 
 **Research Areas.** Jeff's work includes collaborative randomness, specialized signature schemes such as verifiable random functions (VRFs) or anonymous credentials, as well as increasing exploration into zero-knowledge proofs and incentive or mechanism design using VRFs. He also researches peer-to-peer private messaging systems that utilize mix networks.
 

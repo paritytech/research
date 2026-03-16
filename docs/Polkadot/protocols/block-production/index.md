@@ -1,5 +1,5 @@
 ---
-title: Block production
+title: Block Production
 ---
 
 import DocCardList from '@theme/DocCardList';

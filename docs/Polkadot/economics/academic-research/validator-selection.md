@@ -10,7 +10,7 @@ title: Validator Selection
 
 Validator elections play a critical role in securing the network, placing nominators in charge of selecting the most trustworthy and competent validators. This responsibility is both complex and demanding. The vast amount of validator data, constantly growing, requires significant technical expertise and sustained engagement. As a result, the process can become overly cumbersome, leading many nominators to either avoid staking altogether or refrain from investing the time needed to evaluate the data thoroughly. In this context, effective tools are essential, not only to support nominators in making informed selections, but also to help ensure the network's long-term health and resilience. 
 
-This entry outlines several potential steps to support nominators while preserving their freedom of choice. As a starting point, it is important to highlight why recommendations should consider individual user preferences rather than attempting to make them universal.
+This entry outlines several potential steps to support nominators while preserving their freedom of choice. It is important to highlight why recommendations should consider individual user preferences rather than attempting to make them universal.
 
 **Problem.** Providing an exogenous recommendation for a set of validators is not advisable, as user preferences, particularly risk preferences, vary significantly. Comparing metrics accross different scales, such as self-stake in DOT versus performance in percentage, is not feasible in an exogenous framework. Moreover, even when considering a single dimension, the shape of marginal utility functions remains unclear and is inherently tied to individual preferences. Determining the trade-offs involved in the selection process on behalf of nominators lies beyond the scope of this note. Yet, to illustrate this issue, consider the following simple example:
 
@@ -22,7 +22,7 @@ This entry outlines several potential steps to support nominators while preservi
 | Validator 3 | 1% | 1 DOT | No | Average + 5% |
 
 
-The table above presents validators with diverse profiles, none of which clearly dominate. Validator 3 may offer high potential profits but lacks significant self-stake (skin in the game) and does not have a registered identity. Validator 1 charges a higher service fee, yet may benefit from a reputable identity. Validator 2 has the highest self-stake, but also demands substantial fees. Clearly, user preferences can vary, some may favor one validator over another depending on their priorities. While most users could reasonably make a choice from this small set, the complexity increases when faced with a selection of 200 to 1,000 validators.
+The table above presents validators with diverse profiles, none of which dominates clearly. Validator 3 may offer high potential profits but lacks significant self-stake (skin in the game) and does not have a registered identity. Validator 1 charges a higher service fee, yet may benefit from a reputable identity. Validator 2 has the highest self-stake, but also demands substantial fees. Clearly, user preferences can vary, some may favor one validator over another depending on their priorities. While most users could reasonably make a choice from this small set, the complexity increases when faced with a selection of 200 to 1,000 validators.
 
 
 **Code of conduct for recommendations.** As previously mentioned, the goal is not to provide exogenous recommendations to users, but rather to offer strategies that respect their insight and generate suggestions aligned with their stated preferences. While valuing individual preferences, recommendations may nudge decisions toward outcomes beneficial for the network, such as promoting decentralization. These recommendations should remain as objective as possible and must not discriminate against any specific validator.  
@@ -31,7 +31,7 @@ The table above presents validators with diverse profiles, none of which clearly
 
 
 # 1. Underlying data
-Collectible data from Polkadot and Kusama validators is extremely relevant to the selection process. Metrics marked with an asterisk (*) are included in the final data set, while other variables are used to derive additional metrics. The primary focus is on quantitative on-chain data, as it is verifiable and straightforward to process. This purely quantitative approach intends to complement a selection process that incorporates qualitative factors, such as a validator’s identity, reputation, or community engagement, which often influence how nominators cast their votes.
+Collectible data from Polkadot and Kusama validators is extremely relevant to the selection process. The final data set includes metrics marked with an asterisk (*), while other variables are used to derive additional ones. The primary focus is on quantitative on-chain data, as it is verifiable and straightforward to process. This purely quantitative approach intends to complement a selection process that incorporates qualitative factors, such as a validator’s identity, reputation, or community engagement, which often influence how nominators cast their votes.
 
 ## Retrievable data
 | Name 	| Historical 	| On-Chain 	| Description 	|
@@ -54,7 +54,7 @@ Some of the retrieved on-chain data might not be particularly useful for nominat
 | Name 	| Historical 	| On-Chain 	| Description 	|
 |-	|-	|-	|-	|
 | Average adjusted era-points 	| Yes 	| Yes 	| The average adjusted era points from previous eras.  	|
-| Performance 	| Yes 	| Yes 	| Validator performance is determined by era points and commission. 	|
+| Performance 	| Yes 	| Yes 	| Era points and commission rates determine validator performance. 	|
 | Relative performance* 	| Yes 	| Yes 	| This represents performance normalized across the set of validators. 	|
 | Outperforming MLE 	| Yes 	| Yes 	| An indicator of how frequently a validator has outperformed the average era points. A typical validator should score around 0.5. 	|
 | Average performer* 	| - 	| Yes 	| A statistical test of the MLE for outperformance against a uniform distribution. It indicates whether a validator statistically overperforms or underperforms. 	|
@@ -63,11 +63,11 @@ Some of the retrieved on-chain data might not be particularly useful for nominat
 | Operator size* 	| No 	| Yes 	| The number of validators that share a similar on-chain identity. 	|
 
 **Average adjusted era points.**
-To obtain a more robust estimate of the era points, additional data from previous eras should be collected. Since the total era points are distributed among all active validators, and the validator set may vary over time, this could introduce bias into the results. To correct for this, era points from each era can be adjusted based on the active set size during that period. As this is the sole factor influencing theoretical per-capita era points, such normalization enables meaningful comparison across historical data.
+To obtain a more robust estimate of the era points, it is necessary to collect additional data from previous eras. Since the total era points are distributed among all active validators, and the validator set may vary over time, this could introduce bias into the results. To correct for this, era points from each era can be adjusted based on the active set size during that period. Since this is the sole factor influencing theoretical per-capita era points, such normalization enables meaningful comparisons across historical data.
 
 The optimal number of previous eras to include remains uncertain. Using too long a history may bias results toward the average, while too short a history can weaken the metric’s robustness. One possible approach is to use the average number of $active-eras$. 
 
-**Performance.** From a nominator's perspective, validator performance is determined by three main factors: the number of era points earned, the nominator's share of the total stake, and the commission charged by the validator. Since performance scales linearly with the nominator's bond, it can be considered independent of the bond amount. These metrics can be combined into a single performance indicator:
+**Performance.** From a nominator's perspective, three main factors determine validator performance: the number of era points earned, the nominator's share of the total stake, and the commission charged by the validator. Since performance scales linearly with the nominator's bond, it can be considered independent of the bond amount. These metrics can be combined into a single performance indicator:
 
 $$
 performance = \frac{averageEraPoints \times (1 - commission)}{totalStake}
@@ -88,7 +88,7 @@ $$
 
 If $z > 1.645$, the corresponding validator significantly outperforms at the 10% significance level, while $z < -1.645$ indicates significant underperformance.
 
-**Operator size.** Based on the identity of a validator, it is possible to estimate how many validators are operated by the same entity. For both users and the network, a reduced number of moderately sized operators is often more convenient. Selecting validators from larger operators may increase the risk of superlinear slashing, as these entities likely follow similar security practices. The failure of one validator could therefore imply the failure of several others, increasing superlinearly the likelihood of punishment. On the other hand, larger operators may have more sophisticated setups and processes, which could mitigate such risks. This metric should ultimately be considered an objective measure, leaving the final judgment to the user.  
+**Operator size.** Based on the identity of a validator, it is possible to estimate how many validators that same entity operates. For both users and the network, a reduced number of moderately sized operators is often more convenient. Selecting validators from larger operators may increase the risk of superlinear slashing, as these entities likely follow similar security practices. The failure of one validator could therefore imply the failure of several others, increasing superlinearly the likelihood of punishment. On the other hand, larger operators may have more sophisticated setups and processes, which could mitigate such risks. This metric should ultimately be considered an objective measure, leaving the final judgment up to the user.  
 
 # 2. Filtering phase
 
@@ -106,7 +106,7 @@ After shaping the dataset elaborated in the section "Underlying data," it is tim
 Validator 2 dominates Validator 1, meaning the latter is strictly worse in every dimension[^1]. Validator 3 also dominates Validator 1, so it can be removed from the set. Through this process, the validator set can be reduced to two. In practice, this method proves to be a powerful tool for significantly shrinking the set size.
 
 ## Further curation 
-Additional cleanup can still be performed on the remaining set. As stated in the code of conduct, this step is optional, yet here are some suggested default actions for users:
+The remaining set may still undergo additional cleanup. As stated in the code of conduct, this step is optional, yet here are some suggested default actions for users:
 * Include at least one inactive validator. A suggestion would be inactive nodes based on separate processes.
 * Reduce the risk of super-linear slashing, for instance by removing multiple validators run by the same operator.
 * Remove validators running on the same machine (perhaps some analysis of IP addresses).

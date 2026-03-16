@@ -1,14 +1,18 @@
 # Andrew Burger
 
+<center>
+
 ![](Andrew.png)
 
-andrew@web3.foundation
+andrew@parity.io
 
-Andrew joined Web3 Foundation as a researcher in August 2023 and has since supported the implementation of schemes and protocols within the Polkadot-SDK Substrate framework. His current work focuses on the development and prototyping of the XCMP protocol, along with the latest threshold cryptography features in Polkadot. Andrew also lectures and serves as an educator at the Polkadot Blockchain Academy.
+</center>
+
+Andrew joined Parity as a researcher in August 2023 and has since supported the implementation of schemes and protocols within the Polkadot-SDK Substrate framework. His current work focuses on the development and prototyping of the XCMP protocol, along with the latest threshold cryptography features in Polkadot. Andrew also lectures and serves as an educator at the Polkadot Blockchain Academy.
 
 **Research Areas.** His main research interests include blockchain bridging protocols, threshold cryptography, elliptic curves, and consensus mechanisms. 
 
-**Short Bio.** Before joining W3F, Andrew worked on the W3F Grants project Tuxedo as one of the two core designers of its Substrate-based UTXO framework. He was also a student at the first Polkadot Blockchain Academy, held at Corpus Christi College, University of Cambridge. Since then, he has served as a lecturer and content creator at the Academy. Outside of work, Andrew enjoys spending time with family and friends, playing squash, and traveling. His favorite programming language is Rust; his least favorite is C++.
+**Short Bio.** Before joining Parity, Andrew worked on the W3F Grants project Tuxedo as one of the two core designers of its Substrate-based UTXO framework. He was also a student at the first Polkadot Blockchain Academy, held at Corpus Christi College, University of Cambridge. Since then, he has served as a lecturer and content creator at the Academy. Outside of work, Andrew enjoys spending time with family and friends, playing squash, and traveling. His favorite programming language is Rust; his least favorite is C++.
 
 **Related Works**
 

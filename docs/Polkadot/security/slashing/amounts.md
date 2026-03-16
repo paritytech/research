@@ -1,5 +1,5 @@
 ---
-title: Slashing mechanisms
+title: Slashing Mechanisms
 ---
 
 <!--![](Slashing-mechanisms.jpeg)-->

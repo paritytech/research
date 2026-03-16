@@ -1,8 +1,12 @@
 # Sergey Vasilyev
 
-sergey@web3.foundation
+<center>
 
-Sergey is a research engineer at the Web3 Foundation. He works on implementing cryptographic primitives, such as zero-knowledge proofs.
+sergey@parity.io
+
+</center>
+
+Sergey is a research engineer at Parity. He works on implementing cryptographic primitives, such as zero-knowledge proofs.
 
 **Research Areas.** His current work focuses on investigating constant-time block production using ring-VRFs and designing succinct parachains with ZK-rollups.
 

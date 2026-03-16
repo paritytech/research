@@ -1,5 +1,5 @@
 ---
-title: Account key creation ideas for Polkadot
+title: Account Key Creation Ideas for Polkadot
 ---
 
 <!--![](ideas-for-account-key-creation.png)-->

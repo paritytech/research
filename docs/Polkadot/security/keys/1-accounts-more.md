@@ -1,5 +1,5 @@
 ---
-title: Account signatures and keys in Polkadot
+title: Account Signatures and Keys in Polkadot
 ---
 
 <!--![](account-signatures-and-keys.png)-->

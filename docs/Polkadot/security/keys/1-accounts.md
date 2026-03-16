@@ -1,5 +1,5 @@
 ---
-title: Account signatures and keys
+title: Account Signatures and Keys
 ---
 
 <!--![](account-signatures.png)-->
