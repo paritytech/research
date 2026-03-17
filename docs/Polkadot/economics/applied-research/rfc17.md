@@ -150,32 +150,32 @@ Upon acceptance of this RFC, the transition to the new design should be as smoot
 
 ### Some mechanics
 
-* The price descends linearly from an `opening_price` to the `reserve_price` over the duration of the `MARKET_PERIOD`. Each discrete price level should be held for a long interval (for instance, six to twelve hours).
+* The price descends linearly from an `opening_price` to the `reserve_price` over the duration of the `MARKET_PERIOD`. Each discrete price level should be maintained for a long interval (for instance, six to twelve hours).
 * When demand spikes after prolonged periods of low demand, which result in low reserve prices, issues can arise. In such an instance, the price between `reserve_price` and the upper bound (for example, the `opening_price`) may be lower than what many bidders are willing to pay. If this affects most participants, the demand will concentrate at the upper bound of the Dutch auction. This makes front-running a profitable strategy, either by excessively tipping bidding transactions or through explicit collusion with block producers.
-Preventing the market from closing prematurely at the `opening_price` can mitigate this. Even if the demand exceeds available cores at this level, all orders are still collected. Instead of using a first-come, first-served approach, the next step is to randomize winners. Additionally, breaking up bulk orders and treating them as separate bids, will give those bidders who want to buy larger quantities a higher chance, avoiding all-or-nothing outcomes. These steps minimize the benefit of tipping or collusion, since bid timing no longer affects allocation. While such scenarios should be rare, this will not negatively impact current tenants who retain the safety net of renewal. The range should be wide enough to capture demand within its bounds after a few periods of maximum bids at maximum capacity.
+Preventing the market from closing prematurely at the `opening_price` can mitigate this. Even if the demand exceeds available cores at this level, all orders are still collected. Instead of using a first-come, first-served approach, the next step is to randomize winners. Additionally, breaking up bulk orders and treating them as separate bids will give bidders interested in buying larger quantities a higher chance, avoiding all-or-nothing outcomes. These steps minimize the benefit of tipping or collusion, since bid timing no longer affects allocation. While such scenarios should be rare, this will not negatively impact current tenants who retain the safety net of renewal. The range should be wide enough to capture demand within its bounds after a few periods of maximum bids at maximum capacity.
 * Granting the renewal privilege after the `MARKET_PERIOD` implies that some bidders, despite bidding above the `clearing_price`, may not receive coretime. This is justified because displacing an existing project causes more harm than temporarly preventing a new project from entering when no cores are available. Moreover, entities paying the `PENALTY` compensate for the inefficiency. The following additional rules should be put in place to resolve the allocation issues:
   1. The renewal decision of another party cannot displace bidders who already hold renewable cores.
   2. The process begins with the lowest submitted bids for those who *can* be displaced.
 * If a current tenant wins cores on the market, they forfeit the right to renew those specific cores. For example, if an entity currently holds three cores and wins two in the market, it may opt to renew only one. A tenant can only increase the number of cores at the end of a `BULK_PERIOD` by acquiring them through the market.
 * Bids **below** the current descending price should always be allowed. In other words, teams shouldn't have to wait idly for the price to drop to the desired target.
-* Bids below the current descending price can be **raised** only up to the current clock price.
+* Bids below the current descending price may be **raised** only up to the current clock price.
 * Bids **above** the current descending price are **not allowed**. This is a key difference from a simple *kth*-price auction that helps prevent sniping.
 * All cores that remain unallocated after the `RENEWAL_PERIOD` are transferred to the On-Demand Market.
 
 ### Implications
 
 * The introduction of a single price (`clearing_price`) provides a consistent anchor for the available coretime. This serves as a safeguard against price divergence, preventing scenarios where entities acquire cores below-market rates and retain them at minimal costs.
-* Considering the `PENALTY`, it is financially preferable for teams to participate in the auction. By bidding their true valuation, they maximize their chances of winning a core at the lowest possible price, without incurring any penalty.
+* Considering the `PENALTY`, it is financially preferable for teams to participate in the auction. By bidding their true valuation, they maximize their chances of winning a core at the lowest possible price without incurring any penalty.
 * In this design, it is impossible to "accidentally" lose cores, since renewals occur after the market phase and are guaranteed for current tenants.
 * Prices within a `BULK_PERIOD` are bounded upward by the `opening_price`, which means that the maximum a renewer can pay is the `opening_price * PENALTY` within a round. With this, teams have ample time to prepare and secure the necessary funds in anticipation of potential price increases. By incorporating reserve price adjustments into their planning, teams can better anticipate future cost changes.
 
 ## Appendix
 
-### Further Discussion Points
+### Further discussion points
 
-- **Reintroduction of Candle Auctions**: Polkadot has gathered vast experience with candle auctions, having conducted over 200 of them in the past two years. A detailed analysis of [this study](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5109856) shows that the mechanism is efficient and extracts nearly optimal revenue. This supports its use for allocating winners instead of relying on a descending clock auction, a change that affects the bidding process and winner determination. Core components like the k-th price, reserve price, and maximum price remain unaffected.
+- **Reintroduction of candle auctions**: Polkadot has gathered vast experience with candle auctions, having conducted over 200 of them in the past two years. A detailed analysis of [this study](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5109856) shows that the mechanism is efficient and extracts nearly optimal revenue. This supports its use for allocating winners instead of relying on a descending clock auction, a change that affects the bidding process and winner determination. Core components like the k-th price, reserve price, and maximum price remain unaffected.
 
-### Insights: Clearing Price Dutch Auctions
+### Insights: clearing price dutch auctions
 Having all bidders pay the market-clearing price offers benefits and disadvantages alike.
 
 - Advantages:
@@ -185,10 +185,10 @@ Having all bidders pay the market-clearing price offers benefits and disadvantag
     - **Truthfulness.** There is no need to game the market by delaying bids; bidders can simply bid their true valuations.
     - **No sniping.** As prices descend, bidders cannot wait to place high bids at the end. They are only allowed to place bids at the current descending price. 
 - Disadvantages:
-    - **(Potentially) Lower Revenue.** While theory predicts revenue-equivalence between a uniform-price and a pay-as-bid auction, slightly lower revenue has been observed for the former. However, revenue maximization, or, in simple terms, squeezing out the maximum willingness to pay from bidders, is not Polkadot's priority. Instead, the focus lies on efficient allocation and the other benefits illustrated above.
-    - **(Technical) Complexity.** Instead of making a final purchase within the auction, the bid acts only as a deposit. Some refunds may occur after the auction concludes. This might pose additional technical challenges, like increased storage requirements.
+    - **Potential lower revenue.** While theory predicts revenue-equivalence between a uniform-price and a pay-as-bid auction, slightly lower revenue has been observed for the former. Revenue maximization, or, in simple terms, squeezing out the maximum willingness to pay from bidders, is not Polkadot's priority. Instead, the focus lies on efficient allocation and the other benefits illustrated above.
+    - **Technical complexity.** Instead of making a final purchase within the auction, the bid acts only as a deposit. Some refunds may occur after the auction concludes. This might pose additional technical challenges, like increased storage requirements.
 
-### Prior Art and References
+### Prior art and references
 
 This RFC builds extensively on the ideas put forward in [RFC-1](https://github.com/polkadot-fellows/RFCs/blob/6f29561a4747bbfd95307ce75cd949dfff359e39/text/0001-agile-coretime.md). 
 

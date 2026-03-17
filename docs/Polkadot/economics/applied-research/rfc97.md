@@ -7,7 +7,7 @@
 
 ## Summary
 
-This RFC proposes a flexible unbonding mechanism for tokens that are locked for [staking](https://wiki.polkadot.network/docs/learn-staking) on the Relay Chain (DOT/KSM). Its main aim is to enhance user convenience without compromising system security. 
+This RFC proposes a flexible unbonding mechanism for tokens locked for [staking](https://wiki.polkadot.network/docs/learn-staking) on the Relay Chain (DOT/KSM). Its main aim is to enhance user convenience without compromising system security. 
 
 Locking tokens for staking ensures Polkadot capacity to slash tokens backing misbehaving validators. Changing the locking period requires ensuring that Polkadot can still slash enough tokens to deter misbehaviour. In this context, not all tokens can be unbonded immediately, yet it is possible to allow some tokens to be unbonded quickly.
 
@@ -16,10 +16,10 @@ By queuing new unbonding requests and scaling their unbonding duration relative 
 This entry also presents an empirical analysis that retrospectively fits the proposed mechanism to the historic unbonding timeline, showing that the average unbonding duration decreases significantly while remaning sensitive to large unbonding events. The entry also touches upon implications for UI, UX, and conviction voting.
 
 :::note
-This proposition focuses on the locks imposed from staking. Other locks, such as governance, remain unchanged. This mechanism should not be confused with the existing [FastUnstake](https://wiki.polkadot.network/docs/learn-staking#fast-unstake) feature, which lets users unstake tokens that have not received rewards for 28 days or longer.
+This proposition focuses on the locks imposed from staking. Other locks, such as governance, remain unchanged. This mechanism should not be confused with the existing [FastUnstake](https://wiki.polkadot.network/docs/learn-staking#fast-unstake) feature, which lets users unstake tokens without earning rewards for 28 days or longer.
 :::
 
-Before considering the model's integration into Polkadot, one may first implement and test it on Kusama. With appropriate adjustments to the parameters, one can gauge its effectiveness and stability. In this entry, however, the discussion is limited to Polkadot. 
+Before considering the model's integration into Polkadot, one may first implement and test it on Kusama. With appropriate adjustments to the parameters, one can gauge its effectiveness and stability. This entry, however, focuses on Polkadot. 
 
 ## Motivation
 
@@ -27,7 +27,7 @@ Since security is an important goal, Polkadot has one of the longest unbonding p
 
 The current length of the unbonding period imposes significant costs on entities that want to perform basic tasks such as the reorganization or consolidation of their stashes, or the updating of private key infrastructure. The long period also limits the participation of users who prefer liquidity.
 
-The combination of long unbonding periods and high returns has led to the proliferation of [liquid staking](https://www.bitcoinsuisse.com/learn/what-is-liquid-staking). Here, parachains or centralised exchanges offer users their staked tokens either in the original DOT/KSM form or as derivative tokens before the 28-day unbonding period is over. If few tokens are involved, liquid staking is harmless. But if a large fraction of DOT is involved, it could result in a few entities selecting many validators, which may lead to centralisation and create opportunities for attacks (see [here](https://dexola.medium.com/is-ethereum-about-to-get-crushed-by-liquid-staking-30652df9ec46) for further discussion on the threats of liquid staking).   
+The combination of long unbonding periods and high returns has led to the proliferation of [liquid staking](https://www.bitcoinsuisse.com/learn/what-is-liquid-staking). Here, parachains or centralised exchanges offer users their staked tokens either in the original DOT/KSM form or as derivative tokens before the 28-day unbonding period is over. If few tokens are involved, liquid staking is harmless. But with a large fraction of DOT, a few entities may select many validators, leading to centralization and creating opportunities for attacks (see [here](https://dexola.medium.com/is-ethereum-about-to-get-crushed-by-liquid-staking-30652df9ec46) for further discussion on the threats of liquid staking).   
 
 The new mechanism greatly increases Polkadot's competitiveness, without interferring with its security.
 
@@ -38,29 +38,29 @@ The new mechanism greatly increases Polkadot's competitiveness, without interfer
 
 ## Explanation
 
-The main reason why Polkadot has a 28-day unbonding period is to prevent long-range attacks (LRA), which can occur if more than one-third of validators collude. 
+Polkadot has a 28-day unbonding period to prevent long-range attacks (LRA), which can occur if more than one-third of validators collude. 
 
-In essence, an LRA describes the innability of users who disconnect from the consensus at time t0, and reconnect later to realize that legitimate validators at that earlier time, but who have dropped out, can no longer be trusted. This means that a user syncing the state could be fooled into trusting validators who have fallen out of the active set since t0 and are building a competing malicious chain (fork).
+In essence, an LRA describes the innability of users who disconnect from the consensus at time t0, and reconnect later to realize that legitimate validators at that earlier time, but who have since dropped out, can no longer be trusted. This means that a user syncing the state could be fooled into trusting validators who have fallen out of the active set since t0 and are building a competing malicious chain (fork).
 
 The use of trusted checkpoints, assumed to be no more than 28 days old, can mitigate LRAs that last longer than 28 days. A new node syncing Polkadot will start from the checkpoint and verify finality proofs for subsequent blocks signed by two-thirds of validators. In an LRA fork, some validator sets may differ if two-thirds of a validator set signed something incorrect within the last 28 days. 
 
 With the current unbonding period, detecting an LRA of no more than 28 days means the possibility to identify misbehaviour from over one-third of validators whose nominators are still bonded. The stake backing these validators represents a considerable portion of the total stake, around 28.7% in practice. Allowing the unbonding of more stake than this, without verifying the backing validators, opens the door to a cost-free LRA attack. The proposed mechanism thus allows up to half of this stake to unbond within 28 days. This reduces the amount of slashable tokens by half, still a very large amount in absolute terms. For example, at the time of writing (19 June 2024), this would translate to around 120 million DOT.
 
-Attacks other than LRAs, such as backing incorrect parachain blocks, should be detected and slashed within two days. This is why the mechanism includes a minimum unbonding period.
+Attacks other than LRAs, such as backing incorrect parachain blocks, can be detected and slashed within two days. This is why the mechanism includes a minimum unbonding period.
 
 In practice, an LRA does not affect clients who follow consensus more frequently than every two days, such as full nodes or bridges. Yet, an attacker could still mislead a node if it connects before the node syncs Polkadot.  
 
-Given the benefits, it is a reasonable trade-off to maintain a fraction of the total stake as slashable to protect against LRAs at any given time.
+Given the benefits, maintaining a fraction of the total stake as slashable is a reasonable trade-off that helps to protect against LRAs at any given time.
 
 ## Mechanism
 
 When a user, either a [nominator](https://wiki.polkadot.network/docs/learn-nominator) or validator, decides to unbond their tokens, those tokens are not instantly available. Rather, they enter an *unbonding queue*. This specification illustrates how the queue works, assuming a user wishes to unbond a portion of their stake,  denoted as `new_unbonding_stake`. The variable `max_unstake`tracks how much stake can be unbonded earlier than 28 eras (28 days on Polkadot and 7 days on Kusama).
 
-To calculate `max_unstake`, it is necessary to record the amount of stake, for each era, used to back the lowest-backed one-third of validators. This information is stored for the last 28 eras, with `min_lowest_third_stake` representing the minimum value across that period. `max_unstake` is determined by `MIN_SLASHABLE_SHARE` x `min_lowest_third_stake`. In addition, `UPPER_BOUND` and `LOWER_BOUND` are variables used to scale the unbonding duration of the queue.
+To calculate `max_unstake`, it is necessary to record, for each era, the amount of stake used to back the lowest-backed one-third of validators. This information is stored for the last 28 eras, with `min_lowest_third_stake` representing the minimum value across that period. `max_unstake` is determined by `MIN_SLASHABLE_SHARE` x `min_lowest_third_stake`. In addition, `UPPER_BOUND` and `LOWER_BOUND` are variables used to scale the unbonding duration of the queue.
 
 The variable `back_of_unbonding_queue_block_number` can be stored at any time. It represents the block number at which all existing unbonders have completed unbonding.
 
-Let's assume a user wants to unbond some of their stake, for instance, `new_unbonding_stake`, and issues the request at some arbitrary block number, defined as `current_block`. Then:
+If a user wants to unbond some of their stake (`new_unbonding_stake`) at an arbitrary block number (`current_block`), then:
 
 ```
 unbonding_time_delta = new_unbonding_stake / max_unstake * UPPER_BOUND
@@ -81,24 +81,24 @@ unbonding_block_number = min(UPPER_BOUND, max(back_of_unbonding_queue_block_numb
 Ultimately, the user's token are unbonded at `unbonding_block_number`.
 
 
-### Proposed Parameters
+### Proposed parameters
 
 Although up for discussion, the following exogenously set constants are recommended:
-- `MIN_SLASHABLE_SHARE`: `1/2`. The share of stake backing the lowest one-third of validators that is slashable at any point in time. It offers a trade-off between security and unbonding time. Setting it to half provides sufficient stake for slashing while maintaining a short average unbonding time.
+- `MIN_SLASHABLE_SHARE`: `1/2`. The share of stake backing the lowest one-third of validators that is slashable at any point in time. This parameter offers a trade-off between security and unbonding time. Setting it to one-half provides sufficient stake for slashing while maintaining a short average unbonding time.
 - `LOWER_BOUND`: 28,800 blocks (or 2 eras). A value that represents the minimum unbonding time for any 2-day stake. 
 - `UPPER_BOUND`: 403,200 blocks (or 28 eras). A value that represents the maximum unbonding time a user may face. It equals the current unbonding time and should be familiar to users.
 
 ### Rebonding
 
-Users who choose to unbond may want to cancel their request and rebond. No security loss is implied in doing so, although under the scheme described above, a large unbond may increase the unbonding time for subsequent users in the queue. When the large stake is rebonded, those next in the queue move forward and can unbond more quickly than originally estimated. This would require an additional extrinsic from the user.
+Users who choose to unbond may want to cancel their request and rebond. This action does not result in any security loss, although under the scheme described above, a large unbond may increase the unbonding time for subsequent users in the queue. When the large stake is rebonded, those next in the queue move forward and can unbond more quickly than originally estimated. This would require an additional extrinsic from the user.
 
 The `unbonding_time_delta` should thus be stored with the unbonding account. If the account rebonds when still unbonding, this value must be subtracted from the `back_of_unbonding_queue_block_number`. Unbonding and rebonding leave this number unaffected. The `unbonding_time_delta` must be stored because, in later eras, `max_unstake` may change and cannot be recomputed.
 
-### Empirical Analysis
+### Empirical analysis
 
-The proposed unbonding queue calculation, together with the recommended parameters, can simulate the queue over Polkadot's unbonding history. Instead of analysing on a per-block basis, the calculation is performed on a daily basis. The unbonding queue is stimulated by computing the ratio between the daily total stake of the lowest third of backed validators and the total daily stake (which determines the `max_unstake`), along with the sum of daily and newly unbonded tokens. 
+The proposed unbonding queue calculation, together with the recommended parameters, can simulate the queue over Polkadot's unbonding history. Instead of analysing on a per-block basis, the calculation is performed on a daily basis. The unbonding queue is stimulated by computing the ratio of the daily total stake of the lowest third of backed validators to the total daily stake (which determines the `max_unstake`), along with the sum of daily and newly unbonded tokens. 
 
-Due to the [NPoS algorithm](https://wiki.polkadot.network/docs/learn-phragmen), the first number fluctuates slightly, and a constant (approximately 0.287) is determined by sampling some empirical eras.  Leveraging Parity's Data infrastructure was essential for this analysis.
+Due to the [NPoS algorithm](https://wiki.polkadot.network/docs/learn-phragmen), the first number fluctuates slightly, and a constant (approximately 0.287) is determined by sampling some empirical eras.  Leveraging Parity's data infrastructure was essential for this analysis.
 
 The following graph illustrates these metrics.
 
@@ -110,14 +110,14 @@ This graph combines two metrics.
 - `Unbonded Amount`. The number of daily and newly unbonded tokens over time, scaled to a 28-day y-axis. In particular, this is normalised by `daily_unbonded / max(daily_unbonded) * 28`.
 - `Unbonding Days`. The daily expected unbonding duration, given the history of `daily_unbonded`.
 
-Historical unbonds only trigger unbonding times greater than `LOWER_BOUND` during periods of extensive and/or clustered unbonding. The average unbonding time across the entire timeseries is approximately 2.67 days. This mechanism increases unbonding times during large unbonding events, reaching a maximum of 28 days in the largest cases. This confirms that the mechanism is sufficiently sensitive, making sense to match `UPPER_BOUND` with the historically largest unbonds. 
+Historical unbonds only trigger unbonding times greater than `LOWER_BOUND` during periods of extensive and/or clustered unbonding. The average unbonding time across the entire time series is approximately 2.67 days. This mechanism increases unbonding times during large unbonding events, reaching a maximum of 28 days in the largest cases. The results confirm that the mechanism is sufficiently sensitive, making it reasonable to match `UPPER_BOUND` with the historically largest unbonds. 
 
-The main parameter affecting the situation is `max_unstake`. The relationship is straightforward: decreasing `max_unstake` makes the queue more sensitive. For instance, the queu spikes more quickly and reaches higher levels during unbonding events. Since these events were historically associated with parachain auctions, it is possible to assume that in the absence of major systemic events, users will experience significantly reduced unbonding times.
+The main parameter affecting the situation is `max_unstake`. The relationship is straightforward: decreasing `max_unstake` makes the queue more sensitive. For instance, the queue spikes more quickly and reaches higher levels during unbonding events. Since these events were historically associated with parachain auctions, it is reasonable to assume that in the absence of major systemic events, users will experience significantly reduced unbonding times.
 
 The analysis can be extrapolated or adapted to other parameters using a repository such as this [one](https://github.com/jonasW3F/unbonding_queue_analysis).
 
 
-## Additional Considerations
+## Additional considerations
 
 ### Deferred slashing
 
@@ -125,11 +125,11 @@ Allowing multiple slashes within the 28-day period enables governance to cancel 
 
 Due to the way exposures are stored, that is, which nominators back which validators and with how many tokens, it is difficult to determine whether a nominator has deferred slashes that still need to be applied on-chain. Therefore, it is not possible to simply check for deferred slashes when nominators attempt to withdraw their bond. 
 
-Freezing the unbonding queue while there are pending slashes in the staking system helps solve this. In the worst case, when a slash is applied, one can force all members of the queue to unbond within 28 days minus the number of days they have already been waiting. In other words, nobody would need to wait longer than 28 days. The unbonding queue would then remain paused until all deferred slashes in the system are resolved. 
+Freezing the unbonding queue while there are pending slashes in the staking system helps solve this issue. In the worst case, when a slash is applied, one can force all members of the queue to unbond within 28 days minus the number of days they have already been waiting. In other words, nobody needs to wait longer than 28 days. The unbonding queue would then remain paused until all deferred slashes in the system are resolved. 
 
 This solution may be easier to implement, although it could cause disruptions for unbonding stakers who are not slashed, as they would not benefit from the queue. It is crucial to note that unbonding remains possible for all stakers within the usual 28 days. Since slashes occur rarely, distruptions should not happen often. In addition, the solution could be complemented by introducing a new extrinsic that allows any account to identify unbonding accounts with deferred slashes. The chain would then set the `unbonding_block_number` of affected accounts to a time after the slash is applied, no more than 28 days from when the staker unbonded. 
 
-After removing the offenders from the queue, the unbonding queue is unfrozen, and operations for unslashed accounts are restored immediately. Identifying nominators with deferred slashes requires iterating through all nominators, which is only feasible off-chain. There should be sufficient incentive for non-slashed unbonding accounts to do so, as they seek to reduce the opportunity cost of waiting longer than necessary. 
+After removing the offenders from the queue, the unbonding queue remains unfrozen, and operations for unslashed accounts are restored immediately. Identifying nominators with deferred slashes requires iterating through all nominators, which is only feasible off-chain. Incentives for non-slashed unbonding accounts to act should be sufficient, as they seek to reduce the opportunity cost of waiting longer than necessary. 
 
 The solution resolves the issue securely. And if no user submits the extrinsic, no staker would exceed the standard 28-day unbonding duration, and all slashes would still be applied as intended.
 
@@ -141,11 +141,11 @@ UI implementations should provide a good UX that informs users about this trade-
 ### Conviction voting
 Changing the (expected) unbonding period indirectly affects conviction voting, as governance locks do not stack with the staking locks. Simply put, if a user is already locked through staking, they can freely choose a conviction vote less than or equal to that locking time. With the 28-day unbonding period, the `3x` conviction vote essentially comes for free. 
 
-Discussions have been initiated to [rescale the conviction weights](https://github.com/polkadot-fellows/RFCs/pull/20#issuecomment-1673553108) and thereby improve parametrization. The transition between the old locks and new locks poses significant challenges, though. 
+Ongoing discussions aim to [rescale the conviction weights](https://github.com/polkadot-fellows/RFCs/pull/20#issuecomment-1673553108) and thereby improve parametrization. The transition between the old locks and new locks, however, poses significant challenges. 
 
-**Under this unbonding queue, the current conviction voting scheme aligns more closely with governance and avoids the need for an expensive migration of existing locks to a new scheme.** For example, if the average staking unbonding period is around two days, locking tokens for an additional 26 days justifies a higher `3x` voting weight. Voters who seek maximum liquidity can freely do so, but it is fair that their votes carry less weight in governance decisions, which naturally affect Polkadot's long-term success.
+**Under this unbonding queue, the current conviction voting scheme aligns more closely with governance and avoids the need for an expensive migration of existing locks to a new scheme.** For example, if the average staking unbonding period is around two days, locking tokens for an additional 26 days justifies a higher `3x` voting weight. Voters who seek maximum liquidity can do so freely, but it is fair that their votes carry less weight in governance decisions, which naturally affect Polkadot's long-term success.
 
-### Potential Extension
+### Potential extension
 In addition to a simple queue, a market component could let users to unbond from staking at the minimum possible waiting time (for instance, equal to `LOWER_BOUND`, such as two days) by paying a variable fee. 
 
 A reasonable approach would be to split the total unbonding capacity into two parts: one for the simple queue and one for the fee-based unbonding. This enables users to choose between the quickest unbonding option, by paying a dynamic fee, or joining the regular queue. Setting capacity limits for both queues ensures a predictable unbonding time in the simple queue, while also giving users who wish to do so the option to pay for an even faster exit. 
@@ -157,14 +157,14 @@ This extension and additional specifications are not considered in this RFC, as 
 ## Drawbacks
 
 - **Lower security for LRAs.** It is undeniable that the theoretical security against LRAs decreases. Yet, such an attack remains largely theoretical and sufficiently costly to be unlikely in practice. In this regard, the benefits outweigh the costs.
-- **Griefing attacks.** A large holder could attempt to unbond a significant amount of tokens to prevent other users from exiting the network earlier. However, this would be costly, as the holder would lose staking rewards. The larger the impact on the queue, the higher the cost. In any case, the `UPPER_BOUND` remains at 28 days, so nominators will never face an unbonding period longer than the current one. In this scenario, an attacker would not gain enough to justify the expense, making such behaviour unlikely.
-- **Challenge for Custodians and Liquid Staking Providers.** Changing the unbonding time, especially making it flexible, requires entities offering staking derivatives to rethink and adapt their products.
+- **Griefing attacks.** A large holder could attempt to unbond a significant amount of tokens to prevent other users from exiting the network earlier. This would be costly as the holder would lose staking rewards. The larger the impact on the queue, the higher the cost. In any case, the `UPPER_BOUND` remains at 28 days, so nominators will never face an unbonding period longer than the current one. In this scenario, an attacker would not gain enough to justify the expense, making such behaviour unlikely.
+- **Challenge for custodians and liquid staking providers.** Changing the unbonding time, especially making it flexible, requires entities offering staking derivatives to rethink and adapt their products.
 
-## Testing, Security, and Privacy
+## Testing, security, and privacy
 
 N/A
 
-## Performance, Ergonomics, and Compatibility
+## Performance, ergonomics, and compatibility
 
 N/A
 
@@ -174,14 +174,14 @@ The authors do not foresee any potential impact on performance.
 
 ### Ergonomics
 
-The authors do not see any potential impact on ergonomics for developers. Potential impact on user UX/UI are discussed above.
+The authors do not see any potential impact on ergonomics for developers. Potential impact on UX/UI users are discussed above.
 
 ### Compatibility
 
 Any compatibility impacts should be assessed by the technical teams.
 
 
-### Prior Art and References
+### Prior art and references
 - Ethereum proposed a [similar solution](https://blog.stake.fish/ethereum-staking-all-you-need-to-know-about-the-validator-queue/)
 - Alistair Stuart wrote an intitial [overview](https://hackmd.io/SpzFSNeXQM6YScW1iODC_A)
 - [Other research](https://arxiv.org/pdf/2208.05408.pdf) further mitigates the risk of LRAs.
