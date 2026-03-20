@@ -89,6 +89,7 @@ const sidebars = {
                 'Polkadot/protocols/Sassafras/Sassafras-part-3',
               ],
             },
+            'Polkadot/protocols/block-production/ELVES'
               ],
             },
             

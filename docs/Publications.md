@@ -38,7 +38,7 @@ of Threshold Schnorr Signatures](https://eprint.iacr.org/2025/1001.pdf), **CRYPT
 
 **Blog Posts:**
 
-- Chen-Da Liu-Zhang, [ELVES](https://medium.com/web3foundation/elves-the-fairy-dust-that-makes-polkadot-scalable-2acff1a22280), Medium, December 2025.
+- Chen-Da Liu-Zhang, [ELVES](http://localhost:3000/Polkadot/protocols/block-production/ELVES), Research website, December 2025.
 - Bhargav Nagajara Batt, [BEEFY](https://research.web3.foundation/Polkadot/protocols/BEEFY), Research website, October 2025.
 - Elizabeth C. Crites, [Sassafras Part 3](https://research.web3.foundation/Polkadot/protocols/Sassafras/Sassafras-part-3), Research website, July 2025.
 - Elizabeth C. Crites, [Sassafras Part 2](https://research.web3.foundation/Polkadot/protocols/Sassafras/sassafras-part-2), Research website, July 2025.

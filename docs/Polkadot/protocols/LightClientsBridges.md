@@ -2,13 +2,13 @@
 
 <!--![](secure-and-efficient-bridges.png)-->
 
-One of the key challenges in blockchain interoperability is establishing an efficient and secure on-chain light client protocol. To address this, researchers at the Web3 Foundation have developed a [protocol](https://eprint.iacr.org/2022/1205) that generates short proofs of the state of a decentralized consensus, while also enabling detection of misbehaving parties. 
+One of the key challenges in blockchain interoperability is establishing an efficient and secure on-chain light client protocol. To address this, researchers at Parity have developed a [protocol](https://eprint.iacr.org/2022/1205) that generates short proofs of the state of a decentralized consensus, while also enabling detection of misbehaving parties. 
 
-A straightforward albeit naive approach would require the verifier to maintain an up-to-date list of all participants' public keys, resulting in lengthly proofs. While existing solutions adopt this method, they often suffer from inefficiencies or a lack of accountability. 
+A straightforward albeit naive approach would require the verifier to maintain an up-to-date list of all participants' public keys, resulting in lengthly proofs. While existing solutions use this method, they often exhibit inefficiencies or lack of accountability. 
 
-To mitigate the challenge at hand, a committee key scheme is designed to produce short proofs that omit plain public keys of individual participants. This scheme incorporates a custom-designed SNARK that enables fast proving times. Leveraging this cryptographic construction, it is possible to build an accountable light client system that can serve as the core of cross-chain bridges between proof-of-stake blockchains. A prototype of the custom SNARK, along with corresponding benchmarks, is [available](https://github.com/w3f/apk-proofs) for exploration.
+To mitigate the challenge at hand, a committee key scheme is designed to produce short proofs that omit plain public keys of individual participants. This scheme incorporates a custom-designed SNARK that enables fast proving times. Leveraging this cryptographic construction, one can build an accountable light client system to serve as the core of cross-chain bridges between proof-of-stake blockchains. A prototype of the custom SNARK, along with corresponding benchmarks, is [available](https://github.com/w3f/apk-proofs) for exploration.
 
-More concretely, the solution can be used to build a BLS-based bridge between Kusama and Polkadot. The light client verifier of any such bridge would be [GRANDPA-based](https://github.com/paritytech/grandpa-bridge-gadget/blob/master/docs/beefy.md). If designed naively, the bridge would require verifying hundreds of signatures for every justification. By aggregating BLS signatures, the verification process is reduced to a single operation over hundreds of public keys. The solution linked above eliminates the need to transmit either hundreds of public keys or individual signatures.
+More concretely, the solution can be used to build a BLS-based bridge between Kusama and Polkadot. The light client verifier of any such bridge would be [GRANDPA-based](https://github.com/paritytech/grandpa-bridge-gadget/blob/master/docs/beefy.md). If designed naively, the bridge would require verifying hundreds of signatures for every justification. But by aggregating BLS signatures, the verification process is reduced to a single operation over hundreds of public keys. The solution linked above eliminates the need to transmit either hundreds of public keys or individual signatures.
 
 Classical BLS signatures, as described for example in [Chapter 15.5 (construction 15.5.3.2.)](http://toc.cryptobook.us/book.pdf), offer fast verification for aggregated signatures, yet relatively slow verification for individual ones. 
 
@@ -19,4 +19,4 @@ Since the accountable light client system (linked above), and by extension the b
 
 The security of these optimizations has been formally proven. Moreover, the proposed scheme has been fully implemented and benchmarked, demonstrating clear improvements over the classical BLS scheme.
 
-**For inquieries or questions, please contact** [Bhargav Nagaraja Bhatt](/team_members/bhargav.md)
+**For inquieries or questions, please contact** [Alistair Stewart](/team_members/alistair.md)

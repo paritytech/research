@@ -20,7 +20,7 @@ Alistair is lead researcher at Parity mainly working on protocol design. He is t
 
 **Short Bio.** Alistair has been a postdoc in theoretical Computer Science at University of Southern California working with Professor Ilias Diakonikolas, where he worked in learning theory with breakthrough results in high-dimensional robust statistics. Prior to that, in 2015 he obtained a PhD in Informatics from the University of Edinburgh on infinite-state stochastic models. Alistair holds a master's degree in Informatics from the University of Edinburgh and an undergraduate degree from Oxford University.
 
-**Selected Publication**
+**Selected Publications**
 
 * I. Diakonikolas, G. Kamath, D. Kane, J. Li, A. Moitra, A. Stewart. "Robust Estimators in High Dimensions without the Computational Intractability", the 57th Annual IEEE Symposium on Foundations of Computer Science (FOCS 2016).
 

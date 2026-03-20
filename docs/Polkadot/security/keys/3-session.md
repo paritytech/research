@@ -29,7 +29,7 @@ A session public key should consist of three or four types of public keys:
 
 A session public key record begins with a prefix consisting of the three keys mentioned above, along with a certificate from the validator operator on the Ristretto Schnorr public key, and a recent block hash and height.  This prefix is followed by a first signature block containing two BLS signatures on the prefix, one from each BLS key. The record is finalized with a second signature block containing a Ristretto Schnorr signature over both, the prefix and the first signature block. This structure allows the BLS12-381 keys to be rotated independently of the Ristretto Schnorr public key, possibly enhancing forward security.
 
-The recent block hash is included in the certificate to prevent attacks from inserting rogue keys that could compromise session keys after a fork, assuming the chain is trusted for proofs-of-possession. It is generally advisable not to trust the chain for such proofs, as including a recent block hash only mitigates long-range attacks. 
+The certificate includes the recent block hash to prevent attacks from inserting rogue keys that could compromise session keys after a fork, assuming the chain is trusted for proofs-of-possession. It is generally advisable not to trust the chain for such proofs, as including a recent block hash only mitigates long-range attacks. 
 
 Currently, there is no aggregation strategy for block production VRFs, so Ristretto Schnorr VRFs may remain the default.  In this case, the longer-lived Ristretto Schnorr session key component may help reduce attacks on the random beacon. 
 

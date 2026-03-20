@@ -24,7 +24,7 @@ Session keys and TLS keys must rotate periodically.  At the same time, stash acc
 
 Since staking involves small, frequent transactions, "stake controller account keys" are actual account keys with their own separate balances, typically much smaller than the "stash account key" they represent. 
 
-In the future, it may be possible to allow certificates issued by stash account keys to restrict the actions of controller keys. This would enhance staker security, especially when certain functions involve reduced slashing risk.  For example, enabling modes for fishermen or block producers could explicitly prohibit nominating or running a validator.  
+In the future, it may be possible to allow certificates issued by stash account keys to restrict the actions of controller keys. This would enhance staker security, especially for functions that involve reduced slashing risk.  For example, enabling modes for fishermen or block producers could explicitly prohibit nominating or running a validator.  
 
 Currently, however, only one slashing level is supported. As such, all mode transitions are determined by the controller key itself, as described in the already mentioned [GitHub entry](https://github.com/paritytech/substrate/blob/1a2ec9eec1fe9b3cc2677bac629fd7e9b0f6cf8e/srml/staking/Staking.md).[^2]
 
@@ -32,7 +32,7 @@ Currently, however, only one slashing level is supported. As such, all mode tran
 
 Certificates can either be stored with account data or provided during protocol interactions. In most cases, the certificate delegating authority, from the staked account to the nominator key, should be stored within the account data.
 
-Special attention must be given to certificates issued from the controller key to the session key, as the session key requires a proof of possesion.  If these certificates are stored in the controller account, there may be a temptation to trust them without verifying the proof of possesion.  However, the proof-of-possesion chain cannot be inherently trusted, as doing so could allow attackers to escalate privileges by submitting invalid data.  On the other hand, if certificates are provided through interactions, there may be a tendency to verify the proof of possesion repeatedly. This trade-off should be carefully evaluated, either attaching a self-checked flag to the staked account database or by storing session keys in a separate, self-checked account database distinct from the one nodes rely on via the chain.  
+Special attention must be given to certificates issued from the controller key to the session key, as the session key requires a proof of possesion.  If these certificates are stored in the controller account, there may be a temptation to trust them without verifying the proof of possesion. Yet the proof-of-possesion chain cannot be inherently trusted, as doing so could allow attackers to escalate privileges by submitting invalid data.  On the other hand, if certificates are provided through interactions, there may be a tendency to verify the proof of possesion repeatedly. This trade-off should be carefully evaluated, either attaching a self-checked flag to the staked account database or by storing session keys in a separate, self-checked account database distinct from the one nodes rely on via the chain.  
 
 ## Certificate size
 
@@ -40,7 +40,6 @@ It is possible to save space by using implicit certificates to issue nominator k
 
 In essence, an account's nominator key could be defined by appending an additional 32 bytes to the account, along with any associated data. Implementing this approach requires a clear understanding of a) the appropriate structure for the associated data, and b) whether the space savings justify the added complexity of an implicit certificate scheme, primarily through [reviewing the literature](https://github.com/w3f/schnorr-dalek/issues/4). For now, simplicity is favored by avoiding implicit certificates.
 
-## Implementation
 
 [^1] https://github.com/paritytech/substrate/pull/1782#discussion_r260265815
 

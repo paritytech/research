@@ -11,15 +11,15 @@ Polkadot accounts should primarily use Schnorr signatures, with both the public 
 Account keys must support the diverse functionality expected of account systems like Ethereum and Bitcoin. To that end, Polkadot keys use Schnorr signatures, which enable fast batch verification and hierarchical deterministic key derivation, as outlined in [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#Child_key_derivation_CKD_functions). Features from the [Bitcoin Schnorr wishlist](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki) further highlight the advantages of Schnorr signatures, including:
 
  - Interactive threshold and multi-signatures
- - Adaptor signatures, and potentionally blind signatures, for swaps and payment channels. 
+ - Adaptor signatures, and potentially blind signatures, for swaps and payment channels. 
 
 
-Since account keys are expected to remain valid for decades, conservative curve choices are essential.  In particular, pairing-based cryptography and BLS signatures should be avoided for account-level operations. This comes at the cost of true aggregation when verifying blocks, and reduces support for highly interactive threshold and multi-signature schemes.[^1] 
+Since account keys are expected to remain valid for decades, conservative curve choices are essential.  In particular, pairing-based cryptography and BLS signatures should be avoided for account-level operations. This comes at the cost of true aggregation when verifying blocks, reducing support for highly interactive threshold and multi-signature schemes.[^1] 
 
 In the past, choosing between more secure elliptic curves involved a subtle trade-off: 
 
- - Misimplementation resistance is stronger with Edwards curves, such as Ed25519
- - Misuse resistance is stronger with curves that have a cofactor of 1, such as secp256k1
+ - Misimplementation resistance is stronger with Edwards curves, such as Ed25519.
+ - Misuse resistance is stronger with curves that have a cofactor of 1, such as secp256k1.
 
 Historically, misuse resistance was a major selling point for Ed25519, which is itself a Schnorr variant. This resistance applies only to the basic properties of the signature scheme.  Advanced signature functionalities, beyond batch verification, tend to break precisely because of Ed25519's misuse resistance.  
 

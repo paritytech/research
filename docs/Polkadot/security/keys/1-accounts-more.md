@@ -14,18 +14,18 @@ An alternative scheme, call mBCJ, described on pages 21-22 of this [paper](https
 
 More advanced techniques, such as signature aggregation using a pairing-based curve like BLS12-381 and the BLS signature scheme, are also possible. These curves tend to be slower for single verifications. Moreover, account systems are expected to remain secure for decades, while pairing-friendly curves may become less secure over time as number theory advances.  
 
-Choosing Schnorr signatures over ECDSA for account keys involves a trade-off: Both signature types are 64 bytes in size, but only [ECDSA signatures allow public key recovery](https://crypto.stackexchange.com/questions/18105/how-does-recovering-the-public-key-from-an-ecdsa-signature-work). While there are obsolete Schnorr variants that [support public key recovery](https://crypto.stackexchange.com/questions/60825/schnorr-pubkey-recovery), they compromise important features such as [hierarchical deterministic (HD) key derivation](https://www.deadalnix.me/2017/02/17/schnorr-signatures-for-not-so-dummies/).  In consequence, Schnorr signatures often require an additional 32 bytes to transmit the public key.
+Choosing Schnorr signatures over ECDSA for account keys involves a trade-off: both signature types are 64 bytes in size, but only [ECDSA signatures allow public key recovery](https://crypto.stackexchange.com/questions/18105/how-does-recovering-the-public-key-from-an-ecdsa-signature-work). While there are obsolete Schnorr variants that [support public key recovery](https://crypto.stackexchange.com/questions/60825/schnorr-pubkey-recovery), they compromise important features such as [hierarchical deterministic (HD) key derivation](https://www.deadalnix.me/2017/02/17/schnorr-signatures-for-not-so-dummies/).  In consequence, Schnorr signatures often require an additional 32 bytes to transmit the public key.
 
 In return, the signature scheme becomes slightly faster and enables much simpler batch verification compared to [ECDSA](http://cse.iitkgp.ac.in/~abhij/publications/ECDSA-SP-ACNS2014.pdf). It also supports more natural implementation of threshold signatures, multi-signatures, and techniques used in payment channels. Additionaly, the inclusion of public key data may improve locality during block verification, potentially unlocking optimization opportunities.
 
-Most importantly, by combining the derandomization techniques of ECDSA with a secure random number generator, Schnorr signatures offer enhanced protection. This results in stronger side-channel resistance compared to conventional ECDSA schemes. To improve ECDSA in this regard, the first step would be to explore side-channel mitigation strategies such as [rfc6979](https://tools.ietf.org/html/rfc6979), along with considerations like batch verification and other optimizations.
+Most importantly, by combining the derandomization techniques of ECDSA with a secure random number generator, Schnorr signatures offer enhanced protection. This results in stronger side-channel resistance compared to conventional ECDSA schemes. Improving ECDSA in this regard demands exploring side-channel mitigation strategies such as [RFC6979](https://tools.ietf.org/html/rfc6979), along with considerations like batch verification and other optimizations.
 
 
 ## Curves
 
-secp256k1 and Ed25519 are two elliptic curves commonly used for account keys in blockchain systems. For slightly more speed, FourQ is a viable alternative, though it may be excessive for blockchain use, as implementations are rare and it appears to be covered by older, though not fully expired, patents.  Additionally, for fast signature verification in zkSNARKs a relevant choice is Zcash's JubJub. However, JubJub is not part of Polkadot's roadmap and also lacks widespread implementation support.
+secp256k1 and Ed25519 are two elliptic curves commonly used for account keys in blockchain systems. For slightly more speed, FourQ is a viable alternative, though it may be excessive for blockchain use, as implementations are rare and it appears to be covered by older, though not fully expired, patents.  Additionally, for fast signature verification in zkSNARKs a relevant choice is Zcash's JubJub. Yet JubJub is not part of Polkadot's roadmap and lacks widespread implementation support.
 
-### How much secp256k1 support?
+### How much support do secp256k1 keys require?
 
 secp256k1 keys require minimal support, primarily because token sale accounts on Ethereum are tied to secp256k1 keys. As a result, some "account" type must necessarily support secp256k1.  Using the same private keys across Ethereum and Polkadot is discouraged. And since secp256k1 accounts may not support balance increases or may only allow replacement with an ed25519 key, employing multiple key types is adivisable. 
 
@@ -33,7 +33,7 @@ That said, there are valid reasons to consider broader support for secp256k1. Fo
 
 ### Is secp256k1 risky?
 
-Two theoretical arguments support the preference for a twisted Edwards curve over secp256k1:  First, secp256k1 has a [small CM field discriminant](https://safecurves.cr.yp.to/disc.html), which could potentially enable more effective attacks in the distant future.  Second, secp256k1 uses fairly rigid paramater choices that are [not optimal](https://safecurves.cr.yp.to/rigid.html). Neither of these concerns is currently regarded as critical. 
+Two theoretical arguments support the preference for a twisted Edwards curve over secp256k1: first, secp256k1 has a [small CM field discriminant](https://safecurves.cr.yp.to/disc.html), which could potentially enable more effective attacks in the distant future.  Second, secp256k1 uses fairly rigid paramater choices that are [not optimal](https://safecurves.cr.yp.to/rigid.html). Neither of these concerns is currently regarded as critical. 
 
 From a more practical standpoint, secp256k1 does offer [twist security](https://safecurves.cr.yp.to/twist.html), which helps eliminate several classes of attacks and strengthens its overall resilience.  
 
@@ -41,7 +41,7 @@ The most substantial reason to avoid secp256k1 is that all short Weierstrass cur
 
 Reviewing any secp256k1 library used in Polkadot is essential to ensure it performs these checks and maintains constant-time execution. Still, it is not possible to ensure that every third-party wallet software does the same.
 
-Incomplete addition formulas are relatively harmless when used for basic Schnorr signatures, though forgery attacks may sill be possible. A greater concern arises when secp256k1 is used in less well-explored protocols, such as multi-signatures and key derivation. Awareness of such use cases exists, especially those outlined in the [Bitcoin Schnorr wishlist](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki).  
+Incomplete addition formulas are relatively harmless when used for basic Schnorr signatures, though forgery attacks may still be possible. A greater concern arises when secp256k1 is used in less well-explored protocols, such as multi-signatures and key derivation. Awareness of such use cases exists, especially those outlined in the [Bitcoin Schnorr wishlist](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki).  
 
 ### Is Ed25519 risky?  Aka use Ristretto
 
@@ -64,7 +64,7 @@ Ristretto is conceptually simpler than the Ed25519 curve itself, making it easy 
 The [dalek ecosystem](https://github.com/dalek-cryptography) offers a remarkably well-designed infrastructure for zero-knowledge proofs without relying on pairings. For deeper insights, see these two foundational articles on bulletproofs and programmable constraint systems:
  [Bulletproofs Pre-release](https://medium.com/interstellar/bulletproofs-pre-release-fcb1feb36d4b) and [Programmable Constrait Systems for Bulletproofs](https://medium.com/interstellar/programmable-constraint-systems-for-bulletproofs-365b9feb92f7)
 
-All these crates use Ristretto points, so adopting Ristretto for account public keys provides access to advanced tools for building protocols that avoid pairings and operate directly on account keys. In principle, these tools could be abstracted to support other twisted Edwards curves, such as FourQ and Zcash's Jubjub. Abstracting them for short Weierstrass curves, like secp256k1, may result in the loss of certain batching optimizations, though. 
+All these crates use Ristretto points, so adopting Ristretto for account public keys provides access to advanced tools for building protocols that avoid pairings and operate directly on account keys. In principle, these tools could be abstracted to support other twisted Edwards curves, such as FourQ and Zcash's Jubjub. Abstracting them for short Weierstrass curves like secp256k1, may result in the loss of certain batching optimizations. 
 
 **For further inquieries or questions please contact**: [Jeffrey Burdges](/team_members/jeff.md)
 

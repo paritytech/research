@@ -8,7 +8,7 @@ const katex = require('rehype-katex');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Research at Web3 Foundation',
+  title: 'Research at Parity',
   tagline: 'Confronting the most difficult research problems standing between us and Web3.',
   favicon: 'img/favicon-32x32.png',
   url: 'https://research.web3.foundation/',
