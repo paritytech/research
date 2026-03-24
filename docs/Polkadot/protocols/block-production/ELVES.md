@@ -6,7 +6,7 @@ title: ELVES
 
 <center>
 
-![](elves-banner.png)
+![](elves-banner-parity.png)
 
 </center>
 
@@ -30,7 +30,7 @@ The following illustration shows a schematic of the ELVES protocol in four phase
 
 <center>
 
-![](ELVES-Architecture.png)
+![](ELVES-Architecture-parity.png)
 
 </center>
 
