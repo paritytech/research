@@ -4,11 +4,11 @@ title: BABE
 
 <!--![](BABE.png)-->
 
-Polkadot produces relay chain blocks using the **B**lind **A**ssignment for **B**lockchain **E**xtension protocol (BABE), which assigns block production slots based on a randomness cycle similar to that used in Ouroboros Praos.[^2] The process unfolds as follows: All block producers possess a verifiable random function (VRF) key, which is registered alongside their locked stake. These VRFs generate secret randomness, determining when each producer is eligible to create a block. The process carries an inherent risk: producers may attempt to manipulate the outcome by grinding through multiple VRF keys. To mitigate this, the VRF inputs must incorporate public randomness created only after the VRF key is established. 
+Polkadot produces relay chain blocks using the **B**lind **A**ssignment for **B**lockchain **E**xtension protocol (BABE), which assigns block production slots based on a randomness cycle similar to that used in [Ouroboros Praos](https://eprint.iacr.org/2017/573.pdf). The process unfolds as follows: All block producers possess a verifiable random function (VRF) key, which is registered alongside their locked stake. These VRFs generate secret randomness, determining when each producer is eligible to create a block. The process carries an inherent risk: producers may attempt to manipulate the outcome by grinding through multiple VRF keys. To mitigate this, the VRF inputs must incorporate public randomness created only after the VRF key is established. 
 
 As a result, the system operates in epochs, during which fresh public on-chain randomness arises by hashing together all the VRF outputs revealed through block production within that epoch. This establishes a cycle that alternates between private, verifiable randomness and collaborative public randomness.
 
-BABE differs from Ouroboros Praos [^2] in two main aspects: 1) its best chain selection mechanism, which integrates GRANDPA with the longest-chain rule, and 2) its slot synchronization assumptions. In the latter case, BABE block producers do not depend on a central authority, such as Network Time Protocol (NTP), to count slots. Instead, they build and maintain local clocks to track slot progression. 
+BABE differs from [Ouroboros Praos](https://eprint.iacr.org/2017/573.pdf) in two main aspects: 1) its best chain selection mechanism, which integrates GRANDPA with the longest-chain rule, and 2) its slot synchronization assumptions. In the latter case, BABE block producers do not depend on a central authority, such as Network Time Protocol (NTP), to count slots. Instead, they build and maintain local clocks to track slot progression. 
 
 ---
  
@@ -36,7 +36,7 @@ $$
 where $0 \leq c \leq 1$ is a constant parameter and $n$ denotes the number of validators.
 
 
-To ensure equitable slot assignment among validators in BABE, it is necessary to define a threshold parameter. To guide the slot selection process, the approach described in [^2] is useful. The result then is:
+To ensure equitable slot assignment among validators in BABE, it is necessary to define a threshold parameter. To guide the slot selection process, the approach described in Ouroboros Praos is useful. The result then is:
 
 $$
 \tau = 2^{\ell_{vrf}}\phi_c(\theta),
@@ -55,7 +55,7 @@ The unique genesis block, manually produced in this phase, contains a random num
 
 #### 2nd: Normal phase
 
-By the time the second phase begins, each validator must have divided their timeline into slots after receiving the genesis block. Validators determine the current slot number according to their local timeline, as explained in [Section 4](./Babe.md#-4.-clock-adjustment--relative-time-algorithm-). If validators join BABE after the genesis block, they should also divide their timelines into slots.
+By the time the second phase begins, each validator must have divided their timeline into slots after receiving the genesis block. Validators determine the current slot number according to their local timeline, as explained further in Section 4. If validators join BABE after the genesis block, they should also divide their timelines into slots.
 
 During normal operation, the designated slot leader should produce and publish a block.  All other nodes update their chains based on the new valid blocks they observe.
 
@@ -88,7 +88,7 @@ Before starting a new epoch $e_m$, validators must obtain the new epoch randomne
 
 To ensure participation in epoch $e_m$, the relay chain must include the validator set by the end of the last block of epoch $e_{m-3}$. This timing enables validators to actively engage in block production for epoch $e_{m}$. Newly added validators may join block production no earlier that two epochs later after being included in the relay chain.
 
-Fresh randomness for epoch $e_m$ is computed using the Ouroboros Praos [^2] method: specifically, all VRF outputs from blocks produced in epoch $e_{m-2}$ (denoted as $\rho$) are concatenated. The randomness for epoch $e_{m}$ is then derived as follows:
+Fresh randomness for epoch $e_m$ is computed using the Ouroboros Praos method: specifically, all VRF outputs from blocks produced in epoch $e_{m-2}$ (denoted as $\rho$) are concatenated. The randomness for epoch $e_{m}$ is then derived as follows:
 
 $$
 r_{m} = H(r_{m-2}||m||\rho)
@@ -103,7 +103,7 @@ Including a validator two epochs later ensures that the VRF keys of newly added 
 Given a chain set $\mathbb{C}_j$, and the party's current local chain $C_{loc}$, the best chain selection algorithm eliminates all chains that do not contain the finalized block $B$ determined by GRANDPA. The remaining chains form a subset denoted by $\mathbb{C}'_j$. If GRANDPA finalty is not required for a block, the algorithm resorts to probabilistic finality. In this case, the probabillistically finalized block is defined as the block that is $k$ blocks prior to the latest block in $C_{loc}$.
 
 
-In this case, the chain selection rule does not follow Ouroboros Genesis [^3], as that rule is intended for parties that come online after a period of inactivity and lack information about the current valid chain. For parties that remain continously online, the Genesis rule and Praos are indistinguishable with negligible probability. Thanks to GRANDPA finality, newcomers have a reliable reference point to build their chain, making the Genesis rule unnecessary.
+In this case, the chain selection rule does not follow [Ouroboros Genesis](https://eprint.iacr.org/2018/378.pdf), as that rule is intended for parties that come online after a period of inactivity and lack information about the current valid chain. For parties that remain continously online, the Genesis rule and Praos are indistinguishable with negligible probability. Thanks to GRANDPA finality, newcomers have a reliable reference point to build their chain, making the Genesis rule unnecessary.
 
 ---
 
@@ -116,7 +116,7 @@ In this case, the chain selection rule does not follow Ouroboros Genesis [^3], a
 
 
 **Median algorithm:**
-The median algorithm is executed by all validators at the end of sync-epochs [^4]. The first sync-epoch ($\varepsilon = 1$) begins once the genesis block is released. Subsequent sync-epochs ($\varepsilon > 1$) begin when the slot number of the last (probabilistically) finalized block is $\bar{sl}_{\varepsilon}$, defined as the smallest slot number such that  $\bar{sl}_{\varepsilon} - \bar{sl}_{\varepsilon-1} \geq s_{cq}$. Here, $\bar{sl}_{\varepsilon-1}$ is the slot number of the last finalized block from sync-epoch $\varepsilon-1$, and $s_{cq}$ is the chain quality (CQ) parameter. If the previous epoch is the first epoch then $sl_{e-1} = 0$.
+The median algorithm is executed by all validators at the end of sync-epochs [^1]. The first sync-epoch ($\varepsilon = 1$) begins once the genesis block is released. Subsequent sync-epochs ($\varepsilon > 1$) begin when the slot number of the last (probabilistically) finalized block is $\bar{sl}_{\varepsilon}$, defined as the smallest slot number such that  $\bar{sl}_{\varepsilon} - \bar{sl}_{\varepsilon-1} \geq s_{cq}$. Here, $\bar{sl}_{\varepsilon-1}$ is the slot number of the last finalized block from sync-epoch $\varepsilon-1$, and $s_{cq}$ is the chain quality (CQ) parameter. If the previous epoch is the first epoch then $sl_{e-1} = 0$.
 
 To identify the last (probabilistically) finalized block: Retrieve the best blockchain according to the chain selection rule, prune the final $k$ blocks from this chain, and define the last finalized block as the last block of the pruned best chain, where $k$ is set according to the common prefix property.
 
@@ -167,7 +167,8 @@ At the end of the sync epoch, if $V$ has collected $n$ valid block arrival times
 
 With the temporary clock adjustment, it is possible to ensure that the difference between the time recorded by the adjusted clock and that of an honest party's clock is bounded by at most $2\delta_{max} + |\Sigma|$.
 
-:::note During one sync epoch the ratio of such offline validators should not be more than 0.05, otherwise it can affect the security of the relative time algorithm.
+:::note 
+During one sync epoch the ratio of such offline validators should not be more than 0.05, otherwise it can affect the security of the relative time algorithm.
 :::
 
 ---
@@ -180,11 +181,11 @@ BABE functions similarly to Ouroboros Praos, with the exception of the chain sel
 ### Definitions
 Before diving into the proofs, let’s establish some key definitions.
 
-**Definition 1 or Chain Growth (CG) [1,2].** Chain growth with parameters $\tau \in (0,1]$ and $s \in \mathbb{N}$ guarantees that if the best chain held by an honest party at the beginning of slot $sl_u$ is $C_u$, and the best chain at the beginning of slot $sl_v \geq sl_u+s$ is $C_v$, then the length of $C_v$ is at least $\tau s$ greater than the length of $C_u$.
+**Definition 1 or Chain Growth (CG) [^2] [^3].** Chain growth with parameters $\tau \in (0,1]$ and $s \in \mathbb{N}$ guarantees that if the best chain held by an honest party at the beginning of slot $sl_u$ is $C_u$, and the best chain at the beginning of slot $sl_v \geq sl_u+s$ is $C_v$, then the length of $C_v$ is at least $\tau s$ greater than the length of $C_u$.
 
 The honest chain growth (HCG) property is a relaxed version of the Chain Growth (CG) property, defined identically except for the added constraint that both $sl_v$ and $sl_u$ are assigned to honest validators. The parameters for HCG are $\tau_{hcg}$ and $s_{hcg}$, in place of $\tau$ and $s$ used in the CG definition.
 
-**Definition 2 or Existential Chain Quality (ECQ) [1,2].** Consider a chain $C$ held by an honest party at the beginning of slot $sl$. Let $sl_1$ and $sl_2$ be two earlier slots such that $sl_1 + s_{ecq} \leq sl_2 \leq sl$. Then, the segment $C[sl_1 : sl_2]$ contains at least one block produced by an honest party.
+**Definition 2 or Existential Chain Quality (ECQ) [^2] [^3].** Consider a chain $C$ held by an honest party at the beginning of slot $sl$. Let $sl_1$ and $sl_2$ be two earlier slots such that $sl_1 + s_{ecq} \leq sl_2 \leq sl$. Then, the segment $C[sl_1 : sl_2]$ contains at least one block produced by an honest party.
 
 **Definition 2 or Chain Density (CD).** The CD property, with parameter $s_{cd} \in \mathbb{N}$, ensures that any segment $B[s_u:s_v]$ of the final blockchain $B$, spanning rounds $s_u$ to $s_v  = s_u + s_{cd}$, contains a majority of blocks produced by honest parties.
 
@@ -305,7 +306,7 @@ $$
 
 In BABE with the median algorithm, if $\D_m \in \mathbb{N}$ and $\frac{p_Hp_\bot^{\D_m}}{c} > \frac{1}{2}$, then the probability that an adversary $\A$ violates the ECQ property with parameter $k_{cq}$ is at most $e^{-\Omega(k_{cq})}$.
 
-**Theorem 4 or common prefix.** If $k,\D \in \mathbb{N}$ and $\frac{p_H p_\bot^\D}{c} > \frac{1}{2}$, then an adversary can violate the Common Prefix property with parameter $k$ over $R$ slots with probability at most $\exp(− \Omega(k))$ in BABE with NTP.
+**Theorem 4 or Common Prefix.** If $k,\D \in \mathbb{N}$ and $\frac{p_H p_\bot^\D}{c} > \frac{1}{2}$, then an adversary can violate the Common Prefix property with parameter $k$ over $R$ slots with probability at most $\exp(− \Omega(k))$ in BABE with NTP.
 For BABE with the median algorithm, the condition $\frac{p_Hp_\bot^{\D_m}}{c} > \frac{1}{2}$ must be considered instead.
 
 #### Overall results:
@@ -326,7 +327,7 @@ $$
 
 **Proof (sketch).** The overall result shows that $\tau = \tau_{hcg}\frac{s_{hcg}}{2s_{ecq}+s_{hcg}} = \frac{k}{s_{hcg}}\frac{s_{hcg}}{2s_{ecq}+s_{hcg}} = \frac{k}{R}$. So by the chain growth property, the best chain increases by at least $k$ blocks over the course of a single epoch. 
 
- Since $k > 2k_{cq}$, the last $k_{cq}$ blocks must contain at least one honest block, while the associated randomness must include at least one honest input. This implies that the adversary has at most $s_{ecq}$ slots to attempt to manipulate the randomness. Such a grinding effect can be upper-bounded by $s_{ecq}(1-\alpha)nq$, where $q$ is the adversary's hashing power.[^2] 
+ Since $k > 2k_{cq}$, the last $k_{cq}$ blocks must contain at least one honest block, while the associated randomness must include at least one honest input. This implies that the adversary has at most $s_{ecq}$ slots to attempt to manipulate the randomness. Such a grinding effect can be upper-bounded by $s_{ecq}(1-\alpha)nq$, where $q$ is the adversary's hashing power.[^3] 
  
 By the Common Prefix property, the randomness generated during an epoch must be finalized no later than one epoch afterward. Similary, the session key update, used three epochs later, must be finalized one epoch earlier, before the randomness of the epoch in which the new key will be used begins to leak.
 Therefore, BABE with NTP is persistent and live.
@@ -347,7 +348,8 @@ $$
  
 * $s_{ecq} = k_{cq}/\tau$
 
-:::note These results hold under the following assumptions: the signature scheme using the account key is EUF-CMA (Existentially Unforgeability under Chosen Message Attack) secure, the signature scheme based on the session key is forward-secure, and the VRF correctly realizes the functionality as defined.[^2]
+:::note 
+These results hold under the following assumptions: the signature scheme using the account key is EUF-CMA (Existentially Unforgeability under Chosen Message Attack) secure, the signature scheme based on the session key is forward-secure, and the VRF correctly realizes the functionality as defined.[^3]
 :::
 
 ---
@@ -496,12 +498,12 @@ Frequency Correction within a Week
 
 **For inquieries or questions, please contact** [Alistair Stewart](/team_members/alistair.md)
 
-[^1] Kiayias, Aggelos, et al. "Ouroboros: A provably secure proof-of-stake blockchain protocol." Annual International Cryptology Conference. Springer, Cham, 2017.
+[^1]: An epoch and a sync-epoch are distinct concepts.
 
-[^2] David, Bernardo, et al. "Ouroboros praos: An adaptively-secure, semi-synchronous proof-of-stake blockchain." Annual International Conference on the Theory and Applications of Cryptographic Techniques. Springer, Cham, 2018.
+[^2]: Kiayias, Aggelos, et al. "Ouroboros: A provably secure proof-of-stake blockchain protocol." Annual International Cryptology Conference. Springer, Cham, 2017.
 
-[^3] Badertscher, Christian, et al. "Ouroboros genesis: Composable proof-of-stake blockchains with dynamic availability." Proceedings of the 2018 ACM SIGSAC Conference on Computer and Communications Security. ACM, 2018.
+[^3]: David, Bernardo, et al. "Ouroboros praos: An adaptively-secure, semi-synchronous proof-of-stake blockchain." Annual International Conference on the Theory and Applications of Cryptographic Techniques. Springer, Cham, 2018.
 
-[^4] An epoch and a sync-epoch are distinct concepts.
+<!--[^4] Badertscher, Christian, et al. "Ouroboros genesis: Composable proof-of-stake blockchains with dynamic availability." Proceedings of the 2018 ACM SIGSAC Conference on Computer and Communications Security. ACM, 2018.
 
-[^5] Aggelos Kiayias and Giorgos Panagiotakos. Speed-security tradeoffs in blockchain protocols. Cryptology ePrint Archive, Report 2015/1019, 2015. http://eprint.iacr.org/2015/1019
+[^5] Aggelos Kiayias and Giorgos Panagiotakos. Speed-security tradeoffs in blockchain protocols. Cryptology ePrint Archive, Report 2015/1019, 2015. http://eprint.iacr.org/2015/1019-->

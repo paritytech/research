@@ -9,7 +9,7 @@ This perspective can be applied to consensus algorithms in proof-of-stake blockc
 
 ## Stash account keys
 
-In Polkadot, these staked or bonded account keys are referred to as "stash account keys" to distinguish them from other key roles discussed below.  The transactions `unbond`, `withdraw_unbonded`, and `bond_extra` are examples described in this [GitHub entry](https://github.com/paritytech/substrate/blob/1a2ec9eec1fe9b3cc2677bac629fd7e9b0f6cf8e/srml/staking/Staking.md).[^2]  There are several ways to implement these or related operations, but if account size is not overly constrained, a highly flexible approach can be considered.
+In Polkadot, these staked or bonded account keys are referred to as "stash account keys" to distinguish them from other key roles discussed below.  The transactions `unbond`, `withdraw_unbonded`, and `bond_extra` are examples described in this [GitHub entry](https://github.com/paritytech/substrate/blob/1a2ec9eec1fe9b3cc2677bac629fd7e9b0f6cf8e/srml/staking/Staking.md).  There are several ways to implement these or related operations, but if account size is not overly constrained, a highly flexible approach can be considered.
 
 Each stash account maintains an unstaked balance $u \ge 0$ and a list of pending unstaking dates and balances $T = { (t,v) }$ with $v>0$, where one entry lacks a specific unstaking date, i.e., $t = \infty$.  An unstaking operation splits $(\infty,v) \in T$ into $(\infty,v - v')$ and $(t,v')$.  Any payment from a staked account completes pending unstaking operations by transferring their value into the unstaked balance $u$.  In other words, at block height $h$, a payment of value $v'$ with fees $f$ from a stash account is valid if:
 
@@ -26,7 +26,7 @@ Since staking involves small, frequent transactions, "stake controller account k
 
 In the future, it may be possible to allow certificates issued by stash account keys to restrict the actions of controller keys. This would enhance staker security, especially for functions that involve reduced slashing risk.  For example, enabling modes for fishermen or block producers could explicitly prohibit nominating or running a validator.  
 
-Currently, however, only one slashing level is supported. As such, all mode transitions are determined by the controller key itself, as described in the already mentioned [GitHub entry](https://github.com/paritytech/substrate/blob/1a2ec9eec1fe9b3cc2677bac629fd7e9b0f6cf8e/srml/staking/Staking.md).[^2]
+Currently, however, only one slashing level is supported. As such, all mode transitions are determined by the controller key itself, as described in the already mentioned [GitHub entry](https://github.com/paritytech/substrate/blob/1a2ec9eec1fe9b3cc2677bac629fd7e9b0f6cf8e/srml/staking/Staking.md).
 
 ## Certificate location
 
@@ -40,10 +40,9 @@ It is possible to save space by using implicit certificates to issue nominator k
 
 In essence, an account's nominator key could be defined by appending an additional 32 bytes to the account, along with any associated data. Implementing this approach requires a clear understanding of a) the appropriate structure for the associated data, and b) whether the space savings justify the added complexity of an implicit certificate scheme, primarily through [reviewing the literature](https://github.com/w3f/schnorr-dalek/issues/4). For now, simplicity is favored by avoiding implicit certificates.
 
+**For further inquieries or questions please contact**: [Jeffrey Burdges](/team_members/jeff.md)
 
 [^1] https://github.com/paritytech/substrate/pull/1782#discussion_r260265815
 
-[^2] aka https://github.com/paritytech/substrate/commit/1a2ec9eec1fe9b3cc2677bac629fd7e9b0f6cf8e
 
-**For further inquieries or questions please contact**: [Jeffrey Burdges](/team_members/jeff.md)
 

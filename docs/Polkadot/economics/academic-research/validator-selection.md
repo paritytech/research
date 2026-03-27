@@ -103,7 +103,7 @@ After shaping the dataset elaborated in the section "Underlying data," it is tim
 | 3 	| 1xgFnMhdOui 	| 1 	| 100 	| 89 	| 0.3 	| 0 	| 16 	| 3 	|
 | 4 	| 1vO7JLtSm4F 	| 1 	| 5000 	| 89 	| 1 	| 1 	| 29 	| 3 	|
 
-Validator 2 dominates Validator 1, meaning the latter is strictly worse in every dimension[^1]. Validator 3 also dominates Validator 1, so it can be removed from the set. Through this process, the validator set can be reduced to two. In practice, this method proves to be a powerful tool for significantly shrinking the set size.
+Validator 2 dominates Validator 1, meaning the latter is strictly worse in every dimension.[^1] Validator 3 also dominates Validator 1, so it can be removed from the set. Through this process, the validator set can be reduced to two. In practice, this method proves to be a powerful tool for significantly shrinking the set size.
 
 ## Further curation 
 The remaining set may still undergo additional cleanup. As stated in the code of conduct, this step is optional, yet here are some suggested default actions for users:
@@ -236,10 +236,11 @@ Several challenges remain in applying the theoretical framework to the validator
    - Using simulations to generate a wide number of learning sets and corresponding rankings, enabling evaluation of which configurations most effectively improve utility estimation. 
 2. **Limitations of UTAStar.** UTAStar assumes piecewise linear and monotonic marginal utility functions. While alternative methods offer improvements in this regard, they may introduce additional implementation complexity. 
 
-
-[^1] As mentioned above, a user might prefer larger operators in which case the statement would not be true.
-
-[^2] This write-up relies heavily on [Siskos et al., 2005](https://www.researchgate.net/publication/226057347_UTA_methods).
-
 **For inquieries or questions, please contact** [Jonas Gehrlein](/team_members/Jonas.md)
+
+[^1]: As mentioned above, a user might prefer larger operators in which case the statement would not be true.
+
+[^2]: This write-up relies heavily on [Siskos et al., 2005](https://www.researchgate.net/publication/226057347_UTA_methods).
+
+
 
