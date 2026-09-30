@@ -38,6 +38,7 @@ of Threshold Schnorr Signatures](https://eprint.iacr.org/2025/1001.pdf), **CRYPT
 
 **Blog Posts:**
 
+- Fatemeh Shirazi, Bhargav Bhatt, and Armando Caracheo, [Censorship Resistance on Polkadot Parachains](https://www.parity.io/blog/censorship-resistance-on-polkadot-parachains), Parity's website, September 2026.  
 - Armando Caracheo, [Understanding Stablecoins: Real-World Use Cases, Benefits, & Risks](https://www.parity.io/blog/understanding-stablecoins-real-world-use-cases-benefits-and-risks), Parity's website, July 2026. 
 - Fatemeh Shirazi and Armando Caracheo, [A Technical View of Decentralization](https://www.parity.io/blog/a-technical-view-of-decentralization-and-where-polkadot-stands), Parity's website, June 2026.
 - Fatemeh Shirazi and Armando Caracheo, [Decentralization, Reloaded](https://www.parity.io/blog/decentralization-reloaded-blockchain-user-autonomy), Parity's website, May 2026.

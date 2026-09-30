@@ -4,7 +4,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 <center>
 
-![](Jeffrey.png)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dFqYPimSCJw?start=2" title="Jeffrey Burdges video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 jeffrey@parity.io
 
